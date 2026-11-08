@@ -1,0 +1,7 @@
+.local/
+node_modules/
+assets/concept/
+planning/
+*.log
+.env
+.env.*

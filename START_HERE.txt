@@ -1,0 +1,28 @@
+CELESTIAL CROSSINGS
+
+Public website: https://MOSOKODOMO.github.io/celestial-crossings/
+Source: https://github.com/MOSOKODOMO/celestial-crossings
+
+To run this checkout locally, double-click Start Demo.cmd.
+Local address: http://127.0.0.1:4173
+Stop: double-click Stop Demo.cmd.
+Node.js must remain installed. The app has no runtime package dependencies.
+
+Thai is the default language; use EN to switch to English.
+Start with your birth date, and exact, approximate or unknown birth time.
+This week and next week are free. Specific-day readings accept today or future dates.
+Choose another week is a future option; payments are not connected.
+See a sample reading explicitly loads example details that you can edit.
+
+Profiles remain in page memory and reset on reload. Saving a reading explicitly downloads a text file.
+The app uses self-hosted artwork and fonts and does not send birth details to a server.
+
+Editable content: content/library.cjs and content/guidance.cjs
+Interface: dist/index.html, dist/styles.css and dist/app.js
+Build: npm run build
+Tests: npm ci, then npm run check
+See README.md for browser setup and GitHub Pages publishing.
+
+The 52 birthday bands, four-hour windows and weekly rotation are invented editorial rules,
+not traditional Thai chart calculations. The prose is original, not authenticated ancient text.
+The experience is intended for reflection and entertainment.

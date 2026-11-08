@@ -1,0 +1,2332 @@
+{
+  "version": "0.3.0",
+  "contentVersion": "th-en-001",
+  "languageDefault": "th",
+  "provenance": {
+    "type": "original-editorial",
+    "traditionStatus": "Thai-inspired tone; the calendar mapping and all narratives are original demo content, not a validated Thai astrological method.",
+    "reviewStatus": "Draft for Thai practitioner/editor review; no predictive accuracy claim.",
+    "sources": [
+      {
+        "title": "MyHora: Thai astrology calculation conventions",
+        "url": "https://myhora.com/astrology/thai/help.aspx"
+      },
+      {
+        "title": "Thailand Foundation: astrology in Thailand",
+        "url": "https://thailandfoundation.or.th/astrology-in-thailand-life-guidance-from-the-stars/"
+      },
+      {
+        "title": "Hong Kong Observatory: Gregorian leap years",
+        "url": "https://www.hko.gov.hk/en/gts/time/basicterms-leapyear.htm"
+      }
+    ]
+  },
+  "phases": [
+    {
+      "id": "opening",
+      "th": "เริ่มต้น",
+      "en": "Opening",
+      "noteTh": "เปิดรับทางเลือกโดยไม่รีบร้อน",
+      "noteEn": "Welcome an opening without rushing."
+    },
+    {
+      "id": "growing",
+      "th": "เติบโต",
+      "en": "Growth",
+      "noteTh": "ต่อยอดสิ่งที่เริ่มเห็นผล",
+      "noteEn": "Build on something already taking shape."
+    },
+    {
+      "id": "review",
+      "th": "ทบทวน",
+      "en": "Review",
+      "noteTh": "ตรวจสอบและปรับทิศก่อนเดินต่อ",
+      "noteEn": "Check and adjust before moving on."
+    },
+    {
+      "id": "steady",
+      "th": "ประคอง",
+      "en": "Steadiness",
+      "noteTh": "รักษาพื้นฐานและเว้นพื้นที่ให้ใจ",
+      "noteEn": "Protect foundations and allow some space."
+    }
+  ],
+  "cores": [
+    {
+      "id": "C01",
+      "number": 1,
+      "theme": "beginnings",
+      "themeTitle": {
+        "th": "การเริ่มต้น",
+        "en": "Beginnings"
+      },
+      "phase": "opening",
+      "title": {
+        "th": "ประตูที่แง้มออก",
+        "en": "An opening door"
+      },
+      "text": {
+        "th": "ช่วงนี้อาจมีทางเลือกใหม่เข้ามาในเรื่องที่เคยติดขัด ประตูยังเปิดไม่เต็มบาน แต่การเริ่มต้นเล็ก ๆ จะช่วยให้คุณเห็นว่าทางไหนเหมาะกับตัวเอง",
+        "en": "A new option may appear where things felt blocked. The door is not fully open yet; a small first step can help you see which direction fits."
+      }
+    },
+    {
+      "id": "C02",
+      "number": 2,
+      "theme": "beginnings",
+      "themeTitle": {
+        "th": "การเริ่มต้น",
+        "en": "Beginnings"
+      },
+      "phase": "growing",
+      "title": {
+        "th": "ก้าวแรกที่เริ่มมั่นคง",
+        "en": "A firmer first step"
+      },
+      "text": {
+        "th": "สิ่งที่เพิ่งเริ่มมีแนวโน้มจะเป็นรูปเป็นร่างมากขึ้น ความคืบหน้าอาจยังไม่ใหญ่โต แต่ถ้ารักษาจังหวะเดิม คุณจะเห็นหลักฐานว่าความพยายามไม่ได้สูญเปล่า",
+        "en": "Something recently begun may start to take shape. Progress can be modest, but a steady rhythm may reveal that your effort is finding a place."
+      }
+    },
+    {
+      "id": "C03",
+      "number": 3,
+      "theme": "beginnings",
+      "themeTitle": {
+        "th": "การเริ่มต้น",
+        "en": "Beginnings"
+      },
+      "phase": "review",
+      "title": {
+        "th": "เริ่มใหม่อย่างเข้าใจ",
+        "en": "A considered restart"
+      },
+      "text": {
+        "th": "แผนใหม่อาจทำให้คุณพบรายละเอียดที่ยังไม่พร้อม ช่วงนี้เหมาะกับการแก้จุดเล็ก ๆ และถามให้ชัด ก่อนผูกมัดตัวเองกับสิ่งที่ต้องดูแลระยะยาว",
+        "en": "A new plan may reveal details that are not ready. Use this period to clarify and refine before committing to something that needs lasting care."
+      }
+    },
+    {
+      "id": "C04",
+      "number": 4,
+      "theme": "beginnings",
+      "themeTitle": {
+        "th": "การเริ่มต้น",
+        "en": "Beginnings"
+      },
+      "phase": "steady",
+      "title": {
+        "th": "ตั้งหลักก่อนออกเดิน",
+        "en": "Finding your footing"
+      },
+      "text": {
+        "th": "จังหวะข้างหน้ายังไม่จำเป็นต้องเร่ง การจัดชีวิตให้เข้าที่และสะสางเรื่องค้างจะช่วยให้การเริ่มต้นครั้งต่อไปเบาขึ้น แม้ภายนอกจะดูเหมือนยังไม่มีอะไรเปลี่ยน",
+        "en": "The next step need not be hurried. Clearing unfinished matters and settling your routine can make a later beginning easier, even if little appears to change now."
+      }
+    },
+    {
+      "id": "C05",
+      "number": 5,
+      "theme": "messages",
+      "themeTitle": {
+        "th": "ข่าวสารและการพูดคุย",
+        "en": "Messages"
+      },
+      "phase": "opening",
+      "title": {
+        "th": "ข่าวที่พาไปอีกทาง",
+        "en": "News of another path"
+      },
+      "text": {
+        "th": "อาจมีข่าวหรือบทสนทนาที่ทำให้คุณเห็นทางเลือกเพิ่มขึ้น คนที่ไม่ค่อยได้คุยกันอาจนำมุมมองใหม่มาให้ ฟังรายละเอียดก่อนตัดสินว่าข่าวนั้นดีหรือไม่",
+        "en": "News or a conversation may reveal another option. Someone you rarely speak with could offer a fresh perspective; hear the details before judging the news."
+      }
+    },
+    {
+      "id": "C06",
+      "number": 6,
+      "theme": "messages",
+      "themeTitle": {
+        "th": "ข่าวสารและการพูดคุย",
+        "en": "Messages"
+      },
+      "phase": "growing",
+      "title": {
+        "th": "คำพูดที่เริ่มมีน้ำหนัก",
+        "en": "Words gaining weight"
+      },
+      "text": {
+        "th": "เรื่องที่คุณพยายามอธิบายมีโอกาสได้รับความเข้าใจมากขึ้น การพูดให้กระชับและทำตามที่รับปากจะช่วยให้คนรอบตัวมั่นใจในคุณทีละน้อย",
+        "en": "Something you have tried to explain may find a more receptive listener. Clear words followed by action can gradually strengthen other people’s confidence in you."
+      }
+    },
+    {
+      "id": "C07",
+      "number": 7,
+      "theme": "messages",
+      "themeTitle": {
+        "th": "ข่าวสารและการพูดคุย",
+        "en": "Messages"
+      },
+      "phase": "review",
+      "title": {
+        "th": "ฟังสิ่งที่ยังพูดไม่หมด",
+        "en": "Hearing what is missing"
+      },
+      "text": {
+        "th": "ข้อมูลที่ได้รับช่วงนี้อาจยังไม่ครบ อีกฝ่ายอาจมีเหตุผลที่คุณยังไม่รู้ การถามอย่างใจเย็นจะช่วยคลี่คลายเรื่องได้ดีกว่าการรีบตีความจากคำพูดเพียงครั้งเดียว",
+        "en": "Information arriving now may be incomplete. Another person may have reasons you have not heard; a calm question can help more than interpreting a single remark."
+      }
+    },
+    {
+      "id": "C08",
+      "number": 8,
+      "theme": "messages",
+      "themeTitle": {
+        "th": "ข่าวสารและการพูดคุย",
+        "en": "Messages"
+      },
+      "phase": "steady",
+      "title": {
+        "th": "ความเงียบที่มีพื้นที่",
+        "en": "Space within silence"
+      },
+      "text": {
+        "th": "บางเรื่องอาจยังไม่ได้คำตอบทันที ความเงียบไม่จำเป็นต้องหมายถึงการปฏิเสธ เว้นจังหวะให้ทั้งตัวคุณและอีกฝ่ายได้คิด แล้วค่อยกลับมาคุยเมื่อพร้อม",
+        "en": "Some answers may take time. Silence does not necessarily mean rejection; allow room for thought, then return to the conversation when both sides are ready."
+      }
+    },
+    {
+      "id": "C09",
+      "number": 9,
+      "theme": "allies",
+      "themeTitle": {
+        "th": "ผู้ร่วมทาง",
+        "en": "Allies"
+      },
+      "phase": "opening",
+      "title": {
+        "th": "ผู้ร่วมทางคนใหม่",
+        "en": "A new companion"
+      },
+      "text": {
+        "th": "คุณอาจได้พบคนที่ช่วยเติมส่วนที่ตัวเองยังขาด ความร่วมมือครั้งนี้ควรเริ่มจากเรื่องเล็กที่ตกลงกันชัดเจน เพื่อให้เห็นว่าเดินไปด้วยกันได้จริงหรือไม่",
+        "en": "You may meet someone whose strengths complement yours. Begin with a small, clearly agreed task to discover whether working together feels right."
+      }
+    },
+    {
+      "id": "C10",
+      "number": 10,
+      "theme": "allies",
+      "themeTitle": {
+        "th": "ผู้ร่วมทาง",
+        "en": "Allies"
+      },
+      "phase": "growing",
+      "title": {
+        "th": "แรงที่มาช่วยกัน",
+        "en": "Effort joined together"
+      },
+      "text": {
+        "th": "ภาระบางอย่างมีแนวโน้มเบาลงเมื่อแบ่งกันรับผิดชอบ ความสัมพันธ์จะเดินหน้าได้ดีขึ้นเมื่อแต่ละคนรู้หน้าที่และรู้ว่าความช่วยเหลือของตนมีความหมาย",
+        "en": "A burden may ease when responsibility is shared. Cooperation can deepen when each person understands their part and knows their contribution matters."
+      }
+    },
+    {
+      "id": "C11",
+      "number": 11,
+      "theme": "allies",
+      "themeTitle": {
+        "th": "ผู้ร่วมทาง",
+        "en": "Allies"
+      },
+      "phase": "review",
+      "title": {
+        "th": "ข้อตกลงที่ต้องปรับ",
+        "en": "An agreement to revisit"
+      },
+      "text": {
+        "th": "ความร่วมมืออาจมีจุดที่ต่างฝ่ายเข้าใจไม่ตรงกัน ช่วงนี้เหมาะกับการทบทวนขอบเขต เวลา และความคาดหวัง เพื่อรักษาความสัมพันธ์ก่อนความเหนื่อยจะกลายเป็นความน้อยใจ",
+        "en": "A shared arrangement may contain different expectations. Revisit boundaries, timing and responsibilities before tiredness turns into resentment."
+      }
+    },
+    {
+      "id": "C12",
+      "number": 12,
+      "theme": "allies",
+      "themeTitle": {
+        "th": "ผู้ร่วมทาง",
+        "en": "Allies"
+      },
+      "phase": "steady",
+      "title": {
+        "th": "คนที่อยู่ข้างกัน",
+        "en": "Those who remain"
+      },
+      "text": {
+        "th": "คุณอาจมองเห็นคุณค่าของคนที่ช่วยกันอย่างสม่ำเสมอมากขึ้น การดูแลความสัมพันธ์เดิมและขอบคุณสิ่งเล็ก ๆ จะสร้างพื้นฐานที่ไว้ใจได้ในช่วงต่อไป",
+        "en": "You may notice the value of people who show up consistently. Caring for existing bonds and acknowledging small acts can build a dependable foundation."
+      }
+    },
+    {
+      "id": "C13",
+      "number": 13,
+      "theme": "patience",
+      "themeTitle": {
+        "th": "จังหวะและการรอคอย",
+        "en": "Patience"
+      },
+      "phase": "opening",
+      "title": {
+        "th": "สัญญาณหลังการรอ",
+        "en": "A sign after waiting"
+      },
+      "text": {
+        "th": "เรื่องที่รอมาสักพักอาจเริ่มมีสัญญาณตอบกลับ แม้ยังไม่ใช่คำตอบสุดท้าย แต่คุณสามารถใช้จังหวะนี้เตรียมตัวและถามถึงขั้นตอนถัดไปอย่างสุภาพ",
+        "en": "Something you have waited for may show a sign of movement. It may not be the final answer, but you can prepare and ask gently about the next step."
+      }
+    },
+    {
+      "id": "C14",
+      "number": 14,
+      "theme": "patience",
+      "themeTitle": {
+        "th": "จังหวะและการรอคอย",
+        "en": "Patience"
+      },
+      "phase": "growing",
+      "title": {
+        "th": "ผลจากความสม่ำเสมอ",
+        "en": "The yield of consistency"
+      },
+      "text": {
+        "th": "ความพยายามที่ทำซ้ำอย่างเงียบ ๆ มีแนวโน้มจะเริ่มให้ผล คุณอาจเห็นความเปลี่ยนแปลงผ่านรายละเอียดเล็กน้อย มากกว่าผ่านเหตุการณ์ใหญ่ในครั้งเดียว",
+        "en": "Quiet, repeated effort may begin to bear fruit. You may notice the change in small details rather than in a single dramatic event."
+      }
+    },
+    {
+      "id": "C15",
+      "number": 15,
+      "theme": "patience",
+      "themeTitle": {
+        "th": "จังหวะและการรอคอย",
+        "en": "Patience"
+      },
+      "phase": "review",
+      "title": {
+        "th": "รออย่างมีขอบเขต",
+        "en": "Waiting with a boundary"
+      },
+      "text": {
+        "th": "การรอต่อไปอาจต้องมีเงื่อนไขที่ชัดขึ้น ลองกำหนดว่าคุณจะติดตามเรื่องเมื่อใด และมีทางเลือกอะไรบ้าง เพื่อไม่ให้ชีวิตส่วนอื่นต้องหยุดตาม",
+        "en": "Continued waiting may need clearer limits. Decide when to follow up and what alternatives remain, so the rest of your life does not have to stand still."
+      }
+    },
+    {
+      "id": "C16",
+      "number": 16,
+      "theme": "patience",
+      "themeTitle": {
+        "th": "จังหวะและการรอคอย",
+        "en": "Patience"
+      },
+      "phase": "steady",
+      "title": {
+        "th": "พักเพื่อรักษาแรง",
+        "en": "Restoring your energy"
+      },
+      "text": {
+        "th": "ช่วงนี้การพักอาจเป็นส่วนหนึ่งของการเดินหน้า เรื่องที่ยังไม่คลี่คลายไม่จำเป็นต้องคิดตลอดเวลา ดูแลแรงกายแรงใจเพื่อให้พร้อมรับจังหวะที่เหมาะสมกว่า",
+        "en": "Rest may be part of moving forward now. An unresolved matter need not occupy every moment; conserve your energy for a more suitable opening."
+      }
+    },
+    {
+      "id": "C17",
+      "number": 17,
+      "theme": "change",
+      "themeTitle": {
+        "th": "ความเปลี่ยนแปลง",
+        "en": "Change"
+      },
+      "phase": "opening",
+      "title": {
+        "th": "ทางแยกที่มองเห็น",
+        "en": "A visible crossroads"
+      },
+      "text": {
+        "th": "คุณอาจเริ่มเห็นทางเลือกสองทางชัดขึ้น แต่ละทางมีสิ่งที่ต้องยอมแลก การเลือกจากสิ่งที่สำคัญกับชีวิตจริงจะช่วยให้ใจมั่นคงกว่าการเลือกเพราะกลัวพลาด",
+        "en": "Two possible directions may become clearer. Each involves a trade-off; choosing from your real priorities may feel steadier than choosing from fear of missing out."
+      }
+    },
+    {
+      "id": "C18",
+      "number": 18,
+      "theme": "change",
+      "themeTitle": {
+        "th": "ความเปลี่ยนแปลง",
+        "en": "Change"
+      },
+      "phase": "growing",
+      "title": {
+        "th": "ปรับตัวแล้วไปต่อ",
+        "en": "Adapting and continuing"
+      },
+      "text": {
+        "th": "สิ่งที่เปลี่ยนไปอาจเริ่มเข้าที่ คุณมีโอกาสพบวิธีใหม่ที่ใช้งานได้ดีกว่าเดิม ถ้ายอมปรับรายละเอียดโดยไม่ทิ้งเป้าหมายที่ยังสำคัญ",
+        "en": "A change may begin to settle. You could discover a more useful approach by adjusting the details while keeping the goal that still matters."
+      }
+    },
+    {
+      "id": "C19",
+      "number": 19,
+      "theme": "change",
+      "themeTitle": {
+        "th": "ความเปลี่ยนแปลง",
+        "en": "Change"
+      },
+      "phase": "review",
+      "title": {
+        "th": "แผนที่ต้องวาดใหม่",
+        "en": "Redrawing the route"
+      },
+      "text": {
+        "th": "เส้นทางเดิมอาจไม่ตอบโจทย์เหมือนก่อน นี่เป็นจังหวะให้ตรวจสอบว่าคุณยังต้องการปลายทางเดิมหรือไม่ การปรับแผนอย่างมีเหตุผลไม่ใช่การสูญเสียความพยายามที่ผ่านมา",
+        "en": "An old route may no longer serve the same purpose. Check whether you still want the destination; a thoughtful change of plan does not erase earlier effort."
+      }
+    },
+    {
+      "id": "C20",
+      "number": 20,
+      "theme": "change",
+      "themeTitle": {
+        "th": "ความเปลี่ยนแปลง",
+        "en": "Change"
+      },
+      "phase": "steady",
+      "title": {
+        "th": "รักษาสิ่งที่ยังดี",
+        "en": "Keeping what still works"
+      },
+      "text": {
+        "th": "ท่ามกลางความเปลี่ยนแปลง ยังมีบางสิ่งที่ช่วยพยุงคุณอยู่ เลือกรักษากิจวัตร คน หรือข้อตกลงที่ไว้ใจได้ เพื่อให้มีหลักยืนขณะเรื่องอื่นค่อย ๆ เปลี่ยน",
+        "en": "Amid change, some things can still support you. Keep dependable routines, people or agreements close while other parts of life gradually shift."
+      }
+    },
+    {
+      "id": "C21",
+      "number": 21,
+      "theme": "recognition",
+      "themeTitle": {
+        "th": "การยอมรับ",
+        "en": "Recognition"
+      },
+      "phase": "opening",
+      "title": {
+        "th": "พื้นที่ให้แสดงตัว",
+        "en": "A chance to be seen"
+      },
+      "text": {
+        "th": "อาจมีจังหวะให้คุณแสดงความสามารถหรือเสนอความคิด อย่ารอจนทุกอย่างสมบูรณ์แบบ แต่เลือกสิ่งที่พร้อมพอและอธิบายคุณค่าของมันอย่างตรงไปตรงมา",
+        "en": "A chance to show your ability or share an idea may arise. Choose something sufficiently ready and explain its value clearly rather than waiting for perfection."
+      }
+    },
+    {
+      "id": "C22",
+      "number": 22,
+      "theme": "recognition",
+      "themeTitle": {
+        "th": "การยอมรับ",
+        "en": "Recognition"
+      },
+      "phase": "growing",
+      "title": {
+        "th": "ผลงานเริ่มพูดแทน",
+        "en": "Work beginning to speak"
+      },
+      "text": {
+        "th": "สิ่งที่คุณทำมีโอกาสได้รับความสนใจมากขึ้น คำชมอาจมาในรูปของความไว้วางใจหรือหน้าที่ใหม่ พิจารณาว่าสิ่งที่เพิ่มขึ้นสอดคล้องกับกำลังของคุณหรือไม่",
+        "en": "Your effort may attract more attention. Recognition could take the form of trust or responsibility; consider whether the extra demand fits your capacity."
+      }
+    },
+    {
+      "id": "C23",
+      "number": 23,
+      "theme": "recognition",
+      "themeTitle": {
+        "th": "การยอมรับ",
+        "en": "Recognition"
+      },
+      "phase": "review",
+      "title": {
+        "th": "คุณค่าที่ไม่ต้องพิสูจน์ทุกครั้ง",
+        "en": "Value beyond proving"
+      },
+      "text": {
+        "th": "ความคาดหวังจากคนอื่นอาจทำให้คุณกดดันตัวเอง ช่วงนี้ควรแยกคำแนะนำที่เป็นประโยชน์ออกจากมาตรฐานที่ไม่เหมาะกับชีวิต เพื่อไม่ให้คุณค่าตัวเองผูกอยู่กับคำตอบของใครคนเดียว",
+        "en": "Other people’s expectations may feel demanding. Separate useful feedback from unsuitable standards, so your sense of worth does not depend on one person’s response."
+      }
+    },
+    {
+      "id": "C24",
+      "number": 24,
+      "theme": "recognition",
+      "themeTitle": {
+        "th": "การยอมรับ",
+        "en": "Recognition"
+      },
+      "phase": "steady",
+      "title": {
+        "th": "มั่นคงแม้ไม่มีเสียงปรบมือ",
+        "en": "Steady without applause"
+      },
+      "text": {
+        "th": "ความก้าวหน้าบางอย่างอาจเกิดขึ้นโดยไม่มีใครสังเกตเห็นทันที คุณยังสามารถเก็บหลักฐานเล็ก ๆ ของสิ่งที่ทำได้ และให้คุณค่ากับความรับผิดชอบที่รักษาไว้",
+        "en": "Some progress may pass without immediate recognition. Keep a record of small achievements and value the responsibilities you continue to fulfil."
+      }
+    },
+    {
+      "id": "C25",
+      "number": 25,
+      "theme": "belonging",
+      "themeTitle": {
+        "th": "บ้านและความผูกพัน",
+        "en": "Belonging"
+      },
+      "phase": "opening",
+      "title": {
+        "th": "พื้นที่ที่รู้สึกเป็นตัวเอง",
+        "en": "A place to be yourself"
+      },
+      "text": {
+        "th": "อาจมีโอกาสจัดพื้นที่หรือความสัมพันธ์ให้สบายใจขึ้น สิ่งเล็ก ๆ ที่คุณเลือกด้วยตัวเองจะช่วยให้รู้สึกว่าชีวิตมีที่พัก ไม่จำเป็นต้องเปลี่ยนทุกอย่างในครั้งเดียว",
+        "en": "An opportunity may arise to make a place or relationship feel more comfortable. Small choices of your own can create a sense of refuge without changing everything at once."
+      }
+    },
+    {
+      "id": "C26",
+      "number": 26,
+      "theme": "belonging",
+      "themeTitle": {
+        "th": "บ้านและความผูกพัน",
+        "en": "Belonging"
+      },
+      "phase": "growing",
+      "title": {
+        "th": "รากที่ค่อย ๆ แข็งแรง",
+        "en": "Roots growing stronger"
+      },
+      "text": {
+        "th": "ความมั่นคงมีแนวโน้มเพิ่มขึ้นจากกิจวัตรและการดูแลกันในชีวิตประจำวัน เรื่องธรรมดาที่ทำสม่ำเสมออาจช่วยให้คุณรับมือกับเรื่องภายนอกได้อย่างมั่นใจขึ้น",
+        "en": "Stability may grow through ordinary routines and mutual care. Small, consistent habits could help you meet outside demands with greater confidence."
+      }
+    },
+    {
+      "id": "C27",
+      "number": 27,
+      "theme": "belonging",
+      "themeTitle": {
+        "th": "บ้านและความผูกพัน",
+        "en": "Belonging"
+      },
+      "phase": "review",
+      "title": {
+        "th": "จัดที่ให้ความต้องการของตัวเอง",
+        "en": "Room for your own needs"
+      },
+      "text": {
+        "th": "หน้าที่ต่อคนใกล้ตัวอาจเบียดเวลาส่วนตัว ช่วงนี้เหมาะกับการคุยเรื่องการแบ่งภาระอย่างอ่อนโยน เพื่อให้ความผูกพันยังมีพื้นที่สำหรับความต้องการของทุกฝ่าย",
+        "en": "Responsibilities to people close to you may crowd your own time. A gentle discussion about sharing the load can leave room for everyone’s needs."
+      }
+    },
+    {
+      "id": "C28",
+      "number": 28,
+      "theme": "belonging",
+      "themeTitle": {
+        "th": "บ้านและความผูกพัน",
+        "en": "Belonging"
+      },
+      "phase": "steady",
+      "title": {
+        "th": "กลับสู่สิ่งที่คุ้นเคย",
+        "en": "Returning to familiar ground"
+      },
+      "text": {
+        "th": "คุณอาจต้องการความเรียบง่ายมากกว่าสิ่งใหม่ การกลับไปหาสถานที่ กิจวัตร หรือคนที่ทำให้สบายใจ จะช่วยให้เห็นชัดขึ้นว่าอะไรควรเก็บไว้ในชีวิต",
+        "en": "Simplicity may feel more valuable than novelty. Returning to a familiar place, routine or supportive person can help you see what deserves a lasting place in your life."
+      }
+    },
+    {
+      "id": "C29",
+      "number": 29,
+      "theme": "resources",
+      "themeTitle": {
+        "th": "ทรัพยากรและความพอดี",
+        "en": "Resources"
+      },
+      "phase": "opening",
+      "title": {
+        "th": "เห็นคุณค่าที่มีอยู่",
+        "en": "Noticing what you have"
+      },
+      "text": {
+        "th": "ทางออกบางอย่างอาจอยู่ในสิ่งที่คุณมีอยู่แล้ว ทั้งทักษะ เวลา หรือความช่วยเหลือจากคนใกล้ตัว ลองสำรวจก่อนรับภาระใหม่ คุณอาจพบวิธีที่เหมาะและเบากว่าที่คิด",
+        "en": "A useful resource may already be within reach: a skill, some time or support nearby. Take stock before adding a new obligation; a simpler approach may emerge."
+      }
+    },
+    {
+      "id": "C30",
+      "number": 30,
+      "theme": "resources",
+      "themeTitle": {
+        "th": "ทรัพยากรและความพอดี",
+        "en": "Resources"
+      },
+      "phase": "growing",
+      "title": {
+        "th": "เก็บเกี่ยวอย่างพอดี",
+        "en": "A measured harvest"
+      },
+      "text": {
+        "th": "สิ่งที่ลงแรงไว้มีแนวโน้มจะสร้างประโยชน์ให้มากขึ้น จังหวะนี้เหมาะกับการใช้ผลที่ได้อย่างมีสัดส่วน และแบ่งกำลังบางส่วนไว้ดูแลสิ่งที่ยังต้องเติบโต",
+        "en": "Something you have invested effort in may become more useful. Make measured use of the result while keeping some capacity for what still needs care."
+      }
+    },
+    {
+      "id": "C31",
+      "number": 31,
+      "theme": "resources",
+      "themeTitle": {
+        "th": "ทรัพยากรและความพอดี",
+        "en": "Resources"
+      },
+      "phase": "review",
+      "title": {
+        "th": "ตรวจสิ่งที่รั่วไหล",
+        "en": "Checking the leaks"
+      },
+      "text": {
+        "th": "เวลาและกำลังใจอาจกระจายไปกับเรื่องย่อยมากเกินไป ลองตรวจว่าสิ่งใดใช้ทรัพยากรมากแต่ไม่ตอบโจทย์ การลดภาระหนึ่งอย่างอาจช่วยได้มากกว่าการเพิ่มความพยายาม",
+        "en": "Your time and energy may be scattered across too many small demands. Find what takes more than it gives; removing one burden may help more than trying harder."
+      }
+    },
+    {
+      "id": "C32",
+      "number": 32,
+      "theme": "resources",
+      "themeTitle": {
+        "th": "ทรัพยากรและความพอดี",
+        "en": "Resources"
+      },
+      "phase": "steady",
+      "title": {
+        "th": "เหลือพื้นที่สำรอง",
+        "en": "Keeping some reserve"
+      },
+      "text": {
+        "th": "ช่วงนี้ความพอดีอาจสำคัญกว่าการขยายตัว การเว้นเวลาและกำลังไว้เผื่อเรื่องไม่คาดคิด จะช่วยให้คุณตัดสินใจได้โดยไม่ต้องรีบตอบตกลงเพราะถูกกดดัน",
+        "en": "Balance may matter more than expansion now. Leaving some time and energy uncommitted can help you respond to surprises without a pressured decision."
+      }
+    },
+    {
+      "id": "C33",
+      "number": 33,
+      "theme": "learning",
+      "themeTitle": {
+        "th": "การเรียนรู้",
+        "en": "Learning"
+      },
+      "phase": "opening",
+      "title": {
+        "th": "คำถามที่พาไปไกล",
+        "en": "A useful question"
+      },
+      "text": {
+        "th": "คำถามเล็ก ๆ อาจพาคุณไปพบความรู้หรือคนที่เป็นประโยชน์ ช่วงนี้เหมาะกับการยอมรับว่ายังไม่รู้บางเรื่อง และลองเรียนรู้จากประสบการณ์ที่อยู่ใกล้ตัว",
+        "en": "A small question may lead to useful knowledge or a helpful person. Allow yourself not to know everything and learn from the experience closest to hand."
+      }
+    },
+    {
+      "id": "C34",
+      "number": 34,
+      "theme": "learning",
+      "themeTitle": {
+        "th": "การเรียนรู้",
+        "en": "Learning"
+      },
+      "phase": "growing",
+      "title": {
+        "th": "ทักษะที่เริ่มใช้ได้จริง",
+        "en": "A skill taking hold"
+      },
+      "text": {
+        "th": "สิ่งที่ฝึกฝนมีโอกาสนำมาใช้ได้คล่องขึ้น คุณอาจพบว่าตัวเองจัดการเรื่องที่เคยยากได้ดีขึ้นทีละน้อย การลงมือซ้ำยังมีค่ามากกว่าการเปรียบเทียบกับคนอื่น",
+        "en": "Something you have practised may become easier to use. Notice how a once-difficult task is changing; continued practice can matter more than comparison."
+      }
+    },
+    {
+      "id": "C35",
+      "number": 35,
+      "theme": "learning",
+      "themeTitle": {
+        "th": "การเรียนรู้",
+        "en": "Learning"
+      },
+      "phase": "review",
+      "title": {
+        "th": "เปลี่ยนวิธีเรียนรู้",
+        "en": "A different way to learn"
+      },
+      "text": {
+        "th": "วิธีเดิมอาจทำให้คุณติดอยู่ที่จุดเดิม ลองขอคำอธิบายอีกแบบหรือแบ่งเรื่องยากให้เล็กลง ความเข้าใจใหม่อาจเกิดจากการเปลี่ยนมุม มากกว่าการฝืนทำซ้ำ",
+        "en": "The usual approach may be keeping you stuck. Ask for another explanation or break the problem into smaller parts; a changed perspective may help more than repetition."
+      }
+    },
+    {
+      "id": "C36",
+      "number": 36,
+      "theme": "learning",
+      "themeTitle": {
+        "th": "การเรียนรู้",
+        "en": "Learning"
+      },
+      "phase": "steady",
+      "title": {
+        "th": "รู้ให้ชัดก่อนเติมใหม่",
+        "en": "Letting knowledge settle"
+      },
+      "text": {
+        "th": "ช่วงนี้เหมาะกับการทบทวนสิ่งที่เรียนมาและเลือกใช้ให้ตรงเรื่อง การไม่รับข้อมูลใหม่มากเกินไปจะช่วยให้คุณแยกสิ่งที่รู้จริงออกจากสิ่งที่ยังต้องตรวจสอบ",
+        "en": "This may be a useful period to consolidate what you have learned. A little less new information can help distinguish what you understand from what needs checking."
+      }
+    },
+    {
+      "id": "C37",
+      "number": 37,
+      "theme": "boundaries",
+      "themeTitle": {
+        "th": "ขอบเขตและการเลือก",
+        "en": "Boundaries"
+      },
+      "phase": "opening",
+      "title": {
+        "th": "เลือกโดยไม่ต้องขอโทษ",
+        "en": "Permission to choose"
+      },
+      "text": {
+        "th": "คุณอาจมีโอกาสเลือกสิ่งที่ตรงกับความต้องการตัวเองมากขึ้น การบอกขอบเขตอย่างสุภาพตั้งแต่ต้นจะช่วยให้ทางเลือกใหม่นั้นไม่กลายเป็นภาระที่เกินกำลัง",
+        "en": "An opportunity to choose more honestly for yourself may appear. State a respectful boundary early so the new possibility does not become an excessive obligation."
+      }
+    },
+    {
+      "id": "C38",
+      "number": 38,
+      "theme": "boundaries",
+      "themeTitle": {
+        "th": "ขอบเขตและการเลือก",
+        "en": "Boundaries"
+      },
+      "phase": "growing",
+      "title": {
+        "th": "ขอบเขตที่สร้างความไว้ใจ",
+        "en": "Boundaries building trust"
+      },
+      "text": {
+        "th": "เมื่อคุณรักษาสิ่งที่ตกลงไว้และบอกข้อจำกัดชัดเจน คนรอบตัวอาจเข้าใจคุณมากขึ้น ความสัมพันธ์ที่ดีมีพื้นที่ให้ทั้งการช่วยเหลือและการปฏิเสธอย่างสุภาพ",
+        "en": "Consistent commitments and clear limits may help others understand you better. A sound relationship can make room for both generosity and a respectful refusal."
+      }
+    },
+    {
+      "id": "C39",
+      "number": 39,
+      "theme": "boundaries",
+      "themeTitle": {
+        "th": "ขอบเขตและการเลือก",
+        "en": "Boundaries"
+      },
+      "phase": "review",
+      "title": {
+        "th": "คำตอบที่ยังไม่ต้องรีบให้",
+        "en": "An answer that can wait"
+      },
+      "text": {
+        "th": "อาจมีคนหรือสถานการณ์เร่งให้คุณตัดสินใจ ก่อนตอบตกลง ลองตรวจว่าคุณมีข้อมูลและกำลังเพียงพอหรือยัง การขอเวลาคิดเป็นส่วนหนึ่งของการรับผิดชอบต่อคำตอบ",
+        "en": "Someone or something may press for a decision. Check that you have enough information and capacity; asking for time can be a responsible part of answering."
+      }
+    },
+    {
+      "id": "C40",
+      "number": 40,
+      "theme": "boundaries",
+      "themeTitle": {
+        "th": "ขอบเขตและการเลือก",
+        "en": "Boundaries"
+      },
+      "phase": "steady",
+      "title": {
+        "th": "รักษาพื้นที่ของใจ",
+        "en": "Protecting inner space"
+      },
+      "text": {
+        "th": "ช่วงนี้คุณอาจสบายใจขึ้นเมื่อรับผิดชอบเฉพาะส่วนที่เป็นของตัวเอง ไม่จำเป็นต้องแก้ทุกความรู้สึกของคนรอบตัว ความชัดเจนที่อ่อนโยนจะช่วยรักษาความสัมพันธ์ได้",
+        "en": "You may feel steadier when you carry only your own share. You need not resolve every feeling around you; gentle clarity can help preserve a relationship."
+      }
+    },
+    {
+      "id": "C41",
+      "number": 41,
+      "theme": "returns",
+      "themeTitle": {
+        "th": "เรื่องเก่าที่กลับมา",
+        "en": "Returns"
+      },
+      "phase": "opening",
+      "title": {
+        "th": "โอกาสที่กลับมาให้คิด",
+        "en": "An opportunity revisited"
+      },
+      "text": {
+        "th": "เรื่องที่เคยผ่านไปอาจกลับมาให้พิจารณาอีกครั้ง คราวนี้คุณมีประสบการณ์เพิ่มขึ้น จึงควรมองทั้งสิ่งที่เปลี่ยนไปและเหตุผลที่เคยทำให้ลังเล",
+        "en": "A past opportunity may return for consideration. You now have more experience; notice both what has changed and what caused your earlier hesitation."
+      }
+    },
+    {
+      "id": "C42",
+      "number": 42,
+      "theme": "returns",
+      "themeTitle": {
+        "th": "เรื่องเก่าที่กลับมา",
+        "en": "Returns"
+      },
+      "phase": "growing",
+      "title": {
+        "th": "ต่อยอดจากสิ่งที่เคยทำ",
+        "en": "Building on earlier work"
+      },
+      "text": {
+        "th": "ความพยายามเก่าอาจกลับมามีประโยชน์ในสถานการณ์ใหม่ สิ่งที่เคยเรียนรู้หรือคนที่เคยร่วมงานด้วยอาจช่วยให้คุณเดินหน้าได้โดยไม่ต้องเริ่มจากศูนย์",
+        "en": "Earlier effort may become useful in a new situation. Past learning or an existing connection could help you move forward without starting from nothing."
+      }
+    },
+    {
+      "id": "C43",
+      "number": 43,
+      "theme": "returns",
+      "themeTitle": {
+        "th": "เรื่องเก่าที่กลับมา",
+        "en": "Returns"
+      },
+      "phase": "review",
+      "title": {
+        "th": "มองวงจรเดิมให้ทัน",
+        "en": "Recognising a repeated pattern"
+      },
+      "text": {
+        "th": "สถานการณ์คุ้นเคยอาจทำให้คุณเห็นรูปแบบที่เกิดซ้ำ ช่วงนี้เหมาะกับการเปลี่ยนการตอบสนองทีละอย่าง เพื่อดูว่าผลลัพธ์จะต่างจากครั้งก่อนอย่างไร",
+        "en": "A familiar situation may reveal a repeating pattern. Try changing one response at a time and observe whether the outcome differs from before."
+      }
+    },
+    {
+      "id": "C44",
+      "number": 44,
+      "theme": "returns",
+      "themeTitle": {
+        "th": "เรื่องเก่าที่กลับมา",
+        "en": "Returns"
+      },
+      "phase": "steady",
+      "title": {
+        "th": "เก็บบทเรียน วางภาระ",
+        "en": "Keeping the lesson"
+      },
+      "text": {
+        "th": "เรื่องเก่าบางเรื่องอาจไม่ต้องกลับไปแก้ทั้งหมด คุณสามารถเก็บสิ่งที่ได้เรียนรู้ไว้ และเลือกไม่รับภาระเดิมซ้ำ การวางลงอย่างเข้าใจช่วยเปิดพื้นที่ให้ชีวิตปัจจุบัน",
+        "en": "Not every old matter needs to be reopened. Keep what it taught you and choose whether to carry it again; a considered release can create room for the present."
+      }
+    },
+    {
+      "id": "C45",
+      "number": 45,
+      "theme": "horizons",
+      "themeTitle": {
+        "th": "เส้นทางและมุมมองใหม่",
+        "en": "Horizons"
+      },
+      "phase": "opening",
+      "title": {
+        "th": "มุมมองนอกเส้นทางเดิม",
+        "en": "A view beyond the usual"
+      },
+      "text": {
+        "th": "การเปลี่ยนบรรยากาศหรือพูดคุยกับคนต่างประสบการณ์อาจเปิดมุมมองใหม่ คุณไม่จำเป็นต้องไปไกล แค่ขยับออกจากวิธีคิดเดิมก็อาจเห็นทางที่เคยมองข้าม",
+        "en": "A change of surroundings or a different person’s experience may broaden your view. Even a small departure from familiar thinking could reveal an overlooked path."
+      }
+    },
+    {
+      "id": "C46",
+      "number": 46,
+      "theme": "horizons",
+      "themeTitle": {
+        "th": "เส้นทางและมุมมองใหม่",
+        "en": "Horizons"
+      },
+      "phase": "growing",
+      "title": {
+        "th": "เครือข่ายที่ค่อย ๆ ขยาย",
+        "en": "A widening circle"
+      },
+      "text": {
+        "th": "สิ่งที่คุณสนใจอาจพาให้รู้จักคนหรือพื้นที่ใหม่มากขึ้น การรักษาการติดต่ออย่างพอดีจะช่วยให้ความสัมพันธ์เหล่านี้มีโอกาสเติบโตโดยไม่เบียดชีวิตเดิม",
+        "en": "An interest may introduce you to new people or places. A manageable level of contact can help these connections grow without crowding what you already value."
+      }
+    },
+    {
+      "id": "C47",
+      "number": 47,
+      "theme": "horizons",
+      "themeTitle": {
+        "th": "เส้นทางและมุมมองใหม่",
+        "en": "Horizons"
+      },
+      "phase": "review",
+      "title": {
+        "th": "ตรวจเส้นทางก่อนเดิน",
+        "en": "Checking the route"
+      },
+      "text": {
+        "th": "แผนเดินทางหรือการขยับขยายอาจมีรายละเอียดให้ทบทวน การตรวจเวลา เงื่อนไข และสิ่งที่ต้องเตรียมจะช่วยให้คุณเห็นว่าควรเดินต่อ ปรับแผน หรือรออีกจังหวะ",
+        "en": "A journey or expansion may need closer attention. Check timing, conditions and preparation before deciding whether to proceed, adjust or wait."
+      }
+    },
+    {
+      "id": "C48",
+      "number": 48,
+      "theme": "horizons",
+      "themeTitle": {
+        "th": "เส้นทางและมุมมองใหม่",
+        "en": "Horizons"
+      },
+      "phase": "steady",
+      "title": {
+        "th": "ใกล้ตัวก็มีคำตอบ",
+        "en": "An answer close to home"
+      },
+      "text": {
+        "th": "ช่วงนี้คำตอบอาจอยู่ใกล้กว่าที่คิด ก่อนมองหาสิ่งใหม่ ลองใช้ความรู้และความสัมพันธ์ที่มีอยู่ให้เต็มที่ ความคุ้นเคยอาจช่วยให้คุณเห็นปัญหาได้ชัดขึ้น",
+        "en": "An answer may be closer than expected. Before searching farther away, make fuller use of existing knowledge and relationships; familiarity may bring useful clarity."
+      }
+    },
+    {
+      "id": "C49",
+      "number": 49,
+      "theme": "completion",
+      "themeTitle": {
+        "th": "การปิดบทและส่งต่อ",
+        "en": "Completion"
+      },
+      "phase": "opening",
+      "title": {
+        "th": "พื้นที่หลังจบบทหนึ่ง",
+        "en": "Space after a chapter"
+      },
+      "text": {
+        "th": "บางเรื่องอาจใกล้ถึงจุดที่คุณวางมือได้ เมื่อภาระเดิมเริ่มเบาลง คุณจะมีพื้นที่คิดถึงสิ่งต่อไป โดยไม่จำเป็นต้องรีบเติมช่องว่างให้เต็มทันที",
+        "en": "A matter may be approaching a point where you can set it down. As the load eases, leave some room to consider what comes next without filling the gap immediately."
+      }
+    },
+    {
+      "id": "C50",
+      "number": 50,
+      "theme": "completion",
+      "themeTitle": {
+        "th": "การปิดบทและส่งต่อ",
+        "en": "Completion"
+      },
+      "phase": "growing",
+      "title": {
+        "th": "งานที่เข้าใกล้เส้นชัย",
+        "en": "Approaching the finish"
+      },
+      "text": {
+        "th": "สิ่งที่ทำต่อเนื่องมีแนวโน้มเข้าใกล้จุดสำเร็จมากขึ้น ช่วงนี้รายละเอียดช่วงท้ายยังสำคัญพอ ๆ กับแรงที่ใช้เริ่มต้น จัดลำดับให้ดีเพื่อส่งมอบสิ่งที่คุณตั้งใจ",
+        "en": "Sustained effort may be nearing completion. Final details matter as much as the energy that began the work; prioritise carefully to deliver what you intended."
+      }
+    },
+    {
+      "id": "C51",
+      "number": 51,
+      "theme": "completion",
+      "themeTitle": {
+        "th": "การปิดบทและส่งต่อ",
+        "en": "Completion"
+      },
+      "phase": "review",
+      "title": {
+        "th": "ปิดเรื่องให้เรียบร้อย",
+        "en": "Closing the loose ends"
+      },
+      "text": {
+        "th": "เรื่องที่ดูเหมือนจบแล้วอาจยังมีข้อตกลงหรือความรู้สึกที่ค้างอยู่ การเก็บรายละเอียดอย่างใจเย็นจะช่วยให้คุณไม่ต้องกลับมาเริ่มสะสางเรื่องเดิมอีก",
+        "en": "Something that seems finished may still contain an unsettled detail or feeling. Patiently closing the loose ends can reduce the need to revisit the same matter."
+      }
+    },
+    {
+      "id": "C52",
+      "number": 52,
+      "theme": "completion",
+      "themeTitle": {
+        "th": "การปิดบทและส่งต่อ",
+        "en": "Completion"
+      },
+      "phase": "steady",
+      "title": {
+        "th": "พักระหว่างสองบท",
+        "en": "Between two chapters"
+      },
+      "text": {
+        "th": "หลังผ่านเรื่องสำคัญ คุณอาจยังไม่รู้ว่าจะไปทางไหนต่อ ช่วงว่างนี้ใช้สำหรับพักและมองสิ่งที่ได้เรียนรู้ได้ ไม่จำเป็นต้องมีคำตอบใหม่ทันทีเพื่อให้การเดินทางที่ผ่านมาเกิดความหมาย",
+        "en": "After a significant chapter, the next direction may be unclear. Use the interval to rest and reflect; the previous journey can matter before a new answer arrives."
+      }
+    }
+  ],
+  "domains": {
+    "work": [
+      {
+        "id": "W01",
+        "domain": "work",
+        "phase": "opening",
+        "title": {
+          "th": "งานจากการแนะนำ",
+          "en": "An introduction"
+        },
+        "text": {
+          "th": "อาจมีคนชวนให้ลองงานหรือหน้าที่ที่ต่างจากเดิม ฟังขอบเขตให้ครบและเริ่มจากสิ่งที่ทดลองได้ ก่อนรับผิดชอบระยะยาว",
+          "en": "Someone may introduce a different task or role. Understand the scope and begin with something testable before taking on a lasting responsibility."
+        }
+      },
+      {
+        "id": "W02",
+        "domain": "work",
+        "phase": "opening",
+        "title": {
+          "th": "ไอเดียที่ได้ลอง",
+          "en": "An idea to test"
+        },
+        "text": {
+          "th": "ความคิดที่เก็บไว้อาจมีจังหวะนำเสนอ ลองเริ่มจากตัวอย่างเล็ก ๆ ที่แสดงประโยชน์ชัดเจน แล้วดูว่าคนที่เกี่ยวข้องตอบรับอย่างไร",
+          "en": "An idea you have kept to yourself may find an opening. Present a small example with a clear benefit and observe how the relevant people respond."
+        }
+      },
+      {
+        "id": "W03",
+        "domain": "work",
+        "phase": "opening",
+        "title": {
+          "th": "เริ่มจากงานใกล้ตัว",
+          "en": "A useful nearby task"
+        },
+        "text": {
+          "th": "โอกาสเรื่องงานอาจมาจากปัญหาเล็กที่คนอื่นยังไม่ได้จัดการ การช่วยแก้อย่างพอดีอาจทำให้ความสามารถของคุณเป็นที่รู้จักมากขึ้น",
+          "en": "A work opportunity may arise from a small, unresolved problem. A measured contribution could help others recognise what you can do."
+        }
+      },
+      {
+        "id": "W04",
+        "domain": "work",
+        "phase": "opening",
+        "title": {
+          "th": "เรียนรู้บทบาทใหม่",
+          "en": "Learning a new role"
+        },
+        "text": {
+          "th": "คุณอาจได้ลองวิธีทำงานหรือบทบาทใหม่ ช่วงแรกให้ถามสิ่งที่ไม่ชัดและตกลงวิธีติดตามผล เพื่อให้ความตั้งใจดีมีทิศทางที่ใช้งานได้",
+          "en": "You may try a new role or way of working. Ask about unclear points and agree how to review progress, so your effort has a useful direction."
+        }
+      },
+      {
+        "id": "W05",
+        "domain": "work",
+        "phase": "growing",
+        "title": {
+          "th": "ความไว้ใจเพิ่มขึ้น",
+          "en": "Growing trust"
+        },
+        "text": {
+          "th": "ผลงานที่ทำสม่ำเสมออาจทำให้คุณได้รับความไว้วางใจเพิ่ม หากมีหน้าที่ใหม่เข้ามา ควรคุยเรื่องเวลาและทรัพยากรให้เหมาะกับความรับผิดชอบ",
+          "en": "Consistent work may bring more trust. If new responsibilities arrive, discuss the time and resources needed to carry them well."
+        }
+      },
+      {
+        "id": "W06",
+        "domain": "work",
+        "phase": "growing",
+        "title": {
+          "th": "งานร่วมที่เดินหน้า",
+          "en": "Cooperation moving forward"
+        },
+        "text": {
+          "th": "งานที่ต้องพึ่งหลายฝ่ายมีแนวโน้มเดินหน้าเมื่อแบ่งหน้าที่ชัด การแจ้งความคืบหน้าสั้น ๆ จะช่วยลดการทำซ้ำและทำให้คนอื่นช่วยคุณได้ตรงจุด",
+          "en": "Shared work may advance when responsibilities are clear. Brief progress updates can reduce duplication and make support more useful."
+        }
+      },
+      {
+        "id": "W07",
+        "domain": "work",
+        "phase": "growing",
+        "title": {
+          "th": "ฝีมือที่เห็นผล",
+          "en": "Practice becoming useful"
+        },
+        "text": {
+          "th": "สิ่งที่ฝึกฝนเริ่มมีโอกาสช่วยให้งานคล่องขึ้น เก็บตัวอย่างผลงานที่ดีไว้ คุณอาจได้ใช้มันอธิบายความสามารถหรือขอโอกาสในช่วงต่อไป",
+          "en": "A practised skill may begin to make work easier. Keep examples of good results; they could help explain your ability when another opportunity appears."
+        }
+      },
+      {
+        "id": "W08",
+        "domain": "work",
+        "phase": "growing",
+        "title": {
+          "th": "เก็บงานสำคัญให้จบ",
+          "en": "Finishing a meaningful task"
+        },
+        "text": {
+          "th": "งานที่ทำมาระยะหนึ่งอาจใกล้ส่งต่อได้ เลือกเก็บส่วนสำคัญให้เรียบร้อยก่อนเพิ่มขอบเขต ความครบถ้วนจะช่วยให้สิ่งที่ทำได้รับการใช้งานจริง",
+          "en": "An ongoing task may be nearly ready to hand over. Finish the essential parts before expanding its scope, so the result can be put to use."
+        }
+      },
+      {
+        "id": "W09",
+        "domain": "work",
+        "phase": "review",
+        "title": {
+          "th": "ขอบเขตงานที่ต้องชัด",
+          "en": "Clarifying the scope"
+        },
+        "text": {
+          "th": "ความล่าช้าอาจมาจากความเข้าใจเรื่องงานที่ต่างกัน ลองยืนยันว่าใครรับผิดชอบอะไรและใช้เกณฑ์ใดตัดสินว่างานเสร็จ ก่อนทุ่มแรงเพิ่ม",
+          "en": "A delay may come from different understandings of the task. Confirm responsibilities and the definition of completion before adding more effort."
+        }
+      },
+      {
+        "id": "W10",
+        "domain": "work",
+        "phase": "review",
+        "title": {
+          "th": "ตรวจรายละเอียดก่อนส่ง",
+          "en": "Checking before delivery"
+        },
+        "text": {
+          "th": "งานช่วงนี้อาจต้องอาศัยความละเอียดเป็นพิเศษ เว้นเวลาตรวจชื่อ ตัวเลข และเงื่อนไขอีกครั้ง โดยเฉพาะส่วนที่คนอื่นจะนำไปใช้ต่อ",
+          "en": "Your work may benefit from a more careful check. Leave time to review names, figures and conditions, especially anything others will rely on."
+        }
+      },
+      {
+        "id": "W11",
+        "domain": "work",
+        "phase": "review",
+        "title": {
+          "th": "ทบทวนทิศทางงาน",
+          "en": "Reviewing your direction"
+        },
+        "text": {
+          "th": "คุณอาจตั้งคำถามว่างานที่ทำยังพาไปสู่สิ่งที่ต้องการหรือไม่ จดสิ่งที่อยากเปลี่ยนให้ชัด แล้วทดลองปรับหนึ่งอย่างก่อนตัดสินใจครั้งใหญ่",
+          "en": "You may question whether your work still leads where you want to go. Name what needs to change and test one adjustment before a major decision."
+        }
+      },
+      {
+        "id": "W12",
+        "domain": "work",
+        "phase": "review",
+        "title": {
+          "th": "คุยก่อนรับเพิ่ม",
+          "en": "Talking before taking more"
+        },
+        "text": {
+          "th": "งานด่วนอาจเข้ามาชนกับหน้าที่เดิม การคุยลำดับความสำคัญกับผู้เกี่ยวข้องจะช่วยให้คุณไม่ต้องรับทุกอย่างพร้อมกันโดยไม่มีข้อตกลง",
+          "en": "Urgent work may compete with existing duties. Discuss priorities with those involved rather than accepting everything at once without an agreement."
+        }
+      },
+      {
+        "id": "W13",
+        "domain": "work",
+        "phase": "steady",
+        "title": {
+          "th": "พื้นฐานที่ไว้ใจได้",
+          "en": "Reliable foundations"
+        },
+        "text": {
+          "th": "งานอาจเดินหน้าในจังหวะเรียบ ๆ มากกว่ามีเรื่องใหม่ ความตรงต่อเวลาและการเก็บงานเล็กให้เรียบร้อยจะช่วยรักษาความน่าเชื่อถือของคุณ",
+          "en": "Work may proceed quietly rather than bring something new. Reliability and attention to small tasks can help maintain the trust you have built."
+        }
+      },
+      {
+        "id": "W14",
+        "domain": "work",
+        "phase": "steady",
+        "title": {
+          "th": "จัดระบบให้เบาแรง",
+          "en": "Making the routine lighter"
+        },
+        "text": {
+          "th": "การจัดไฟล์ ขั้นตอน หรือรายการงานค้างอาจช่วยประหยัดแรงในระยะต่อไป เลือกแก้จุดที่ทำให้เสียเวลาบ่อยที่สุดก่อน ไม่ต้องรื้อทุกอย่างพร้อมกัน",
+          "en": "Organising files, steps or unfinished tasks may save effort later. Improve the most frequent source of wasted time first; a complete overhaul is unnecessary."
+        }
+      },
+      {
+        "id": "W15",
+        "domain": "work",
+        "phase": "steady",
+        "title": {
+          "th": "กำลังที่ต้องรักษา",
+          "en": "Capacity worth protecting"
+        },
+        "text": {
+          "th": "ช่วงนี้ควรดูว่างานที่รับอยู่พอดีกับเวลาหรือไม่ การเว้นช่วงพักและบอกข้อจำกัดล่วงหน้าจะช่วยให้คุณทำหน้าที่ได้สม่ำเสมอกว่าการฝืนทุกครั้ง",
+          "en": "Check whether your workload fits the time available. Breaks and clearly stated limits may support more consistent work than repeatedly pushing past capacity."
+        }
+      },
+      {
+        "id": "W16",
+        "domain": "work",
+        "phase": "steady",
+        "title": {
+          "th": "งานเบื้องหลังที่มีค่า",
+          "en": "Valuable work behind the scenes"
+        },
+        "text": {
+          "th": "แม้งานที่ทำอาจยังไม่เด่นต่อสายตาคนอื่น แต่การเตรียมข้อมูลและดูแลรายละเอียดกำลังสร้างฐานที่มีประโยชน์ บันทึกสิ่งที่ทำไว้ให้ตรวจสอบและส่งต่อได้",
+          "en": "Your contribution may not be highly visible, but preparation and careful detail can form a useful base. Document it so others can understand and build on it."
+        }
+      }
+    ],
+    "love": [
+      {
+        "id": "L01",
+        "domain": "love",
+        "phase": "opening",
+        "title": {
+          "th": "บทสนทนาที่เปิดใจ",
+          "en": "An opening conversation"
+        },
+        "text": {
+          "th": "เรื่องความรักอาจเริ่มขยับผ่านการพูดคุยที่ไม่ต้องฝืน ไม่ว่าจะกำลังรู้จักใครหรือมีความสัมพันธ์อยู่แล้ว ให้ความสนใจกับความสบายใจและการรับฟังที่เกิดขึ้นจริง",
+          "en": "Love may find an opening through an unforced conversation. Whether meeting someone or already connected, notice genuine ease and mutual listening."
+        }
+      },
+      {
+        "id": "L02",
+        "domain": "love",
+        "phase": "opening",
+        "title": {
+          "th": "คนที่มีความสนใจคล้ายกัน",
+          "en": "A shared interest"
+        },
+        "text": {
+          "th": "ความสนใจร่วมกันอาจเป็นจุดเริ่มของความใกล้ชิด ลองเปิดพื้นที่ให้รู้จักกันผ่านสิ่งที่ชอบ โดยยังไม่รีบกำหนดว่าความสัมพันธ์ต้องเป็นแบบไหน",
+          "en": "A shared interest may create closeness. Allow time to know each other through something you enjoy without immediately defining what the connection must become."
+        }
+      },
+      {
+        "id": "L03",
+        "domain": "love",
+        "phase": "opening",
+        "title": {
+          "th": "แสดงความรู้สึกอย่างพอดี",
+          "en": "A measured expression"
+        },
+        "text": {
+          "th": "คุณอาจมีจังหวะบอกความรู้สึกหรือความต้องการให้ชัดขึ้น คำพูดเรียบง่ายที่เคารพคำตอบของอีกฝ่ายจะช่วยให้ความสัมพันธ์มีพื้นที่ที่ปลอดโปร่ง",
+          "en": "There may be an opening to express a feeling or need. Simple words that leave room for the other person’s answer can make a relationship feel clearer."
+        }
+      },
+      {
+        "id": "L04",
+        "domain": "love",
+        "phase": "opening",
+        "title": {
+          "th": "เริ่มด้วยความเป็นตัวเอง",
+          "en": "Beginning honestly"
+        },
+        "text": {
+          "th": "ความสัมพันธ์ใหม่หรือจังหวะใหม่ในความรักอาจเริ่มจากการวางความคาดหวังลงเล็กน้อย ไม่ต้องทำให้ตัวเองเหมือนภาพที่คิดว่าอีกฝ่ายต้องการ ค่อยดูว่าคุณเข้ากันได้ตรงไหน",
+          "en": "A new connection or a new phase may begin with lighter expectations. Be yourself and gradually discover where you fit together."
+        }
+      },
+      {
+        "id": "L05",
+        "domain": "love",
+        "phase": "growing",
+        "title": {
+          "th": "ความสม่ำเสมอสร้างความใกล้ชิด",
+          "en": "Closeness through consistency"
+        },
+        "text": {
+          "th": "ความรักมีแนวโน้มอุ่นใจขึ้นผ่านการกระทำเล็ก ๆ ที่ต่อเนื่อง สังเกตว่าต่างฝ่ายใส่ใจและรักษาคำพูดอย่างไร มากกว่าตัดสินจากความหวือหวาเพียงครั้งเดียว",
+          "en": "Affection may feel steadier through small, repeated actions. Notice mutual care and follow-through rather than judging the connection by one dramatic gesture."
+        }
+      },
+      {
+        "id": "L06",
+        "domain": "love",
+        "phase": "growing",
+        "title": {
+          "th": "ฟังกันได้มากขึ้น",
+          "en": "Listening more closely"
+        },
+        "text": {
+          "th": "เรื่องที่เคยอธิบายยากอาจเริ่มคุยกันได้ดีขึ้น เลือกเวลาที่ไม่เร่งและพูดถึงความรู้สึกของตัวเอง การฟังโดยไม่รีบแก้ตัวจะช่วยให้ความเข้าใจค่อย ๆ เพิ่มขึ้น",
+          "en": "A difficult subject may become easier to discuss. Choose an unhurried moment, describe your own feelings and listen without rushing to defend yourself."
+        }
+      },
+      {
+        "id": "L07",
+        "domain": "love",
+        "phase": "growing",
+        "title": {
+          "th": "เวลาดี ๆ ที่ได้แบ่งกัน",
+          "en": "Sharing meaningful time"
+        },
+        "text": {
+          "th": "ความใกล้ชิดอาจเติบโตจากเวลาที่ได้อยู่ด้วยกันอย่างตั้งใจ ไม่จำเป็นต้องเป็นกิจกรรมใหญ่ สิ่งสำคัญคือทั้งสองฝ่ายมีส่วนเลือกและรู้สึกสบายใจกับเวลานั้น",
+          "en": "Closeness may grow through intentional time together. The activity need not be elaborate; what matters is mutual choice and feeling comfortable in that shared time."
+        }
+      },
+      {
+        "id": "L08",
+        "domain": "love",
+        "phase": "growing",
+        "title": {
+          "th": "ความไว้ใจที่ค่อย ๆ สะสม",
+          "en": "Trust taking shape"
+        },
+        "text": {
+          "th": "ความสัมพันธ์อาจมั่นคงขึ้นเมื่อเห็นการกระทำที่ตรงกับคำพูด หากกำลังรู้จักใคร ให้เวลาพฤติกรรมหลายครั้งช่วยตอบ แทนการรีบสรุปจากความรู้สึกช่วงแรก",
+          "en": "A connection may strengthen when actions match words. If you are getting to know someone, allow repeated behaviour to speak beyond the first impression."
+        }
+      },
+      {
+        "id": "L09",
+        "domain": "love",
+        "phase": "review",
+        "title": {
+          "th": "ถามแทนการคาดเดา",
+          "en": "Asking rather than guessing"
+        },
+        "text": {
+          "th": "ความไม่ชัดเจนอาจทำให้คุณตีความอีกฝ่ายไปไกล ลองถามสิ่งที่อยากรู้ด้วยภาษาที่ไม่กล่าวโทษ คุณอาจพบว่าความต้องการของทั้งคู่ยังไม่ได้พูดออกมาตรง ๆ",
+          "en": "Uncertainty may lead to assumptions. Ask what you need to know without blame; there may be needs on both sides that have not yet been clearly expressed."
+        }
+      },
+      {
+        "id": "L10",
+        "domain": "love",
+        "phase": "review",
+        "title": {
+          "th": "ทบทวนความคาดหวัง",
+          "en": "Revisiting expectations"
+        },
+        "text": {
+          "th": "ช่วงนี้เหมาะกับการดูว่าความสัมพันธ์ที่ต้องการตรงกับสิ่งที่เกิดขึ้นจริงหรือไม่ แยกความหวังออกจากข้อตกลงที่มี และให้ความสำคัญกับการตอบรับของทั้งสองฝ่าย",
+          "en": "Consider whether the relationship you hope for matches what is happening. Distinguish hopes from shared agreements and pay attention to mutual willingness."
+        }
+      },
+      {
+        "id": "L11",
+        "domain": "love",
+        "phase": "review",
+        "title": {
+          "th": "ไม่พาอดีตมาตัดสินทั้งหมด",
+          "en": "Leaving room beyond the past"
+        },
+        "text": {
+          "th": "เรื่องเก่าอาจทำให้คุณไวต่อคำพูดหรือการกระทำบางอย่าง ลองแยกสิ่งที่เกิดขึ้นตอนนี้ออกจากประสบการณ์เดิม ก่อนตอบสนองในแบบที่ทำให้ต่างฝ่ายถอยห่าง",
+          "en": "An earlier experience may make certain words or actions feel more charged. Separate the present event from the past before responding in a way that creates distance."
+        }
+      },
+      {
+        "id": "L12",
+        "domain": "love",
+        "phase": "review",
+        "title": {
+          "th": "พื้นที่ที่ต้องคุยกัน",
+          "en": "Discussing personal space"
+        },
+        "text": {
+          "th": "ความใกล้ชิดอาจต้องปรับจังหวะให้เหมาะกับชีวิตของแต่ละคน การคุยเรื่องเวลาและพื้นที่ส่วนตัวอย่างตรงไปตรงมาจะช่วยลดความน้อยใจที่เกิดจากการคาดหวังไม่ตรงกัน",
+          "en": "Closeness may need a rhythm that fits both lives. Discuss time and personal space openly to reduce hurt caused by mismatched expectations."
+        }
+      },
+      {
+        "id": "L13",
+        "domain": "love",
+        "phase": "steady",
+        "title": {
+          "th": "ความรักในจังหวะที่สบาย",
+          "en": "An unforced rhythm"
+        },
+        "text": {
+          "th": "ไม่จำเป็นต้องเร่งให้ความสัมพันธ์ไปถึงขั้นใดในช่วงนี้ ให้ความสำคัญกับความสบายใจ ความเคารพ และการติดต่อที่พอดี จังหวะที่ไม่ฝืนช่วยให้คุณเห็นความจริงได้ชัดขึ้น",
+          "en": "A relationship need not reach a new stage immediately. Comfort, respect and a manageable rhythm of contact can help you see the connection more clearly."
+        }
+      },
+      {
+        "id": "L14",
+        "domain": "love",
+        "phase": "steady",
+        "title": {
+          "th": "ดูแลใจโดยไม่ปิดประตู",
+          "en": "Caring without closing off"
+        },
+        "text": {
+          "th": "คุณอาจต้องการเวลาให้ตัวเองมากขึ้นในเรื่องความรัก การพักจากความคาดหวังไม่ได้หมายถึงต้องปิดกั้นทุกความสัมพันธ์ เลือกอยู่กับคนที่เคารพจังหวะของคุณ",
+          "en": "You may need more time for yourself in matters of love. A pause in expectations need not close every connection; favour people who respect your pace."
+        }
+      },
+      {
+        "id": "L15",
+        "domain": "love",
+        "phase": "steady",
+        "title": {
+          "th": "คุณค่าของการอยู่ข้างกัน",
+          "en": "The value of being present"
+        },
+        "text": {
+          "th": "ความสัมพันธ์ที่ดีอาจแสดงตัวผ่านการอยู่ข้างกันในเรื่องธรรมดา มองหาความใส่ใจที่มีทั้งให้และรับ หากคุณเป็นฝ่ายประคองอยู่คนเดียว ควรคุยถึงความสมดุลนั้น",
+          "en": "A supportive bond may show itself in ordinary moments. Look for care flowing both ways; if you are carrying it alone, discuss that imbalance."
+        }
+      },
+      {
+        "id": "L16",
+        "domain": "love",
+        "phase": "steady",
+        "title": {
+          "th": "ใจที่ไม่ต้องรีบหาคำตอบ",
+          "en": "Allowing an answer to emerge"
+        },
+        "text": {
+          "th": "คำถามเรื่องความรักบางข้ออาจยังตอบไม่ได้ทันที คุณสามารถใช้เวลาสังเกตความรู้สึกของตัวเองและการกระทำของอีกฝ่าย โดยไม่ต้องกดดันให้ทุกอย่างชัดเจนในวันเดียว",
+          "en": "Some questions about love may remain open for now. Observe your own feelings and the other person’s actions without demanding a complete answer in a single day."
+        }
+      }
+    ],
+    "luck": [
+      {
+        "id": "G01",
+        "domain": "luck",
+        "phase": "opening",
+        "title": {
+          "th": "โอกาสจากคนรู้จัก",
+          "en": "An opening through a contact"
+        },
+        "text": {
+          "th": "จังหวะดีอาจมาจากคำแนะนำของคนที่รู้จักคุณอยู่แล้ว ลองบอกความสนใจหรือสิ่งที่กำลังมองหาให้ชัด แล้วตรวจรายละเอียดของโอกาสที่ได้รับด้วยตัวเอง",
+          "en": "A useful opening may come through someone who already knows you. Share what you are looking for, then check the details of any introduction yourself."
+        }
+      },
+      {
+        "id": "G02",
+        "domain": "luck",
+        "phase": "opening",
+        "title": {
+          "th": "พบสิ่งที่ช่วยได้โดยบังเอิญ",
+          "en": "A useful discovery"
+        },
+        "text": {
+          "th": "คุณอาจพบข้อมูลหรือเครื่องมือที่ช่วยแก้เรื่องค้างจากการค้นหาเล็ก ๆ ความบังเอิญจะมีประโยชน์เมื่อคุณสังเกตและนำสิ่งที่พบไปลองใช้อย่างเหมาะสม",
+          "en": "A small search may uncover information or a tool that helps an unfinished matter. A chance discovery becomes useful when you notice and test it appropriately."
+        }
+      },
+      {
+        "id": "G03",
+        "domain": "luck",
+        "phase": "opening",
+        "title": {
+          "th": "จังหวะจากการลองสิ่งใหม่",
+          "en": "A chance through trying"
+        },
+        "text": {
+          "th": "การลองกิจกรรมหรือวิธีใหม่ที่ไม่เกินกำลังอาจนำประโยชน์มาให้ มองเป็นโอกาสเรียนรู้ก่อนผลตอบแทน และเปิดรับสิ่งเล็กที่ไม่ได้อยู่ในแผนเดิม",
+          "en": "Trying something manageable and unfamiliar may bring a useful benefit. Look first for learning and remain open to small gains outside your original plan."
+        }
+      },
+      {
+        "id": "G04",
+        "domain": "luck",
+        "phase": "opening",
+        "title": {
+          "th": "ทางเลือกที่เคยมองข้าม",
+          "en": "An overlooked option"
+        },
+        "text": {
+          "th": "สิ่งที่ดูธรรมดาอาจกลายเป็นตัวเลือกที่เหมาะในเวลานี้ ลองกลับไปดูคำแนะนำหรือโอกาสที่เคยผ่านตา โดยยังตรวจเงื่อนไขตามปกติ",
+          "en": "An ordinary-looking option may suit the present moment. Revisit a suggestion or opportunity you once overlooked while still checking its conditions."
+        }
+      },
+      {
+        "id": "G05",
+        "domain": "luck",
+        "phase": "growing",
+        "title": {
+          "th": "ผลดีจากการเตรียมตัว",
+          "en": "Preparation meeting a chance"
+        },
+        "text": {
+          "th": "จังหวะดีอาจเกิดเมื่อสิ่งที่คุณเตรียมไว้ตรงกับความต้องการของใครบางคน จัดข้อมูลหรือผลงานให้พร้อม เพื่อให้ตอบรับโอกาสที่เหมาะได้สะดวกขึ้น",
+          "en": "A helpful moment may arrive when your preparation meets someone’s need. Keep information or examples ready so a suitable opportunity is easier to respond to."
+        }
+      },
+      {
+        "id": "G06",
+        "domain": "luck",
+        "phase": "growing",
+        "title": {
+          "th": "ความช่วยเหลือที่ต่อยอดได้",
+          "en": "Support that carries forward"
+        },
+        "text": {
+          "th": "ความช่วยเหลือเล็ก ๆ ที่เคยได้รับอาจนำไปสู่ประโยชน์ต่อเนื่อง รักษาการติดต่อและกล่าวขอบคุณอย่างจริงใจ โดยไม่คาดหวังว่าทุกความสัมพันธ์ต้องให้อะไรกลับมา",
+          "en": "Earlier help may lead to another useful connection. Stay in touch and express appreciation without expecting every relationship to provide a return."
+        }
+      },
+      {
+        "id": "G07",
+        "domain": "luck",
+        "phase": "growing",
+        "title": {
+          "th": "เวลาที่ใช้ได้คุ้มขึ้น",
+          "en": "Time becoming more useful"
+        },
+        "text": {
+          "th": "คุณอาจได้จังหวะทำสิ่งสำคัญเพราะงานบางส่วนเริ่มเข้าที่ ใช้พื้นที่ที่เพิ่มขึ้นกับเรื่องที่เลือกไว้จริง ๆ เพื่อไม่ให้โอกาสนั้นหายไปกับภาระใหม่ทั้งหมด",
+          "en": "As one area settles, you may gain time for something important. Use that space deliberately before it is completely absorbed by new demands."
+        }
+      },
+      {
+        "id": "G08",
+        "domain": "luck",
+        "phase": "growing",
+        "title": {
+          "th": "สิ่งเล็กที่รวมเป็นผลดี",
+          "en": "Small benefits adding up"
+        },
+        "text": {
+          "th": "ประโยชน์ในช่วงนี้อาจมาเป็นชิ้นเล็กหลายครั้ง มากกว่าจะเป็นโชคใหญ่ครั้งเดียว สังเกตสิ่งที่ช่วยประหยัดเวลา เพิ่มความเข้าใจ หรือทำให้ชีวิตคล่องตัวขึ้น",
+          "en": "Benefits may arrive in several small forms rather than one large stroke of luck. Notice what saves time, improves understanding or makes everyday life easier."
+        }
+      },
+      {
+        "id": "G09",
+        "domain": "luck",
+        "phase": "review",
+        "title": {
+          "th": "โชคจากการตรวจพบเร็ว",
+          "en": "An early discovery"
+        },
+        "text": {
+          "th": "จังหวะดีอาจมาในรูปของการพบข้อผิดพลาดก่อนเกิดความยุ่งยาก การตรวจซ้ำอย่างใจเย็นจึงอาจช่วยรักษาโอกาสที่มีอยู่ได้มากกว่าการรีบไปต่อ",
+          "en": "A useful piece of luck may be catching a mistake early. A calm second check could protect an existing opportunity better than a hurried next step."
+        }
+      },
+      {
+        "id": "G10",
+        "domain": "luck",
+        "phase": "review",
+        "title": {
+          "th": "ประโยชน์จากคำถามหนึ่งข้อ",
+          "en": "The benefit of one question"
+        },
+        "text": {
+          "th": "คำถามที่คุณเกือบไม่ถามอาจทำให้ได้เงื่อนไขหรือข้อมูลที่เป็นประโยชน์ หากมีข้อสงสัย ลองสอบถามตรง ๆ ก่อนตัดสินใจแทนอีกฝ่าย",
+          "en": "A question you nearly leave unasked may reveal useful information or conditions. Ask directly before assuming what the other person would say."
+        }
+      },
+      {
+        "id": "G11",
+        "domain": "luck",
+        "phase": "review",
+        "title": {
+          "th": "ทางดีที่ต้องเลือกใหม่",
+          "en": "A better-fitting alternative"
+        },
+        "text": {
+          "th": "เมื่อทางหนึ่งไม่เหมาะ คุณอาจเห็นอีกทางที่สอดคล้องกับชีวิตมากกว่า การเปลี่ยนใจหลังได้ข้อมูลใหม่อาจเป็นจังหวะที่ช่วยให้คุณเลือกได้ดีขึ้น",
+          "en": "If one option does not fit, another may become easier to see. Changing your mind in response to new information may be the useful turn in this period."
+        }
+      },
+      {
+        "id": "G12",
+        "domain": "luck",
+        "phase": "review",
+        "title": {
+          "th": "ความรู้เก่าที่ช่วยทันเวลา",
+          "en": "Earlier knowledge returning"
+        },
+        "text": {
+          "th": "สิ่งที่เคยเรียนรู้แต่ยังไม่ได้ใช้ อาจช่วยให้เข้าใจสถานการณ์ปัจจุบัน ลองทบทวนประสบการณ์เดิมก่อนมองหาคำตอบจากภายนอกทั้งหมด",
+          "en": "Something learned earlier may help explain the present situation. Review your own experience before seeking every answer elsewhere."
+        }
+      },
+      {
+        "id": "G13",
+        "domain": "luck",
+        "phase": "steady",
+        "title": {
+          "th": "ความราบรื่นที่นับเป็นโชค",
+          "en": "The luck of a smooth day"
+        },
+        "text": {
+          "th": "จังหวะดีอาจอยู่ในเรื่องที่ผ่านไปได้โดยไม่ติดขัด เช่น มีเวลาพอหรือได้รับความร่วมมือ มองเห็นคุณค่าของความราบรื่นเหล่านี้ โดยไม่ต้องรอเหตุการณ์ใหญ่",
+          "en": "A good turn may simply be enough time or willing cooperation. Notice the value of things going smoothly without waiting for a dramatic event."
+        }
+      },
+      {
+        "id": "G14",
+        "domain": "luck",
+        "phase": "steady",
+        "title": {
+          "th": "สิ่งที่มีอยู่ยังช่วยได้",
+          "en": "Existing resources helping"
+        },
+        "text": {
+          "th": "ของที่เก็บไว้ ความรู้เดิม หรือคนที่ไว้ใจ อาจช่วยลดความยุ่งยากในช่วงนี้ ลองสำรวจสิ่งที่มีอยู่ก่อนเพิ่มค่าใช้จ่ายหรือภาระที่ไม่จำเป็น",
+          "en": "An existing item, familiar knowledge or a trusted person may make things easier. Take stock before adding an unnecessary expense or obligation."
+        }
+      },
+      {
+        "id": "G15",
+        "domain": "luck",
+        "phase": "steady",
+        "title": {
+          "th": "จังหวะที่เว้นไว้",
+          "en": "Room for a useful surprise"
+        },
+        "text": {
+          "th": "เวลาว่างเล็กน้อยอาจทำให้คุณรับโอกาสที่ไม่ได้คาดไว้ได้ การไม่จัดทุกช่วงให้แน่นเกินไปจึงช่วยให้คุณเลือกสิ่งที่เหมาะเมื่อมันเข้ามา",
+          "en": "A little uncommitted time may let you respond to an unexpected opening. Leaving some space can help you choose when something suitable appears."
+        }
+      },
+      {
+        "id": "G16",
+        "domain": "luck",
+        "phase": "steady",
+        "title": {
+          "th": "ความช่วยเหลือที่ไม่หวือหวา",
+          "en": "Quiet support"
+        },
+        "text": {
+          "th": "โชคในช่วงนี้อาจมาเป็นคำแนะนำที่ตรงจุดหรือคนที่ช่วยงานเล็ก ๆ รับความช่วยเหลือที่เหมาะกับคุณ และรักษาความสัมพันธ์ด้วยความใส่ใจที่พอดี",
+          "en": "Good fortune may take the form of timely advice or practical help. Accept support that fits and care for the relationship in a manageable way."
+        }
+      }
+    ],
+    "caution": [
+      {
+        "id": "Caution01",
+        "domain": "caution",
+        "phase": "opening",
+        "title": {
+          "th": "อย่ารีบรับทุกโอกาส",
+          "en": "Not every opening is yours"
+        },
+        "text": {
+          "th": "เมื่อมีสิ่งใหม่เข้ามา คุณอาจอยากตอบตกลงทั้งหมด ระวังตารางและกำลังที่แน่นเกินไป เลือกสิ่งที่รับผิดชอบได้จริงและขอเวลาคิดเมื่อจำเป็น",
+          "en": "New possibilities may make every invitation tempting. Watch your time and capacity; choose what you can genuinely support and ask for time when needed."
+        }
+      },
+      {
+        "id": "Caution02",
+        "domain": "caution",
+        "phase": "opening",
+        "title": {
+          "th": "ฟังให้ครบก่อนเชื่อ",
+          "en": "Hear the whole account"
+        },
+        "text": {
+          "th": "ข่าวที่น่าตื่นเต้นอาจยังขาดรายละเอียด ตรวจแหล่งที่มาและเงื่อนไขให้ครบ โดยเฉพาะเรื่องที่เร่งให้คุณตัดสินใจหรือส่งข้อมูลส่วนตัวทันที",
+          "en": "Exciting news may omit important details. Check its source and conditions, especially if it pressures you to decide or share personal information immediately."
+        }
+      },
+      {
+        "id": "Caution03",
+        "domain": "caution",
+        "phase": "opening",
+        "title": {
+          "th": "ความประทับใจยังไม่ใช่ทั้งหมด",
+          "en": "Beyond the first impression"
+        },
+        "text": {
+          "th": "อย่าให้ความรู้สึกช่วงแรกแทนข้อมูลทั้งหมด ไม่ว่าจะเป็นคน งาน หรือข้อเสนอ ควรดูการกระทำและรายละเอียดมากกว่าหนึ่งครั้งก่อนผูกมัด",
+          "en": "A first impression need not stand in for the full picture. With a person, task or proposal, observe actions and details more than once before committing."
+        }
+      },
+      {
+        "id": "Caution04",
+        "domain": "caution",
+        "phase": "opening",
+        "title": {
+          "th": "เริ่มเล็กเพื่อเห็นจริง",
+          "en": "Start small enough to learn"
+        },
+        "text": {
+          "th": "ความตั้งใจใหม่อาจใหญ่กว่าทรัพยากรที่มี ระวังการวางแผนจนไม่มีพื้นที่แก้ไข การทดลองขนาดเล็กจะช่วยให้คุณเห็นข้อจำกัดได้โดยไม่แบกภาระทั้งหมด",
+          "en": "A new ambition may exceed current resources. Keep room to adjust; a small trial can reveal limits without committing you to the entire burden."
+        }
+      },
+      {
+        "id": "Caution05",
+        "domain": "caution",
+        "phase": "growing",
+        "title": {
+          "th": "อย่าให้ความคืบหน้าพาเร่ง",
+          "en": "Progress need not become haste"
+        },
+        "text": {
+          "th": "เมื่อเริ่มเห็นผล คุณอาจอยากเพิ่มความเร็วทันที ระวังข้ามขั้นตอนที่เคยช่วยให้งานหรือความสัมพันธ์เดินได้ดี รักษาคุณภาพก่อนขยายขอบเขต",
+          "en": "Early progress may tempt you to speed up. Keep the steps that made it possible and maintain quality before expanding the scope."
+        }
+      },
+      {
+        "id": "Caution06",
+        "domain": "caution",
+        "phase": "growing",
+        "title": {
+          "th": "ความเหนื่อยที่สะสมเงียบ ๆ",
+          "en": "Quietly accumulating fatigue"
+        },
+        "text": {
+          "th": "ความรับผิดชอบที่เพิ่มขึ้นอาจกินเวลาพักทีละน้อย สังเกตเมื่อความล้าทำให้คุณหงุดหงิดหรือพลาดรายละเอียด แล้วปรับภาระก่อนต้องฝืนต่อเนื่อง",
+          "en": "Increasing responsibility may gradually reduce your rest. Notice when tiredness affects patience or attention and adjust the load before it becomes a habit."
+        }
+      },
+      {
+        "id": "Caution07",
+        "domain": "caution",
+        "phase": "growing",
+        "title": {
+          "th": "เครดิตของทุกคนมีความหมาย",
+          "en": "Acknowledging every contribution"
+        },
+        "text": {
+          "th": "ความสำเร็จร่วมอาจสะดุดหากมีคนรู้สึกว่าความพยายามไม่ถูกเห็น ระวังพูดแทนผู้อื่นหรือรับปากในส่วนที่ไม่ได้ดูแล ให้เครดิตและตรวจความพร้อมร่วมกัน",
+          "en": "Shared progress may suffer if contributions go unnoticed. Avoid speaking for others or promising their effort; acknowledge help and confirm readiness together."
+        }
+      },
+      {
+        "id": "Caution08",
+        "domain": "caution",
+        "phase": "growing",
+        "title": {
+          "th": "อย่าเปรียบเทียบจนเสียจังหวะ",
+          "en": "Comparison can disturb your pace"
+        },
+        "text": {
+          "th": "การเห็นคนอื่นไปเร็วอาจทำให้คุณลดคุณค่าของสิ่งที่กำลังเติบโต ระวังเปลี่ยนแผนเพียงเพราะความกดดัน ลองวัดความคืบหน้าจากเป้าหมายของตัวเองก่อน",
+          "en": "Someone else’s speed may make your own progress seem smaller. Avoid changing course from pressure alone; first compare your progress with your own priorities."
+        }
+      },
+      {
+        "id": "Caution09",
+        "domain": "caution",
+        "phase": "review",
+        "title": {
+          "th": "คำพูดตอนอารมณ์แรง",
+          "en": "Words in a charged moment"
+        },
+        "text": {
+          "th": "เรื่องค้างใจอาจทำให้คำพูดแรงกว่าที่ตั้งใจ หากรู้สึกว่ากำลังคุยเพื่อเอาชนะ ให้พักแล้วกลับมาระบุปัญหาทีละข้อ เพื่อไม่เพิ่มเรื่องใหม่ระหว่างแก้เรื่องเดิม",
+          "en": "An unresolved feeling may sharpen your words. If a discussion becomes about winning, pause and return to one issue at a time rather than adding another conflict."
+        }
+      },
+      {
+        "id": "Caution10",
+        "domain": "caution",
+        "phase": "review",
+        "title": {
+          "th": "อย่าปล่อยรายละเอียดค้าง",
+          "en": "Small details left open"
+        },
+        "text": {
+          "th": "ข้อตกลงที่ยังคลุมเครืออาจกลับมาทำให้ต้องแก้หลายรอบ ตรวจวันเวลา หน้าที่ และสิ่งที่แต่ละฝ่ายเข้าใจ พร้อมเก็บข้อความสำคัญไว้ทบทวน",
+          "en": "An unclear agreement may create repeated rework. Check dates, responsibilities and shared understanding, and keep important details available to review."
+        }
+      },
+      {
+        "id": "Caution11",
+        "domain": "caution",
+        "phase": "review",
+        "title": {
+          "th": "ระวังคิดแทนอีกฝ่าย",
+          "en": "Assumptions about another person"
+        },
+        "text": {
+          "th": "คุณอาจรู้สึกว่าตัวเองพอเดาเหตุผลของอีกฝ่ายได้ แต่ข้อมูลยังอาจไม่ครบ แยกสิ่งที่เห็นจริงออกจากสิ่งที่คาด แล้วถามในส่วนที่ยังไม่แน่ใจ",
+          "en": "You may feel you can explain another person’s behaviour while information is still missing. Separate observation from assumption and ask about what remains unclear."
+        }
+      },
+      {
+        "id": "Caution12",
+        "domain": "caution",
+        "phase": "review",
+        "title": {
+          "th": "อย่าเปลี่ยนทุกอย่างพร้อมกัน",
+          "en": "One adjustment at a time"
+        },
+        "text": {
+          "th": "ความอยากแก้ให้เร็วอาจทำให้คุณเปลี่ยนหลายอย่างจนไม่รู้ว่าอะไรช่วยจริง เลือกประเด็นสำคัญหนึ่งเรื่องและติดตามผล ก่อนเพิ่มการเปลี่ยนแปลงถัดไป",
+          "en": "The wish to fix things quickly may lead to too many changes at once. Choose one important adjustment and observe its effect before adding another."
+        }
+      },
+      {
+        "id": "Caution13",
+        "domain": "caution",
+        "phase": "steady",
+        "title": {
+          "th": "ความคุ้นเคยที่ทำให้เผลอ",
+          "en": "Familiarity can hide an oversight"
+        },
+        "text": {
+          "th": "เรื่องที่ทำเป็นประจำอาจทำให้คุณข้ามการตรวจเล็ก ๆ ระวังนัดหมาย ของที่ต้องเตรียม และข้อความที่ควรตอบ การเช็กสั้น ๆ ช่วยลดความวุ่นวายได้",
+          "en": "Familiar routines may make a small check easy to skip. Review appointments, needed items and unanswered messages; a brief check may prevent avoidable disruption."
+        }
+      },
+      {
+        "id": "Caution14",
+        "domain": "caution",
+        "phase": "steady",
+        "title": {
+          "th": "รับภาระใจเกินส่วน",
+          "en": "Carrying too much emotional weight"
+        },
+        "text": {
+          "th": "ความเป็นห่วงอาจทำให้คุณรับปัญหาของคนอื่นมาเป็นหน้าที่ทั้งหมด ช่วยเท่าที่ทำได้และเคารพส่วนที่อีกฝ่ายต้องตัดสินใจเอง เพื่อไม่ให้ความหวังดีกลายเป็นความเหนื่อยสะสม",
+          "en": "Concern may make another person’s entire problem feel like your duty. Offer what you can while respecting their decisions, so care does not become an unsustainable burden."
+        }
+      },
+      {
+        "id": "Caution15",
+        "domain": "caution",
+        "phase": "steady",
+        "title": {
+          "th": "ผัดเรื่องเล็กจนรวมเป็นเรื่องใหญ่",
+          "en": "Small postponements adding up"
+        },
+        "text": {
+          "th": "การเลื่อนเรื่องเล็กหลายครั้งอาจทำให้ภาระรวมหนักขึ้น เลือกสะสางสิ่งที่ใช้เวลาไม่นานทีละเรื่อง และกำหนดวันกลับมาดูส่วนที่ยังต้องรอ",
+          "en": "Repeatedly postponing small tasks may make the overall load heavier. Clear one manageable item at a time and set a date to revisit what must wait."
+        }
+      },
+      {
+        "id": "Caution16",
+        "domain": "caution",
+        "phase": "steady",
+        "title": {
+          "th": "ปิดตัวจนพลาดความช่วยเหลือ",
+          "en": "Leaving room for support"
+        },
+        "text": {
+          "th": "การอยากจัดการทุกอย่างเองอาจทำให้คนรอบตัวไม่รู้ว่าคุณต้องการอะไร หากมีเรื่องติดขัด ลองบอกความช่วยเหลือที่ต้องการอย่างเฉพาะเจาะจงกับคนที่ไว้ใจ",
+          "en": "Wanting to manage everything alone may keep others from seeing what you need. If something is difficult, ask a trusted person for one specific kind of help."
+        }
+      }
+    ]
+  },
+  "weekdays": [
+    {
+      "id": "D0",
+      "day": 0,
+      "title": {
+        "th": "อาทิตย์",
+        "en": "Sunday"
+      },
+      "text": {
+        "th": "ลองเลือกสิ่งสำคัญหนึ่งเรื่องที่อยากเป็นผู้เริ่ม แล้วเริ่มในขนาดที่ดูแลไหว",
+        "en": "Choose one important thing you would like to initiate, at a scale you can support."
+      }
+    },
+    {
+      "id": "D1",
+      "day": 1,
+      "title": {
+        "th": "จันทร์",
+        "en": "Monday"
+      },
+      "text": {
+        "th": "ก่อนตอบเรื่องที่กระทบใจ ลองให้เวลาตัวเองแยกความรู้สึกออกจากข้อเท็จจริง",
+        "en": "Before answering something emotionally charged, separate your feelings from the facts."
+      }
+    },
+    {
+      "id": "D2",
+      "day": 2,
+      "title": {
+        "th": "อังคาร",
+        "en": "Tuesday"
+      },
+      "text": {
+        "th": "ใช้ความตั้งใจไปกับการลงมือหนึ่งขั้น และตรวจว่าจังหวะนั้นไม่เร่งคนรอบตัวเกินไป",
+        "en": "Put your resolve into one practical step without pressuring others to match your pace."
+      }
+    },
+    {
+      "id": "D3",
+      "day": 3,
+      "title": {
+        "th": "พุธ",
+        "en": "Wednesday"
+      },
+      "text": {
+        "th": "คำถามที่ชัดและการฟังจนจบอาจช่วยให้เรื่องที่ค้างเดินต่อได้ง่ายขึ้น",
+        "en": "A clear question and a complete hearing may help an unfinished matter move forward."
+      }
+    },
+    {
+      "id": "D4",
+      "day": 4,
+      "title": {
+        "th": "พฤหัสบดี",
+        "en": "Thursday"
+      },
+      "text": {
+        "th": "ทบทวนสิ่งที่เคยเรียนรู้ แล้วเลือกคำแนะนำที่เข้ากับสถานการณ์จริงของคุณ",
+        "en": "Review what you have learned and choose advice that fits your actual situation."
+      }
+    },
+    {
+      "id": "D5",
+      "day": 5,
+      "title": {
+        "th": "ศุกร์",
+        "en": "Friday"
+      },
+      "text": {
+        "th": "ดูแลความสัมพันธ์ผ่านสิ่งเล็กที่จริงใจ โดยไม่ลืมขอบเขตและความต้องการของตัวเอง",
+        "en": "Care for a connection through a sincere small act while respecting your own limits and needs."
+      }
+    },
+    {
+      "id": "D6",
+      "day": 6,
+      "title": {
+        "th": "เสาร์",
+        "en": "Saturday"
+      },
+      "text": {
+        "th": "จัดการเรื่องพื้นฐานที่ค้างอยู่หนึ่งอย่าง เพื่อให้ช่วงถัดไปมีพื้นที่มากขึ้น",
+        "en": "Resolve one unfinished practical matter to leave more room for the next period."
+      }
+    }
+  ],
+  "timeBands": [
+    {
+      "id": "T0",
+      "index": 0,
+      "title": {
+        "th": "00:00–03:59",
+        "en": "00:00–03:59"
+      },
+      "text": {
+        "th": "ลองเขียนสิ่งที่คิดไว้ก่อนตัดสินใจ แล้วกลับมาอ่านเมื่อใจนิ่งขึ้น",
+        "en": "Write down your thoughts and return to them with a calmer mind before deciding."
+      }
+    },
+    {
+      "id": "T1",
+      "index": 1,
+      "title": {
+        "th": "04:00–07:59",
+        "en": "04:00–07:59"
+      },
+      "text": {
+        "th": "การเตรียมเรื่องเล็กไว้ล่วงหน้าอาจทำให้ก้าวต่อไปคล่องตัวขึ้น",
+        "en": "A little preparation may make the next step easier."
+      }
+    },
+    {
+      "id": "T2",
+      "index": 2,
+      "title": {
+        "th": "08:00–11:59",
+        "en": "08:00–11:59"
+      },
+      "text": {
+        "th": "เลือกทำสิ่งที่สำคัญที่สุดให้คืบหน้าหนึ่งขั้น ก่อนเพิ่มเรื่องใหม่",
+        "en": "Move the most important matter forward one step before adding another."
+      }
+    },
+    {
+      "id": "T3",
+      "index": 3,
+      "title": {
+        "th": "12:00–15:59",
+        "en": "12:00–15:59"
+      },
+      "text": {
+        "th": "เว้นจังหวะตรวจแผนระหว่างทาง เพื่อปรับก่อนภาระจะสะสม",
+        "en": "Pause along the way to review the plan before obligations accumulate."
+      }
+    },
+    {
+      "id": "T4",
+      "index": 4,
+      "title": {
+        "th": "16:00–19:59",
+        "en": "16:00–19:59"
+      },
+      "text": {
+        "th": "บทสนทนาสั้น ๆ ที่ตั้งใจฟังอาจช่วยให้มองเห็นทางออกที่นุ่มนวลขึ้น",
+        "en": "A short, attentive conversation may reveal a gentler way forward."
+      }
+    },
+    {
+      "id": "T5",
+      "index": 5,
+      "title": {
+        "th": "20:00–23:59",
+        "en": "20:00–23:59"
+      },
+      "text": {
+        "th": "เก็บเรื่องค้างที่ทำได้หนึ่งอย่าง แล้วอนุญาตให้ตัวเองพักจากส่วนที่ยังต้องรอ",
+        "en": "Close one manageable loose end, then allow yourself to rest from what still must wait."
+      }
+    },
+    {
+      "id": "TU",
+      "index": 6,
+      "title": {
+        "th": "ไม่ทราบเวลาเกิด",
+        "en": "Birth time unknown"
+      },
+      "text": {
+        "th": "ยังไม่ใช้รายละเอียดตามช่วงเวลาเกิดในคำอ่านนี้ คุณสามารถเพิ่มข้อมูลได้ภายหลัง",
+        "en": "This reading does not use a birth-time modifier. You can add that information later."
+      }
+    }
+  ],
+  "guidance": {
+    "version": "context-th-en-001",
+    "source": {
+      "title": "WOOP: wish, outcome, obstacle and plan",
+      "url": "https://woopmylife.org/en/practice"
+    },
+    "supports": [
+      {
+        "id": "balanced",
+        "title": {
+          "th": "ดูภาพรวมก่อน",
+          "en": "A balanced view"
+        }
+      },
+      {
+        "id": "preparation",
+        "title": {
+          "th": "อยากเตรียมตัวให้พร้อม",
+          "en": "Feeling prepared"
+        }
+      },
+      {
+        "id": "confidence",
+        "title": {
+          "th": "อยากมั่นใจขึ้น",
+          "en": "Feeling more confident"
+        }
+      },
+      {
+        "id": "communication",
+        "title": {
+          "th": "อยากสื่อสารให้เข้าใจกัน",
+          "en": "Communicating clearly"
+        }
+      }
+    ],
+    "occasions": [
+      {
+        "id": "general",
+        "title": {
+          "th": "วันทั่วไป",
+          "en": "An ordinary day"
+        },
+        "goal": {
+          "th": "เลือกเรื่องเล็กหนึ่งเรื่องที่อยากให้คืบหน้า โดยเผื่อพื้นที่ให้สิ่งที่คาดไม่ถึง",
+          "en": "Choose one small thing you want to move forward, leaving room for the unexpected."
+        },
+        "outlooks": {
+          "opening": {
+            "th": "คำอ่านสำหรับวันที่เลือกชวนให้เปิดรับทางเลือกเล็ก ๆ เรื่องที่ยังไม่แน่ใจอาจเริ่มเห็นทางเมื่อได้ลองหนึ่งขั้น โดยยังไม่ต้องตัดสินใจทั้งหมด",
+            "en": "The reading for this day invites a small opening. One trial step may make an uncertain option clearer without committing to everything."
+          },
+          "growing": {
+            "th": "วันนั้นชวนให้ต่อยอดเรื่องที่เริ่มเดินหน้าแล้ว ความคืบหน้าเล็กน้อยที่ทำได้จริงอาจให้กำลังใจมากกว่าการเพิ่มเป้าหมายใหม่หลายเรื่อง",
+            "en": "The reading for this day favours building on something already moving. A manageable gain may feel more encouraging than adding several new goals."
+          },
+          "review": {
+            "th": "คำอ่านสำหรับวันที่เลือกชวนให้ดูรายละเอียดอีกครั้ง หากบางเรื่องช้ากว่าที่หวัง ลองใช้จังหวะนั้นตรวจข้อมูลและปรับแผนหนึ่งจุด",
+            "en": "The reading for this day invites a second look at the details. If something moves slowly, use the pause to check information and adjust one part of the plan."
+          },
+          "steady": {
+            "th": "วันนั้นชวนให้รักษาจังหวะที่พอดีกับตัวเอง สิ่งเรียบง่ายที่ทำได้ต่อเนื่องอาจมีความหมายกว่าการเร่งให้ทุกเรื่องเห็นผลทันที",
+            "en": "The reading for this day invites a sustainable pace. A simple action you can maintain may matter more than pressing every issue for an immediate result."
+          }
+        },
+        "advice": {
+          "balanced": {
+            "watch": {
+              "th": "การรับหลายเรื่องพร้อมกันอาจทำให้มองไม่เห็นสิ่งที่สำคัญจริง ๆ",
+              "en": "Taking on too much at once can obscure what matters most."
+            },
+            "plan": {
+              "th": "ถ้ามีเรื่องใหม่เข้ามา ให้จดไว้ก่อน แล้วกลับมาทำสิ่งสำคัญหนึ่งอย่างให้จบ",
+              "en": "If a new demand arrives, note it down and return to finishing one priority."
+            }
+          },
+          "preparation": {
+            "watch": {
+              "th": "การวางแผนแน่นเกินไปอาจทำให้เรื่องเล็กที่เปลี่ยนกลายเป็นความกดดัน",
+              "en": "An overfilled plan can make a small change feel disproportionately difficult."
+            },
+            "plan": {
+              "th": "ถ้าแผนสะดุด ให้เลือกงานที่จำเป็นที่สุดหนึ่งชิ้น และเลื่อนสิ่งที่รอได้",
+              "en": "If the plan is disrupted, choose the one essential task and move what can wait."
+            }
+          },
+          "confidence": {
+            "watch": {
+              "th": "ความรู้สึกไม่พร้อมไม่จำเป็นต้องแปลว่าคุณทำขั้นแรกไม่ได้",
+              "en": "Feeling unready does not necessarily mean you cannot take the first step."
+            },
+            "plan": {
+              "th": "ถ้าลังเล ให้ย่อสิ่งที่ต้องทำเป็นขั้นที่ใช้เวลา 5 นาที แล้วเริ่มจากตรงนั้น",
+              "en": "If you hesitate, shrink the task to a five-minute step and start there."
+            }
+          },
+          "communication": {
+            "watch": {
+              "th": "คำตอบสั้น ๆ อาจมีหลายเหตุผล ควรถามเพิ่มก่อนสรุปเจตนา",
+              "en": "A brief reply can have several explanations; ask before deciding what it means."
+            },
+            "plan": {
+              "th": "ถ้าไม่แน่ใจว่าเข้าใจตรงกัน ให้สรุปสิ่งที่ได้ยินแล้วถามว่าเข้าใจถูกไหม",
+              "en": "If the meaning is unclear, summarise what you heard and ask whether you understood correctly."
+            }
+          }
+        }
+      },
+      {
+        "id": "interview",
+        "title": {
+          "th": "สัมภาษณ์งาน",
+          "en": "Job interview"
+        },
+        "goal": {
+          "th": "เล่าให้เห็นว่าคุณทำอะไรได้ และเก็บข้อมูลว่างานนี้เหมาะกับคุณหรือไม่",
+          "en": "Show what you can contribute and learn whether the role is a good fit for you."
+        },
+        "outlooks": {
+          "opening": {
+            "th": "ในเรื่องสัมภาษณ์ ธีมเริ่มต้นชวนให้เปิดบทสนทนาด้วยตัวอย่างที่ชัดหนึ่งเรื่อง โอกาสในวันนั้นอยู่ที่การทำให้อีกฝ่ายเห็นวิธีคิดของคุณ และการได้รู้จักงานมากขึ้น",
+            "en": "For an interview, the opening theme invites one clear example to start the conversation. The opportunity on this day is to make your thinking visible and learn more about the role."
+          },
+          "growing": {
+            "th": "ในเรื่องสัมภาษณ์ ธีมเติบโตชวนให้ต่อยอดจากประสบการณ์ที่มี เล่าทั้งสิ่งที่คุณลงมือทำ ผลที่เกิดขึ้น และสิ่งที่เรียนรู้ เพื่อให้การสนทนามีน้ำหนักจากเรื่องจริง",
+            "en": "For an interview, the growth theme invites you to build on your experience. Describe your actions, their results and what you learned so the conversation rests on concrete examples."
+          },
+          "review": {
+            "th": "ในเรื่องสัมภาษณ์ ธีมทบทวนชวนให้ฟังคำถามจนจบและถามกลับเมื่อโจทย์ไม่ชัด การหยุดคิดสั้น ๆ เป็นพื้นที่ให้เรียบเรียงคำตอบ ไม่ใช่สัญญาณว่าคุณเสียโอกาสแล้ว",
+            "en": "For an interview, the review theme invites careful listening and clarification. A short thinking pause gives you room to organise an answer; it does not mean the opportunity is lost."
+          },
+          "steady": {
+            "th": "ในเรื่องสัมภาษณ์ ธีมประคองชวนให้ใช้จังหวะที่เป็นธรรมชาติ พูดถึงสิ่งที่ทำได้จริง และเปิดพื้นที่คุยเรื่องความคาดหวังของทั้งสองฝ่าย โดยไม่ต้องรับปากเกินกำลัง",
+            "en": "For an interview, the steady theme invites a natural pace. Explain what you can deliver and discuss expectations on both sides without overpromising."
+          }
+        },
+        "advice": {
+          "balanced": {
+            "watch": {
+              "th": "สีหน้าหรือคำถามยากของผู้สัมภาษณ์เพียงครั้งเดียว ยังบอกผลการสมัครไม่ได้",
+              "en": "One expression or difficult question from an interviewer cannot tell you the hiring outcome."
+            },
+            "plan": {
+              "th": "ถ้าเจอคำถามที่ไม่คาดไว้ ให้ขอเวลาคิดสั้น ๆ แล้วตอบด้วยตัวอย่างที่เกี่ยวข้องที่สุด",
+              "en": "If an unexpected question comes up, ask for a brief moment to think, then use your most relevant example."
+            }
+          },
+          "preparation": {
+            "watch": {
+              "th": "การท่องคำตอบทุกคำอาจทำให้ปรับยากเมื่อคำถามเปลี่ยน",
+              "en": "Memorising every word can make it harder to adapt when a question changes."
+            },
+            "plan": {
+              "th": "ถ้าถูกถามถึงประสบการณ์ ให้เลือกหนึ่งในสองตัวอย่างที่เตรียมไว้ แล้วเล่าสถานการณ์ สิ่งที่ทำ และผลที่เกิดขึ้น",
+              "en": "If asked about your experience, choose one of two prepared examples and explain the situation, your action and the result."
+            }
+          },
+          "confidence": {
+            "watch": {
+              "th": "การตื่นเต้นไม่ได้บอกว่าคุณขาดความสามารถ และไม่จำเป็นต้องตอบอย่างสมบูรณ์แบบทุกข้อ",
+              "en": "Feeling nervous does not establish a lack of ability, and every answer need not be perfect."
+            },
+            "plan": {
+              "th": "ถ้าเริ่มพูดเร็วเพราะตื่นเต้น ให้เว้นจังหวะ หายใจตามปกติ แล้วค่อยเล่าประเด็นหลักหนึ่งข้อ",
+              "en": "If nerves make you rush, pause for a comfortable breath and restart with one main point."
+            }
+          },
+          "communication": {
+            "watch": {
+              "th": "คำตอบยาวอาจทำให้จุดเด่นของคุณหายไป ลองเชื่อมแต่ละตัวอย่างกับสิ่งที่งานต้องการ",
+              "en": "A long answer can bury your strengths. Connect each example to something the role requires."
+            },
+            "plan": {
+              "th": "ถ้าคำถามกว้าง ให้ถามว่าอยากฟังด้านใดเป็นพิเศษ แล้วตอบประเด็นนั้นก่อน",
+              "en": "If a question is broad, ask which aspect they would like to hear about and address that first."
+            }
+          }
+        }
+      },
+      {
+        "id": "date",
+        "title": {
+          "th": "นัดเดต / พบคนที่สนใจ",
+          "en": "A date / meeting someone"
+        },
+        "goal": {
+          "th": "รู้จักกันเพิ่มขึ้น และสังเกตว่าคุณรู้สึกสบายใจ เป็นตัวเอง และได้รับความเคารพหรือไม่",
+          "en": "Get to know each other and notice whether you feel comfortable, yourself and respected."
+        },
+        "outlooks": {
+          "opening": {
+            "th": "ในเรื่องนัดเดต ธีมเริ่มต้นชวนให้พบกันด้วยความอยากรู้จัก ลองเปิดพื้นที่ให้เรื่องเล่าธรรมดา ๆ โดยยังไม่ต้องหาคำตอบทันทีว่าความสัมพันธ์จะไปถึงไหน",
+            "en": "For a date, the opening theme invites curiosity. Make room for ordinary stories without needing to decide immediately where the connection will lead."
+          },
+          "growing": {
+            "th": "ในเรื่องนัดเดต ธีมเติบโตชวนให้ต่อบทสนทนาจากสิ่งที่อีกฝ่ายแบ่งปัน ความใส่ใจเล็ก ๆ และการมีพื้นที่ให้ทั้งสองคนพูด อาจช่วยให้เห็นความเข้ากันได้ชัดขึ้น",
+            "en": "For a date, the growth theme invites you to build on what the other person shares. Small acts of attention and room for both voices may make compatibility clearer."
+          },
+          "review": {
+            "th": "ในเรื่องนัดเดต ธีมทบทวนชวนให้ดูทั้งคำพูด การกระทำ และความรู้สึกของคุณเอง หากมีเรื่องไม่ชัด ค่อยถามอย่างตรงไปตรงมาโดยไม่ต้องรีบตีความแทนอีกฝ่าย",
+            "en": "For a date, the review theme invites attention to words, actions and your own comfort. Ask about uncertainty directly rather than deciding what the other person must mean."
+          },
+          "steady": {
+            "th": "ในเรื่องนัดเดต ธีมประคองชวนให้ปล่อยความสัมพันธ์เดินในจังหวะที่ทั้งคู่สบายใจ ช่วงเงียบสั้น ๆ ไม่จำเป็นต้องเป็นปัญหา และคุณไม่ต้องพยายามสร้างความประทับใจตลอดเวลา",
+            "en": "For a date, the steady theme invites a pace that feels comfortable to both people. A brief silence need not be a problem, and you need not perform throughout the meeting."
+          }
+        },
+        "advice": {
+          "balanced": {
+            "watch": {
+              "th": "ความประทับใจแรกหรือการตอบข้อความช้าเพียงครั้งเดียว ยังไม่พอจะสรุปใจของอีกฝ่าย",
+              "en": "A first impression or one delayed message is not enough to determine another person’s feelings."
+            },
+            "plan": {
+              "th": "ถ้าอยากรู้จักต่อ ให้บอกอย่างเรียบง่ายว่าคุณสนุกกับการเจอกัน แล้วถามว่าอีกฝ่ายอยากนัดอีกไหม",
+              "en": "If you would like to meet again, simply say you enjoyed the meeting and ask whether they would like another date."
+            }
+          },
+          "preparation": {
+            "watch": {
+              "th": "การวางบทสนทนาไว้ทุกช่วงอาจทำให้คุณมัวแต่จำแผนจนไม่ได้ฟัง",
+              "en": "Planning every part of the conversation can distract you from listening."
+            },
+            "plan": {
+              "th": "ถ้าไม่รู้จะเริ่มคุยอะไร ให้ถามถึงเรื่องเล็กที่อีกฝ่ายชอบช่วงนี้ แล้วแบ่งปันเรื่องของคุณด้วย",
+              "en": "If you are unsure how to start, ask about something they have enjoyed lately and share something of your own."
+            }
+          },
+          "confidence": {
+            "watch": {
+              "th": "คุณไม่จำเป็นต้องเห็นด้วยทุกเรื่องเพื่อให้เป็นที่ชอบ สังเกตด้วยว่าคุณได้เป็นตัวเองหรือไม่",
+              "en": "You do not need to agree with everything to be liked. Notice whether there is room to be yourself."
+            },
+            "plan": {
+              "th": "ถ้าเริ่มกังวลว่าจะพูดถูกใจไหม ให้กลับมาฟังสิ่งที่อีกฝ่ายพูด แล้วตอบจากความรู้สึกจริงอย่างสุภาพ",
+              "en": "If you start worrying about saying the right thing, return to listening and respond honestly and kindly."
+            }
+          },
+          "communication": {
+            "watch": {
+              "th": "การเดาใจหรือฝืนตอบเรื่องที่ยังไม่พร้อม อาจทำให้คุณละเลยขอบเขตของตัวเอง",
+              "en": "Guessing feelings or answering something before you are ready can pull you away from your own boundaries."
+            },
+            "plan": {
+              "th": "ถ้าหัวข้อไหนทำให้ไม่สบายใจ ให้บอกว่าอยากคุยเรื่องนั้นเมื่อพร้อม แล้วเสนอหัวข้ออื่น",
+              "en": "If a topic feels uncomfortable, say you would prefer to discuss it when ready and suggest another topic."
+            }
+          }
+        }
+      }
+    ],
+    "weekly": {
+      "opening": {
+        "title": {
+          "th": "เปิดพื้นที่ให้สิ่งใหม่",
+          "en": "Make room for something new"
+        },
+        "goal": {
+          "th": "เลือกโอกาสหนึ่งอย่างที่อยากลองในช่วงวันที่แสดง",
+          "en": "Choose one opportunity to explore during the dates shown."
+        },
+        "watch": {
+          "th": "ความอยากเริ่มหลายอย่างอาจทำให้ไม่มีเวลาสำหรับเรื่องที่สำคัญจริง ๆ",
+          "en": "Starting several things at once can leave little time for the one that matters."
+        },
+        "plan": {
+          "th": "ถ้ามีโอกาสใหม่เข้ามา ให้เลือกขั้นทดลองเล็ก ๆ ที่ทำได้ แล้วค่อยทบทวนว่าจะไปต่อไหม",
+          "en": "If a new opportunity appears, choose a small trial step and then review whether to continue."
+        }
+      },
+      "growing": {
+        "title": {
+          "th": "ต่อยอดสิ่งที่กำลังเดินหน้า",
+          "en": "Build on existing progress"
+        },
+        "goal": {
+          "th": "เลือกสิ่งที่เริ่มได้ผลหนึ่งเรื่อง และให้เวลามันอย่างสม่ำเสมอ",
+          "en": "Choose one thing that is beginning to work and give it regular attention."
+        },
+        "watch": {
+          "th": "การตอบรับทุกโอกาสอาจเบียดเวลาของสิ่งที่กำลังไปได้ดี",
+          "en": "Saying yes to every opportunity can crowd out what is already going well."
+        },
+        "plan": {
+          "th": "ถ้ามีงานเพิ่มเข้ามา ให้ตรวจเวลาที่เหลือก่อนรับปาก และรักษาเวลาของเป้าหมายหลักไว้",
+          "en": "If more work arrives, check your available time before agreeing and protect time for your main goal."
+        }
+      },
+      "review": {
+        "title": {
+          "th": "ปรับหนึ่งจุดให้ชัดขึ้น",
+          "en": "Make one useful adjustment"
+        },
+        "goal": {
+          "th": "เลือกเรื่องค้างที่ต้องการความชัดเจน แล้วหาข้อมูลเพิ่มหนึ่งอย่าง",
+          "en": "Choose one unresolved matter and find one piece of information that would clarify it."
+        },
+        "watch": {
+          "th": "ความล่าช้าอาจทำให้อยากสรุปเร็ว ทั้งที่ข้อมูลยังไม่ครบ",
+          "en": "A delay can tempt you to settle on an explanation before you have enough information."
+        },
+        "plan": {
+          "th": "ถ้ายังไม่ได้คำตอบ ให้จดสิ่งที่รู้กับสิ่งที่ยังไม่รู้ แล้วถามผู้เกี่ยวข้องให้ตรงประเด็น",
+          "en": "If an answer is missing, separate what you know from what you do not and ask the relevant person a clear question."
+        }
+      },
+      "steady": {
+        "title": {
+          "th": "รักษาจังหวะที่พอดี",
+          "en": "Keep a sustainable rhythm"
+        },
+        "goal": {
+          "th": "ดูแลเรื่องสำคัญหนึ่งอย่าง พร้อมเว้นเวลาพักให้ตัวเอง",
+          "en": "Care for one priority while leaving yourself time to rest."
+        },
+        "watch": {
+          "th": "การเทียบจังหวะตัวเองกับคนอื่นอาจทำให้เร่งเกินกำลัง",
+          "en": "Comparing your pace with other people’s can push you beyond a sustainable workload."
+        },
+        "plan": {
+          "th": "ถ้าเริ่มรู้สึกว่าทุกอย่างเร่งด่วน ให้เลือกสิ่งจำเป็นหนึ่งเรื่อง และกำหนดเวลาพักไว้ด้วย",
+          "en": "If everything starts to feel urgent, choose one essential task and schedule a pause as well."
+        }
+      }
+    }
+  }
+}

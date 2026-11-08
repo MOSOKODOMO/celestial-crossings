@@ -1,0 +1,16 @@
+{
+  "name": "celestial-crossings-local-demo",
+  "version": "0.3.0",
+  "private": true,
+  "description": "Bilingual Thai oracle reading website with private browser-side readings",
+  "scripts": {
+    "build": "node scripts/build-demo.cjs",
+    "start": "node server.cjs",
+    "test": "node --test tests/engine.test.cjs",
+    "qa": "node scripts/run-qa.cjs",
+    "check": "node --test tests/engine.test.cjs && node scripts/run-qa.cjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.65.0"
+  }
+}
