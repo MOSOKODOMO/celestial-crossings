@@ -23,3 +23,42 @@ footer{background:var(--soft);display:flex;align-items:center;justify-content:sp
 @media(prefers-reduced-motion:no-preference){.reading-cover.just-read{animation:read-in .4s ease-out}@keyframes read-in{from{transform:translateY(8px);opacity:.4}to{transform:translateY(0);opacity:1}}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 @media print{body{background:white}body:before,.site-header,.hero,.profile-panel,.result-actions,.method-details,footer,.reading-status,.reading-disclaimer,.skip-link{display:none!important}.reading-column{margin:0;padding:0;max-width:none}.reading-cover{background:white;break-inside:avoid}.domain-grid{display:block}.domain-section,.nuance-panel,.guidance-panel{break-inside:avoid}.result-period{display:block;font-size:14px;margin-bottom:15px}#library-page,#plan-page,dialog{display:none!important}}
+
+/* Direct birthday entry keeps decades of calendar navigation out of the form. */
+.skip-link:not(:focus){clip-path:inset(50%)}
+.birth-date-group{border:0;padding:0;margin:0;min-width:0}
+.birth-date-group legend{padding:0;margin-bottom:10px;font-size:16px}
+.birth-date-parts{display:grid;grid-template-columns:70px minmax(110px,1fr) 108px;gap:10px}
+.birth-date-parts label{min-width:0;font-size:12px;color:var(--muted);gap:5px}
+.birth-date-parts input,.birth-date-parts select{width:100%;min-width:0;padding:13px 10px;font-size:16px}
+.birth-era{display:flex;flex-direction:row;align-items:center;gap:10px;margin-top:12px;font-size:12px;color:var(--muted)}
+.birth-era select{width:auto;min-height:44px;padding:6px 28px 6px 10px;font-size:12px;background:transparent}
+.birth-date-group>small{display:block;font-size:12px;color:var(--muted);margin-top:6px}
+.birth-date-group .birth-date-error{color:var(--danger)}
+.birth-date-parts [aria-invalid=true]{border-color:var(--danger)}
+#birth-date-confirm:empty{display:none}
+.future-teaser{text-align:center;font-size:13px;color:var(--plum);margin:24px 0 0}
+.future-story{margin-top:30px;padding:34px;border:1px solid #deccbb;border-radius:22px;background:linear-gradient(135deg,#fcf6ed,#faf4f8)}
+.future-story>h2{color:var(--plum);font-size:29px;font-weight:600;letter-spacing:-.025em;line-height:1.5;margin:6px 0 16px}
+.future-intro{font-size:15px;line-height:1.9;max-width:720px}
+.future-note{font-size:12px;color:#715d68;line-height:1.8;margin-top:14px;max-width:710px}
+.future-timeline{list-style:none;padding:0;margin:30px 0 0}
+.future-timeline li{display:grid;grid-template-columns:145px minmax(0,1fr);position:relative;gap:20px;padding:0 0 30px 26px;border-left:1px solid #cab7bd;margin-left:5px}
+.future-timeline li:before{content:'';position:absolute;top:7px;left:-5px;width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px #fcf6ed}
+.future-timeline li:last-child{padding-bottom:0;border-left-color:transparent}
+.future-age{font-size:13px;font-weight:600;color:var(--plum);line-height:1.9}
+.future-theme{color:#7f5f45;font-size:11px;margin-bottom:6px}
+.future-chapter h3{font-size:19px;font-weight:600;line-height:1.6;margin-bottom:8px;color:var(--plum)}
+.future-chapter>p:last-child{font-size:14px;line-height:1.95}
+@media(max-width:900px){.birth-date-parts{grid-template-columns:60px minmax(90px,1fr) 100px;gap:8px}}
+@media(max-width:650px){
+  .birth-date-group{grid-column:1/-1}.birth-date-group legend{font-size:14px}
+  .birth-date-parts{grid-template-columns:54px minmax(82px,1fr) 88px;gap:8px}
+  .birth-date-parts input,.birth-date-parts select{padding:11px 8px}
+  .birth-date-group>small{font-size:11px}.future-teaser{font-size:12px;line-height:1.8}
+  .future-story{padding:24px 20px;border-radius:14px}.future-story>h2{font-size:24px}
+  .future-intro{font-size:14px}.future-note{font-size:11px}
+  .future-timeline li{grid-template-columns:1fr;gap:8px;padding-left:20px;padding-bottom:27px}
+  .future-age{font-size:12px}.future-chapter h3{font-size:18px}
+}
+@media print{.future-story{background:white;padding:24px 0;border:0}.future-timeline li{break-inside:avoid}.future-note{color:#333}}

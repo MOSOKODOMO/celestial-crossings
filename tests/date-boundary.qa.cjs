@@ -17,7 +17,7 @@ const assert=require('node:assert/strict');
     await page.locator('[name=readingMode][value=day]').check();
     assert.equal(await field.inputValue(),'2026-11-04');
     assert.equal(await field.getAttribute('min'),'2026-11-04');
-    assert.equal(await page.locator('[name=birthDate]').getAttribute('max'),'2026-11-04');
+    assert.equal(await page.locator('[name=birthDate]').inputValue(),'1995-06-12');
     const previous=await page.locator('#reading-result').textContent();
     await field.fill('2026-11-03');
     assert.equal(await field.evaluate(input=>input.validity.rangeUnderflow),true);

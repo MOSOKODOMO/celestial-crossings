@@ -35,7 +35,19 @@
           <p id="example-notice" class="example-notice" data-i18n="exampleLabel" hidden>ข้อมูลตัวอย่าง · แก้ไขได้</p>
           <form id="birth-form" autocomplete="off">
             <div class="birth-fields">
-              <label><span data-i18n="birthDate">วันเกิด</span><input name="birthDate" type="date" required aria-describedby="calendar-hint birth-date-confirm"><small id="calendar-hint" data-i18n="calendarHint">ใช้ปีคริสต์ศักราช (ค.ศ.)</small><small id="birth-date-confirm" aria-live="polite"></small></label>
+              <fieldset class="birth-date-group" aria-describedby="calendar-hint birth-date-confirm birth-date-error">
+                <legend data-i18n="birthDate">วันเกิด</legend>
+                <div class="birth-date-parts">
+                  <label><span data-i18n="birthDay">วัน</span><input name="birthDay" type="text" inputmode="numeric" pattern="[0-9]{1,2}" maxlength="2" placeholder="DD" required autocomplete="bday-day"></label>
+                  <label><span data-i18n="birthMonth">เดือน</span><select name="birthMonth" required autocomplete="bday-month"></select></label>
+                  <label><span id="birth-year-label">ปี (ค.ศ.)</span><input name="birthYear" type="text" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="1995" required autocomplete="bday-year" aria-describedby="calendar-hint birth-date-error"></label>
+                </div>
+                <label class="birth-era"><span data-i18n="yearFormat">รูปแบบปี</span><select name="birthEra"><option value="ce" data-i18n="commonEra">ค.ศ.</option><option value="be" data-i18n="buddhistEra">พ.ศ.</option></select></label>
+                <small id="calendar-hint" data-i18n="calendarHint">พิมพ์วันและปีเกิดได้เลย ไม่ต้องเลื่อนปฏิทิน</small>
+                <small id="birth-date-error" class="birth-date-error" aria-live="polite" hidden></small>
+                <small id="birth-date-confirm" aria-live="polite"></small>
+                <input name="birthDate" type="hidden">
+              </fieldset>
               <label><span data-i18n="timeMode">เวลาเกิด</span><select name="timeMode"><option value="unknown" selected data-i18n="unknown">ไม่ทราบเวลา</option><option value="exact" data-i18n="exact">ทราบเวลา</option><option value="approximate" data-i18n="approximate">ทราบเพียงช่วงเวลา</option></select></label>
               <label id="exact-time-field" hidden><span data-i18n="birthTime">เวลาเกิดตามนาฬิกาท้องถิ่น</span><input name="birthTime" type="time" disabled></label>
               <label id="approximate-time-field" hidden><span data-i18n="timeWindow">ช่วงเวลาโดยประมาณ</span><select name="timeWindow" disabled><option value="0">00:00–03:59</option><option value="1">04:00–07:59</option><option value="2">08:00–11:59</option><option value="3">12:00–15:59</option><option value="4">16:00–19:59</option><option value="5">20:00–23:59</option></select></label>
@@ -53,6 +65,7 @@
             <label class="reading-date-field" id="reading-date-field" hidden><span id="reading-date-label">วันที่อยากดูคำทำนาย</span><input name="readingDate" type="date" disabled aria-describedby="date-limit-hint reading-date-confirm"><small id="date-limit-hint" data-i18n="dateLimitHint">เลือกได้ตั้งแต่วันนี้เป็นต้นไป</small><small id="reading-date-confirm"></small></label>
             <p id="period-note" class="field-note period-note"></p>
             <div id="day-context" class="day-context" hidden><label><span data-i18n="occasionLabel">วันนั้นมีเรื่องอะไรในใจ?</span><select name="occasion"></select></label><label><span data-i18n="supportLabel">อยากได้คำแนะนำด้านไหนเป็นพิเศษ?</span><select name="support"></select></label><p class="field-note" data-i18n="contextHint">เลือกได้ตามใจ เพื่อปรับคำแนะนำให้เข้ากับสิ่งที่คุณกำลังเตรียมตัว</p></div>
+            <p class="future-teaser" data-i18n="futureTeaser">พร้อมเรื่องราวอนาคตของคุณ · ครอบครัว งาน และความฝันเรื่องเงิน</p>
             <div class="submit-area"><button class="primary-button" id="read-button" type="submit"><span data-i18n="readButton">อ่านคำทำนาย</span><span aria-hidden="true">›</span></button><p data-i18n="freeNoSignup">ฟรี · ไม่ต้องสมัครสมาชิก</p></div>
             <p class="form-error" id="form-error" role="alert" hidden></p>
           </form>

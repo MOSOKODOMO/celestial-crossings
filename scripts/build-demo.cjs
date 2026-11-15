@@ -22,5 +22,6 @@ fs.cpSync(path.join(project,'assets','web'),path.join(project,'dist','assets'),{
 fs.writeFileSync(path.join(project,'dist','.nojekyll'),'');
 fs.writeFileSync(path.join(project,'dist','data.js'),'globalThis.FortuneLibrary = '+JSON.stringify(lib)+';\n');
 fs.writeFileSync(path.join(project,'dist','fortune-library.json'),JSON.stringify(lib,null,2)+'\n');
-fs.writeFileSync(path.join(project,'dist','fortune-library-th-en.html'),html.replace('</main>',guidanceSections+'</main>'));
+const futureSections=`<section class="bank"><h2>เรื่องราวอนาคต / Imagined future chapters</h2>${pair({th:'ขอบเขตของเรื่องเล่า',en:'About these stories'},lib.futureStories.note)}${pair({th:'เปิดเรื่อง',en:'The opening'},lib.futureStories.intro)}${Object.values(lib.futureStories.chapters).flat().map(record=>`<article><p class="id">${esc(record.id)}</p>${paragraphs(record)}</article>`).join('')}</section>`;
+fs.writeFileSync(path.join(project,'dist','fortune-library-th-en.html'),html.replace('</main>',guidanceSections+futureSections+'</main>'));
 console.log(`Built ${lib.cores.length} core fortunes, ${Object.values(lib.domains).flat().length} topic passages and ${lib.weekdays.length+lib.timeBands.length} modifiers.`);

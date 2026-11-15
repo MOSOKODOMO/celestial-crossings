@@ -2328,5 +2328,171 @@
         }
       }
     }
+  },
+  "futureStories": {
+    "version": "future-th-en-001",
+    "intro": {
+      "th": "ลองเปิดหน้าถัดไปของชีวิต ในเรื่องเล่านี้ สิ่งเล็ก ๆ ที่คุณเริ่มวันนี้อาจค่อย ๆ พาไปสู่บ้านที่อบอุ่น งานที่เป็นตัวเอง และอิสระที่จะเลือกทางเดิน ลองนึกภาพว่าบทต่อไปจะเป็นอย่างไร",
+      "en": "Imagine turning a few pages ahead. In this story, something small you begin today slowly leads to a place to belong, work that feels like yours, and more freedom to choose. Here is how those chapters might unfold."
+    },
+    "note": {
+      "th": "เรื่องเล่าสมมติเพื่อความบันเทิง ช่วงอายุเป็นส่วนหนึ่งของเรื่อง ไม่ใช่คำยืนยันเรื่องการมีลูก ความมั่งคั่ง หรือเหตุการณ์ในชีวิต คุณเป็นคนเลือกเส้นทางของตัวเอง",
+      "en": "An imagined fortune for entertainment. Ages are storytelling prompts, not predictions of children, wealth, or life events. Your choices shape your path."
+    },
+    "chapters": {
+      "career": [
+        {
+          "id": "FC01",
+          "title": {
+            "th": "ประตูที่เปิดจากความสามารถ",
+            "en": "The door your talent opens"
+          },
+          "text": {
+            "th": "วันหนึ่ง คนที่เคยเห็นผลงานเล็ก ๆ ของคุณอาจกลับมาพร้อมคำชวนที่คาดไม่ถึง งานอดิเรกหรือสิ่งที่คุณฝึกเงียบ ๆ อาจกลายเป็นบทบาทใหม่ที่ทำให้คุณกล้าบอกว่า “นี่แหละทางของฉัน” เรื่องเริ่มจากการยอมให้ใครสักคนเห็นสิ่งที่คุณทำได้",
+            "en": "Someone who once noticed a small piece of your work could return with an unexpected invitation. A quiet hobby or well-practised skill might become a role you are proud to call your own. This chapter begins when you let someone see what you can do."
+          }
+        },
+        {
+          "id": "FC02",
+          "title": {
+            "th": "ชื่อของคุณบนสิ่งที่สร้าง",
+            "en": "Something with your name on it"
+          },
+          "text": {
+            "th": "ในบทนี้ คุณอาจเริ่มโครงการเล็ก ๆ กับคนที่ไว้ใจ จากโต๊ะทำงานธรรมดาไปสู่ผลงานที่มีคนบอกต่อ ความสำเร็จอาจไม่ได้มาในครั้งแรก แต่วันหนึ่งคุณจะมองสิ่งที่สร้างแล้วนึกออกว่ามันเริ่มจากความกล้าเพียงนิดเดียว",
+            "en": "You might start a small project with someone you trust. A simple desk could become the starting point of work that people recommend to each other. The first attempt may be imperfect; later, you could look at what you built and remember the tiny act of courage that began it."
+          }
+        },
+        {
+          "id": "FC03",
+          "title": {
+            "th": "โอกาสจากที่ที่ไม่คุ้นเคย",
+            "en": "An invitation beyond the familiar"
+          },
+          "text": {
+            "th": "บทสนทนากับคนต่างวงการอาจพาคุณออกจากเส้นทางเดิม คุณอาจได้ใช้ความสามารถในเมืองใหม่ ทีมใหม่ หรือบทบาทที่ไม่เคยคิดถึง ภาพในบทนี้คือคุณกำลังเปิดประตูด้วยความตื่นเต้น และพบว่าประสบการณ์ที่ผ่านมาไม่ได้สูญเปล่า",
+            "en": "A conversation with someone outside your usual circle could lead you into a new city, team, or role. Imagine opening that door with a mix of nerves and excitement, then discovering that the experience you already have belongs there too."
+          }
+        }
+      ],
+      "family": [
+        {
+          "id": "FF01",
+          "title": {
+            "th": "เสียงหัวเราะในบ้าน",
+            "en": "A home full of laughter"
+          },
+          "text": {
+            "th": "ถ้าการมีลูกเป็นความฝันของคุณ บทนี้ลองวาดภาพช่วงที่คุณอาจได้ต้อนรับเด็กคนหนึ่งเข้ามาในชีวิต มีทั้งนิทานก่อนนอนและเสียงหัวเราะจากเรื่องเล็ก ๆ หากคุณเลือกชีวิตอีกแบบ บ้านนี้ก็อาจอบอุ่นด้วยคู่ชีวิต เพื่อน หรือครอบครัวที่คุณเลือกเอง",
+            "en": "If becoming a parent is a dream of yours, this chapter imagines a time when you might welcome a child into your life: bedtime stories, tiny discoveries, and laughter over ordinary things. If you choose a different path, that same warmth could come from a partner, close friends, or your chosen family."
+          }
+        },
+        {
+          "id": "FF02",
+          "title": {
+            "th": "ที่นั่งเพิ่มอีกหนึ่งที่",
+            "en": "One more place at the table"
+          },
+          "text": {
+            "th": "ลองนึกถึงโต๊ะอาหารที่มีที่นั่งเพิ่มขึ้น หากคุณอยากมีลูก เรื่องราวนี้อาจเป็นบทเริ่มต้นของการเลี้ยงดูเด็กคนหนึ่ง หรืออาจเป็นการเปิดบ้านรับคนที่คุณรักในรูปแบบอื่น ความหมายของบทนี้อยู่ที่ความผูกพัน ไม่ได้ขึ้นอยู่กับว่าครอบครัวต้องมีหน้าตาแบบไหน",
+            "en": "Picture one more place at your table. If you want children, this could be the imagined beginning of raising a child. It could also mean making room for someone you love in another way. The heart of this chapter is belonging, whatever shape your family takes."
+          }
+        },
+        {
+          "id": "FF03",
+          "title": {
+            "th": "ชีวิตประจำวันที่กลายเป็นความทรงจำ",
+            "en": "Ordinary days, lasting memories"
+          },
+          "text": {
+            "th": "เรื่องเล่าพาคุณไปถึงบ้านที่คุณอยากกลับในตอนเย็น ถ้าคุณเลือกเส้นทางการมีลูก อาจมีเด็กคนหนึ่งรอฟังเรื่องราวของคุณอยู่ หรืออาจเป็นคู่ชีวิตและเพื่อนสนิทที่แบ่งปันมื้ออาหาร ช่วงเวลาธรรมดาเหล่านี้อาจกลายเป็นความทรงจำที่คุณรักที่สุด",
+            "en": "The story brings you to a home you look forward to returning to. If you choose parenthood, there might be a child waiting to hear about your day; another version holds a partner and dear friends sharing dinner. These ordinary evenings could become your favourite memories."
+          }
+        }
+      ],
+      "connection": [
+        {
+          "id": "FN01",
+          "title": {
+            "th": "คนรุ่นใหม่ที่มีคุณเป็นแรงใจ",
+            "en": "Someone finds courage in you"
+          },
+          "text": {
+            "th": "คนที่อายุน้อยกว่าอาจเข้ามาขอคำแนะนำ และค่อย ๆ กลายเป็นคนสำคัญในชีวิตคุณ อาจเป็นคนในครอบครัว เพื่อน หรือคนที่คุณช่วยสอน เรื่องเล่าวาดภาพโต๊ะอาหารที่มีเรื่องใหม่ให้ฟัง และความรู้สึกว่าคุณยังมีสิ่งดี ๆ ให้แบ่งปันอีกมาก",
+            "en": "A younger person might ask for your guidance and gradually become an important part of your life: a relative, friend, or someone you mentor. Imagine a table with new stories to hear, and the feeling that you still have so much to share."
+          }
+        },
+        {
+          "id": "FN02",
+          "title": {
+            "th": "บ้านที่รวมคนที่รัก",
+            "en": "A place for your people"
+          },
+          "text": {
+            "th": "คุณอาจได้เป็นคนชวนทุกคนกลับมาพบกันอีกครั้ง การรวมตัวเล็ก ๆ อาจกลายเป็นธรรมเนียมที่คนรอคอย ไม่ว่าจะเป็นญาติ เพื่อน หรือครอบครัวที่เลือกเอง ความอบอุ่นในบทนี้มาจากการมีที่ให้กันเสมอ",
+            "en": "You could become the person who brings everyone together again. A small gathering might grow into a tradition people look forward to. Relatives, friends, or chosen family: the warmth in this chapter comes from making room for each other."
+          }
+        }
+      ],
+      "wealth": [
+        {
+          "id": "FW01",
+          "title": {
+            "th": "เงินล้านแรกจากสิ่งเล็ก ๆ",
+            "en": "A small beginning, a million-baht dream"
+          },
+          "text": {
+            "th": "ในภาพฝันของบทนี้ ผลงานที่คุณค่อย ๆ สร้างอาจเติบโตจนพาไปถึงทรัพย์สินหนึ่งล้านบาท วันสำคัญอาจเงียบกว่าที่คิด คุณนั่งดูตัวเลขแล้วนึกถึงจุดเริ่มต้นเล็ก ๆ ความมั่งคั่งในเรื่องไม่ได้มีแค่ตัวเลข แต่รวมถึงเวลาที่เลือกใช้กับคนที่รักได้มากขึ้น",
+            "en": "In this imagined chapter, something you steadily build could grow into your first million baht in assets. The moment might be quieter than expected: you looking at a number and remembering the small beginning behind it. The real luxury in this story is having more time to spend with people you love."
+          }
+        },
+        {
+          "id": "FW02",
+          "title": {
+            "th": "เมื่อความสามารถออกดอกผล",
+            "en": "When your craft bears fruit"
+          },
+          "text": {
+            "th": "เรื่องเล่าจินตนาการถึงวันที่ความสามารถที่เคยมีคนเห็นเพียงไม่กี่คนกลายเป็นงานที่มีคนต้องการ คุณอาจไปถึงหลักล้านบาทจากสิ่งที่สร้างมาหลายปี ภาพปลายทางคือพื้นที่หายใจที่กว้างขึ้น และโอกาสเลือกทำสิ่งที่มีความหมายกับคุณ",
+            "en": "Imagine a day when a skill once noticed by only a few people becomes work others seek out. In this version of the story, years of making something worthwhile could lead to a million-baht milestone. The scene ends with more breathing room and a chance to choose work that matters to you."
+          }
+        },
+        {
+          "id": "FW03",
+          "title": {
+            "th": "ความสำเร็จที่แบ่งปันได้",
+            "en": "Success with room to share"
+          },
+          "text": {
+            "th": "ในเรื่องเล่านี้ โครงการที่เริ่มจากความสนใจอาจกลายเป็นความสำเร็จระดับล้านบาท คุณอาจได้ฉลองด้วยมื้ออาหารธรรมดากับคนที่อยู่ข้างกันตั้งแต่เริ่ม และพบว่าความภูมิใจที่สุดคือการมีพอที่จะดูแลชีวิตตัวเองพร้อมแบ่งปันให้คนอื่น",
+            "en": "In this story, a project that began with curiosity could become a million-baht success. You might celebrate with an ordinary meal beside the people who were there at the start. What stays with you is the feeling of having enough to care for your own life and share something with others."
+          }
+        }
+      ],
+      "legacy": [
+        {
+          "id": "FL01",
+          "title": {
+            "th": "อิสระในแบบของคุณ",
+            "en": "Freedom on your own terms"
+          },
+          "text": {
+            "th": "บทต่อไปอาจเริ่มด้วยเช้าที่คุณไม่ต้องรีบร้อน คุณเลือกออกเดินทาง เรียนสิ่งใหม่ หรือใช้เวลากับคนสำคัญได้มากขึ้น เมื่อมองกลับมา สิ่งที่มีค่าที่สุดอาจเป็นชีวิตที่ค่อย ๆ ออกแบบให้เข้ากับตัวเอง",
+            "en": "A later chapter might open on an unhurried morning. You could choose a journey, a new thing to learn, or more time with someone important. Looking back, the most valuable thing may be a life you gradually shaped to fit you."
+          }
+        },
+        {
+          "id": "FL02",
+          "title": {
+            "th": "เรื่องของคุณเป็นแรงบันดาลใจ",
+            "en": "Your story becomes someone’s beginning"
+          },
+          "text": {
+            "th": "วันหนึ่งอาจมีคนบอกคุณว่า “เพราะเรื่องของคุณ ฉันเลยกล้าลอง” สิ่งที่คุณผ่านมาจึงกลายเป็นของขวัญให้คนอีกคน บทนี้ไม่ได้จบลงที่ความสำเร็จของคุณคนเดียว แต่เปิดทางให้เรื่องราวใหม่เริ่มต้นขึ้น",
+            "en": "One day, someone might tell you, “Your story made me brave enough to try.” What you lived through could become a gift to another person. This chapter does not end with your own success; it leaves a door open for a new story to begin."
+          }
+        }
+      ]
+    }
   }
 }

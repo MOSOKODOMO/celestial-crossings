@@ -43,6 +43,24 @@
   i18n.en.errors.CUSTOM_WEEK_LOCKED='Other weekly readings require a paid unlock. Choose this week or next week.';
   for(const locale of ['th','en'])for(const code of ['INVALID_READING_MODE','INVALID_OCCASION','INVALID_SUPPORT'])i18n[locale].errors[code]=i18n[locale].errors.DEFAULT;
   const esc=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  Object.assign(i18n.th,{
+    birthDay:'วัน',birthMonth:'เดือน',chooseMonth:'เลือกเดือน',yearCE:'ปี (ค.ศ.)',yearBE:'ปี (พ.ศ.)',yearFormat:'รูปแบบปี',commonEra:'ค.ศ.',buddhistEra:'พ.ศ.',
+    calendarHint:'พิมพ์วันและปีเกิดได้เลย ไม่ต้องเลื่อนปฏิทิน',
+    profileIntro:'กรอกวัน เดือน และปีเกิด แล้วเปิดเรื่องราวของคุณ',
+    futureEyebrow:'เรื่องราวที่อาจรออยู่',futureTitle:'บทต่อไปของชีวิตคุณ',futureAges:'ช่วงอายุ',futureYears:'ปี',
+    futureCareer:'งานและเส้นทางใหม่',futureFamily:'ความรักและครอบครัว',futureWealth:'ความฝันเรื่องความมั่งคั่ง',futureLegacy:'อิสระและสิ่งที่ส่งต่อ',
+    futureTeaser:'พร้อมเรื่องราวอนาคตของคุณ · ครอบครัว งาน และความฝันเรื่องเงิน',
+    futureMethod:'เรื่องราวอนาคตเป็นงานเขียนสมมติ เลือกจากวันเกิดและปรับช่วงอายุให้อยู่ข้างหน้า ไม่เปลี่ยนตามสัปดาห์หรือภาษา และไม่ได้คำนวณเหตุการณ์จริงในชีวิต'
+  });
+  Object.assign(i18n.en,{
+    birthDay:'Day',birthMonth:'Month',chooseMonth:'Month',yearCE:'Year (CE)',yearBE:'Year (BE)',yearFormat:'Year format',commonEra:'CE',buddhistEra:'Thai BE',
+    calendarHint:'Type your day and year. No calendar scrolling needed.',
+    profileIntro:'Enter your day, month and birth year to begin your story.',
+    futureEyebrow:'A glimpse of what could be',futureTitle:'Your future, in chapters',futureAges:'Around ages',futureYears:'',
+    futureCareer:'Work & new beginnings',futureFamily:'Love & family',futureWealth:'A dream of prosperity',futureLegacy:'Freedom & legacy',
+    futureTeaser:'Includes your future story · family, work and dreams of prosperity',
+    futureMethod:'Future chapters are fictional passages selected from your birthday, with age windows placed ahead of your current age. They stay consistent across weeks and languages and do not calculate real life events.'
+  });
   const txt=entry=>entry[language];
   const phaseLabel=phase=>lib.phases.find(item=>item.id===phase)?.[language]||'';
   const dateLabel=iso=>new Intl.DateTimeFormat(language==='th'?'th-TH':'en-GB',{day:'numeric',month:'short',year:'numeric',calendar:'gregory',timeZone:'UTC'}).format(engine.parseDate(iso));
@@ -55,6 +73,11 @@
   }
   function domainHTML(domain,item){return `<section class="domain-section"><div class="domain-heading"><h3>${t(domain)}</h3><span class="record-id">${item.id}</span></div><h4 class="domain-title">${esc(txt(item.title))}</h4><p>${esc(txt(item.text))}</p></section>`;}
   function timeInfoLabel(){return reading.timeBand.index===6?t('unknownLabel'):`${txt(reading.timeBand.title)} · ${t(reading.timeMode)}`;}
+  function futureAgeLabel(chapter){return `${t('futureAges')} ${chapter.startAge}–${chapter.endAge}${language==='th'?' ปี':''}`;}
+  function futureStoryHTML(){
+    const story=reading.future;
+    return `<section class="future-story" aria-labelledby="future-title"><p class="eyebrow">${t('futureEyebrow')}</p><h2 id="future-title">${t('futureTitle')}</h2><p class="future-intro">${esc(txt(story.intro))}</p><p class="future-note">${esc(txt(story.note))}</p><ol class="future-timeline">${story.chapters.map(chapter=>`<li data-story-id="${chapter.id}"><div class="future-age">${futureAgeLabel(chapter)}</div><div class="future-chapter"><p class="future-theme">${t('future'+chapter.theme[0].toUpperCase()+chapter.theme.slice(1))}</p><h3>${esc(txt(chapter.title))}</h3><p>${esc(txt(chapter.text))}</p></div></li>`).join('')}</ol></section>`;
+  }
   function renderReading(animate=false){
     if(!reading) return;
     document.getElementById('results').hidden=false;
@@ -65,12 +88,14 @@
     document.getElementById('reading-result').innerHTML=`
       <p class="result-period">${esc(periodLabel(reading))}</p>
       <div class="reading-cover${animate?' just-read':''}"><div class="number-card" aria-label="${t('coreId')} ${core.number}"><span class="card-kicker">CELESTIAL</span><span class="card-number">${String(core.number).padStart(2,'0')}</span><span class="card-bottom">${phaseLabel(core.phase)}<br>${core.id}</span></div><div class="cover-copy"><span class="phase-label">${t('weekTheme')} · ${phaseLabel(core.phase)} · ${esc(txt(core.themeTitle))}</span><h2>${esc(txt(core.title))}</h2><p class="fortune-text">${esc(txt(core.text))}</p><p class="reading-period">${dateLabel(submittedProfile.birthDate)} · ${esc(txt(reading.weekday.title))}<br>${esc(timeInfo)}</p></div></div>
+      ${futureStoryHTML()}
       ${guidanceHTML()}
       <div class="domain-grid">${Object.entries(parts).map(([domain,item])=>domainHTML(domain,item)).join('')}</div>
       <div class="nuance-panel"><h3>${t('nuance')}</h3><p>${esc(txt(reading.weekday.text))}</p>${reading.timeBand.index===6?'':`<p>${esc(txt(reading.timeBand.text))}</p>`}<small>${reading.timeBand.index===6?t('unknownNote'):t('nuanceNote')}</small></div>
       <div class="result-actions"><button class="secondary-button" type="button" id="save-reading">${t('saved')}</button><button class="text-button" type="button" id="print-reading">${t('print')}</button></div>
       <details class="method-details"><summary>${t('method')}</summary><p>${t('birthBand')} ${reading.birthBand} (${rangeLabel(reading.birthBand)}) → ${t('coreId')} ${core.id}<br>${Object.entries(parts).map(([domain,item])=>`${t(domain)}: ${item.id}`).join(' · ')}<br><code>${reading.weekStart} · ${reading.mode} · ${reading.weekday.id} · ${reading.timeBand.id} · ${reading.contentVersion} · ${reading.guidanceVersion}</code></p><p>${t('methodModes')}</p></details>
       <p class="reading-disclaimer">${t('readingDraft')}</p>`;
+    document.querySelector('.method-details').insertAdjacentHTML('beforeend',`<p>${t('futureMethod')}</p>`);
     document.getElementById('save-reading').addEventListener('click',downloadReading);
     document.getElementById('print-reading').addEventListener('click',()=>window.print());
   }
@@ -80,6 +105,8 @@
     lines.push('',`${t('weekTheme')}: ${reading.core.id} — ${txt(reading.core.title)}`,txt(reading.core.text),'',txt(reading.guidance.title));
     if(reading.guidance.outlook)lines.push(txt(reading.guidance.outlook));
     for(const [key,label] of [['goal','goalLabel'],['watch','watchLabel'],['plan','planLabel']])lines.push(`${t(label)}: ${txt(reading.guidance[key])}`);
+    lines.push('',t('futureTitle'),txt(reading.future.note),txt(reading.future.intro));
+    for(const chapter of reading.future.chapters)lines.push('',`${futureAgeLabel(chapter)} — ${txt(chapter.title)}`,txt(chapter.text));
     lines.push('');
     Object.entries(reading.parts).forEach(([domain,item])=>lines.push(`${t(domain)} — ${txt(item.title)} (${item.id})`,txt(item.text),''));
     lines.push(t('nuance'),txt(reading.weekday.text));
@@ -95,6 +122,35 @@
     fields.birthTime.disabled=mode!=='exact';fields.birthTime.required=mode==='exact';
     fields.timeWindow.disabled=mode!=='approximate';
     document.getElementById('time-note').textContent=t(mode==='unknown'?'unknownNote':'knownNote');
+  }
+  function translateBirthFields(){
+    const month=fields.birthMonth.value;
+    const formatter=new Intl.DateTimeFormat(language==='th'?'th-TH':'en-GB',{month:'long',timeZone:'UTC'});
+    fields.birthMonth.innerHTML=`<option value="">${t('chooseMonth')}</option>`+Array.from({length:12},(_,i)=>`<option value="${i+1}">${formatter.format(new Date(Date.UTC(2000,i,1)))}</option>`).join('');
+    fields.birthMonth.value=month;
+    document.getElementById('birth-year-label').textContent=t(fields.birthEra.value==='be'?'yearBE':'yearCE');
+    fields.birthYear.placeholder=fields.birthEra.value==='be'?'2538':'1995';
+  }
+  function syncBirthDate(){
+    fields.birthDate.value='';
+    let message='';
+    const complete=fields.birthDay.value&&fields.birthMonth.value&&fields.birthYear.value.length===4;
+    if(complete){
+      try{
+        const value=engine.birthDateFromParts(fields.birthDay.value,fields.birthMonth.value,fields.birthYear.value,fields.birthEra.value);
+        if(value>engine.todayISO())throw new Error('FUTURE_BIRTH_DATE');
+        fields.birthDate.value=value;
+      }catch(error){message=i18n[language].errors[error.message]||i18n[language].errors.INVALID_DATE;}
+    }
+    fields.birthYear.setCustomValidity(message);
+    fields.birthYear.setAttribute('aria-invalid',String(Boolean(message)));
+    const error=document.getElementById('birth-date-error');error.textContent=message;error.hidden=!message;
+  }
+  function setBirthDate(value){
+    const [year,month,day]=value.split('-');
+    fields.birthDay.value=String(Number(day));fields.birthMonth.value=String(Number(month));
+    fields.birthYear.value=String(Number(year)+(fields.birthEra.value==='be'?543:0)).padStart(4,'0');
+    syncBirthDate();updateDateConfirmations();
   }
   function updateDateConfirmations(){
     for(const [name,id] of [['birthDate','birth-date-confirm'],['readingDate','reading-date-confirm']]){
@@ -132,7 +188,7 @@
   function refreshDateLimits(){
     const today=engine.todayISO();
     fields.readingDate.min=today;
-    fields.birthDate.max=today;
+    syncBirthDate();
     fields.readingDate.setCustomValidity(fields.readingDate.value&&fields.readingDate.value<today?i18n[language].errors.PAST_READING_DATE:'');
     return today;
   }
@@ -182,7 +238,7 @@
     const filter=document.getElementById('phase-filter'),selected=filter.value;
     filter.innerHTML=`<option value="all">${t('allPhases')}</option>`+lib.phases.map(p=>`<option value="${p.id}">${p[language]}</option>`).join('');filter.value=selected||'all';
     document.getElementById('library-search').placeholder=language==='th'?'เช่น โอกาส ความรัก C01':'Try opportunity, love or C01';
-    translateContextOptions();refreshDateLimits();updateTimeFields();updateReadingFields();renderReading();renderLibrary();renderPlan();markIfStale();
+    translateBirthFields();translateContextOptions();refreshDateLimits();updateTimeFields();updateReadingFields();renderReading();renderLibrary();renderPlan();markIfStale();
   }
   function markIfStale(){
     if(!submittedProfile||!reading)return;
@@ -191,7 +247,14 @@
     status.textContent=expired?t('expired'):stale?t('stale'):periodLabel(reading);
   }
   form.addEventListener('submit',event=>{event.preventDefault();refreshDateLimits();if(form.reportValidity())runReading(true);});
-  form.addEventListener('input',()=>{document.getElementById('form-error').hidden=true;document.getElementById('example-notice').hidden=true;refreshDateLimits();updateDateConfirmations();markIfStale();});
+  form.addEventListener('input',event=>{if(event.target===fields.birthEra)return;document.getElementById('form-error').hidden=true;document.getElementById('example-notice').hidden=true;refreshDateLimits();updateDateConfirmations();markIfStale();});
+  fields.birthEra.addEventListener('change',()=>{
+    // Preserve the entered birthday when changing calendars; never guess the era from a year.
+    const selectedDate=fields.birthDate.value;
+    if(selectedDate)setBirthDate(selectedDate);
+    document.getElementById('form-error').hidden=true;
+    translateBirthFields();refreshDateLimits();updateDateConfirmations();markIfStale();
+  });
   fields.timeMode.addEventListener('change',()=>{updateTimeFields();markIfStale();});
   document.querySelectorAll('[name=readingMode]').forEach(input=>input.addEventListener('change',()=>{updateReadingFields();markIfStale();}));
   document.querySelectorAll('[data-week]').forEach(button=>button.addEventListener('click',()=>{weeklyChoice=button.dataset.week;refreshDateLimits();updateDateConfirmations();markIfStale();}));
@@ -204,7 +267,7 @@
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&document.querySelector('.site-header').classList.contains('menu-open')){closeMenu();document.querySelector('.menu-toggle').focus();}});
   document.addEventListener('click',event=>{if(!event.target.closest('.site-header'))closeMenu();});
   document.querySelectorAll('.start-reading').forEach(button=>button.addEventListener('click',()=>{const start=document.getElementById('start');start.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});start.focus({preventScroll:true});}));
-  document.getElementById('sample-reading').addEventListener('click',()=>{fields.birthDate.value='1995-06-12';fields.timeMode.value='exact';fields.birthTime.value='08:30';fields.timeWindow.value='2';fields.readingMode.value='week';weeklyChoice='this';document.getElementById('example-notice').hidden=false;updateTimeFields();updateReadingFields();runReading(true);});
+  document.getElementById('sample-reading').addEventListener('click',()=>{setBirthDate('1995-06-12');fields.timeMode.value='exact';fields.birthTime.value='08:30';fields.timeWindow.value='2';fields.readingMode.value='week';weeklyChoice='this';document.getElementById('example-notice').hidden=false;updateTimeFields();updateReadingFields();runReading(true);});
   const privacyDialog=document.getElementById('privacy-dialog');
   document.getElementById('privacy-button').addEventListener('click',()=>privacyDialog.showModal());
   document.getElementById('close-privacy').addEventListener('click',()=>privacyDialog.close());

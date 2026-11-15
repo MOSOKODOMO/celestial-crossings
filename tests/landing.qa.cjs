@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
-const {launch,navigate,BASE}=require('./qa-browser.cjs');
+const {launch,navigate,fillBirthday,BASE}=require('./qa-browser.cjs');
 (async()=>{
   const browser=await launch();
   const out=path.resolve(__dirname,'../.local/qa');fs.mkdirSync(out,{recursive:true});
@@ -24,9 +24,9 @@ const {launch,navigate,BASE}=require('./qa-browser.cjs');
     // Capture the approved form without a browser-specific scroll animation in flight.
     await page.locator('#start').screenshot({path:path.join(out,'published-desktop-form.png'),animations:'disabled'});
     await page.locator('#read-button').click();
-    assert.equal(await page.locator('[name=birthDate]').evaluate(el=>el.validity.valueMissing),true);
+    assert.equal(await page.locator('[name=birthDay]').evaluate(el=>el.validity.valueMissing),true);
     assert.equal(await page.locator('#results').isVisible(),false);
-    await page.locator('[name=birthDate]').fill('1995-06-12');
+    await fillBirthday(page,'1995-06-12');
     await page.locator('#read-button').click();
     assert.equal(await page.locator('#results').isVisible(),true);
     const ids=await page.locator('#reading-result .record-id').allTextContents();

@@ -187,5 +187,5 @@ const timeBands=timeRows.map((r,i)=>({id:i===6?'TU':`T${i}`,index:i,title:{th:r[
 module.exports={
   version:'0.3.0', contentVersion:'th-en-001', languageDefault:'th',
   provenance:{type:'original-editorial',traditionStatus:'Thai-inspired tone; the calendar mapping and all narratives are original demo content, not a validated Thai astrological method.',reviewStatus:'Draft for Thai practitioner/editor review; no predictive accuracy claim.',sources:[{title:'MyHora: Thai astrology calculation conventions',url:'https://myhora.com/astrology/thai/help.aspx'},{title:'Thailand Foundation: astrology in Thailand',url:'https://thailandfoundation.or.th/astrology-in-thailand-life-guidance-from-the-stars/'},{title:'Hong Kong Observatory: Gregorian leap years',url:'https://www.hko.gov.hk/en/gts/time/basicterms-leapyear.htm'}]},
-  phases,cores,domains,weekdays,timeBands,guidance:require('./guidance.cjs')
+  phases,cores,domains,weekdays,timeBands,guidance:require('./guidance.cjs'),futureStories:require('./future-stories.cjs')
 };

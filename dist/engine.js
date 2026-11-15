@@ -20,6 +20,13 @@
     // Use the laptop's local calendar date, not the date at UTC midnight.
     return `${String(now.getFullYear()).padStart(4,'0')}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
   }
+  function birthDateFromParts(day,month,year,era='ce'){
+    if(!/^\d{1,2}$/.test(String(day))||!/^\d{1,2}$/.test(String(month))||!/^\d{4}$/.test(String(year))||!['ce','be'].includes(era))throw new Error('INVALID_DATE');
+    const gregorian=Number(year)-(era==='be'?543:0);
+    const value=`${String(gregorian).padStart(4,'0')}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    parseDate(value);
+    return value;
+  }
   function weekStart(value){const date=parseDate(value);date.setUTCDate(date.getUTCDate()-mod(date.getUTCDay()+6,7));return date;}
   function birthBand(value){
     const date=parseDate(value),month=date.getUTCMonth(),day=date.getUTCDate();
@@ -56,6 +63,21 @@
     if(!pool||pool.length!==4) throw new Error('INVALID_CONTENT_POOL');
     return pool;
   }
+  function futureStory(library,birthDate,today){
+    const birth=parseDate(birthDate),now=parseDate(today),bank=library.futureStories;
+    if(birth>now)throw new Error('FUTURE_BIRTH_DATE');
+    const age=now.getUTCFullYear()-birth.getUTCFullYear()-(today.slice(5)<birthDate.slice(5)?1:0);
+    // The story depends on the birthday and age, never the reading mode, week, or language.
+    const seed=`${bank.version}|${birthDate}`;
+    const stages=[['career',22,2,7],['family',28,5,7],['wealth',38,9,11],['legacy',55,14,9]];
+    const chapters=stages.map(([theme,minimum,offset,spread])=>{
+      const startAge=Math.max(minimum+hash(`${seed}|${theme}|age`)%spread,age+offset);
+      const pool=bank.chapters[theme==='family'&&startAge>42?'connection':theme];
+      const record=pool[hash(`${seed}|${theme}|text`)%pool.length];
+      return {...record,theme,startAge,endAge:startAge+3};
+    }).sort((a,b)=>a.startAge-b.startAge);
+    return {version:bank.version,intro:bank.intro,note:bank.note,age,chapters};
+  }
   function read(library,profile,options={}){
     const birthday=parseDate(profile.birthDate),readingDate=parseDate(profile.readingDate);
     const today=parseDate(options.today??todayISO());
@@ -84,7 +106,7 @@
     }));
     const weekEnd=iso(new Date(monday.getTime()+6*DAY));
     const guidance=mode==='day'?{title:context.title,goal:context.goal,outlook:context.outlooks[core.phase],...context.advice[support]}:library.guidance.weekly[core.phase];
-    return {core,parts,mode,occasion,support,guidance,guidanceVersion:library.guidance.version,
+    return {core,parts,mode,occasion,support,guidance,guidanceVersion:library.guidance.version,future:futureStory(library,profile.birthDate,iso(today)),
       periodStart:mode==='day'?profile.readingDate:iso(monday<today?today:monday),periodEnd:mode==='day'?profile.readingDate:weekEnd,
       birthBand:band,weekday:library.weekdays[birthday.getUTCDay()],timeBand:library.timeBands[window],timeMode:profile.timeMode,weekStart:iso(monday),weekEnd,readingDate:profile.readingDate,contentVersion:library.contentVersion};
   }
@@ -92,5 +114,5 @@
     const themeIndex=Math.floor((core.number-1)/4);
     return {core,parts:Object.fromEntries(Object.keys(library.domains).map((domain,i)=>[domain,candidates(library,domain,core.phase)[(themeIndex+i)%4]]))};
   }
-  return {parseDate,todayISO,weekStart,birthBand,bandRange,timeBand,hash,read,example};
+  return {parseDate,todayISO,birthDateFromParts,weekStart,birthBand,bandRange,timeBand,hash,futureStory,read,example};
 });

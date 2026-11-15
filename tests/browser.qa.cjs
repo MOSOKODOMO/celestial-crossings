@@ -1,6 +1,6 @@
 const fs=require('node:fs');
 const path=require('node:path');
-const {launch,navigate}=require('./qa-browser.cjs');
+const {launch,navigate,fillBirthday}=require('./qa-browser.cjs');
 const assert=require('node:assert/strict');
 (async()=>{
   const out=path.resolve(__dirname,'../.local/qa');fs.mkdirSync(out,{recursive:true});
@@ -26,10 +26,10 @@ const assert=require('node:assert/strict');
   const ids=async()=>page.locator('#reading-result .record-id').allTextContents();
   const original=await ids(),core=await page.locator('.card-number').textContent();
   await page.locator('#read-button').click();assert.deepEqual(await ids(),original);
-  await page.locator('[name=birthDate]').fill('1995-06-13');await page.locator('#read-button').click();
+  await fillBirthday(page,'1995-06-13');await page.locator('#read-button').click();
   assert.equal(await page.locator('.card-number').textContent(),core);
   assert.notDeepEqual(await ids(),original);
-  await page.locator('[name=birthDate]').fill('1995-06-12');
+  await fillBirthday(page,'1995-06-12');
   await page.locator('[name=timeMode]').selectOption('unknown');
   assert.equal(await page.locator('[name=birthTime]').isVisible(),false);
   await page.locator('#read-button').click();assert.equal(await page.locator('.nuance-panel p').count(),1);
@@ -81,5 +81,6 @@ const assert=require('node:assert/strict');
   assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
   fs.writeFileSync(path.join(out,'report.json'),JSON.stringify({passed:true,errors,externalRequests:external,layouts,catalogueCores:52,cataloguePrimaryPassages:116,download:download.suggestedFilename()},null,2));
   console.log(JSON.stringify({passed:true,checks:'Thai/English, DOB/time paths, deterministic readings, search/filter, 24 responsive states, print catalogue, text download, no external requests, server restrictions',screenshots:out},null,2));
+  await require('./future-story.qa.cjs')(page,out);
   await browser.close();
 })().catch(error=>{console.error(error);process.exit(1);});

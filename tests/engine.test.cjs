@@ -5,6 +5,40 @@ const engine=require('../dist/engine.js');
 const base={birthDate:'1995-06-12',birthTime:'08:30',timeMode:'exact',timeWindow:'2',readingDate:'2026-11-04'};
 const read=(profile,options={today:'2026-11-02'})=>engine.read(lib,profile,options);
 const ids=r=>[r.core.id,...Object.values(r.parts).map(p=>p.id),r.weekday.id,r.timeBand.id];
+
+test('direct birthday entry supports CE and BE without silently repairing invalid dates',()=>{
+  assert.equal(engine.birthDateFromParts('29','2','2000','ce'),'2000-02-29');
+  assert.equal(engine.birthDateFromParts('29','2','2543','be'),'2000-02-29');
+  assert.equal(engine.birthDateFromParts('12','6','2538','be'),'1995-06-12');
+  for(const parts of [['31','4','1995'],['29','2','1900'],['0','1','1995'],['1','13','1995'],['1','1','95'],['1','1','0000'],['1','1','0543','be'],['1','1','1995','bad']])assert.throws(()=>engine.birthDateFromParts(...parts),/INVALID_DATE/);
+});
+
+test('future stories stay stable across reading modes, time choices, and future reading dates',()=>{
+  const future=read(base).future;
+  for(const changes of [{readingDate:'2026-11-11'},{readingMode:'day',readingDate:'2027-05-01'},{timeMode:'unknown'},{birthTime:'22:00'}])assert.deepEqual(read({...base,...changes}).future,future);
+  assert.equal(future.chapters.length,4);
+  assert.deepEqual(new Set(future.chapters.map(c=>c.theme)),new Set(['career','family','wealth','legacy']));
+  assert.match(future.note.en,/imagined.*entertainment/i);
+});
+
+test('future chapters are bilingual, age-aware, varied, and never put a milestone in the past',()=>{
+  const stories=new Set();
+  for(const birthDate of ['2026-11-04','2012-02-29','1995-06-12','1980-01-01','1960-12-31','1926-11-04']){
+    const future=engine.futureStory(lib,birthDate,'2026-11-04');
+    for(const chapter of future.chapters){
+      assert.ok(chapter.startAge>future.age);assert.ok(chapter.endAge>chapter.startAge);
+      assert.ok(chapter.title.th&&chapter.title.en&&chapter.text.en.length>100);assert.match(chapter.text.th,/[ก-๙]/);
+    }
+    const family=future.chapters.find(c=>c.theme==='family');
+    if(future.age>42)assert.match(family.id,/^FN/);
+    else assert.ok(family.startAge>=28);
+    stories.add(future.chapters.map(c=>c.id).join('|'));
+  }
+  assert.ok(stories.size>=3);
+  assert.equal(engine.futureStory(lib,'2000-02-29','2026-02-28').age,25);
+  assert.equal(engine.futureStory(lib,'2000-02-29','2026-03-01').age,26);
+  assert.throws(()=>engine.futureStory(lib,'2027-01-01','2026-11-04'),/FUTURE_BIRTH_DATE/);
+});
 test('bilingual editorial inventory is complete and every phase has four domain options',()=>{
   assert.equal(lib.cores.length,52);assert.equal(Object.values(lib.domains).flat().length,64);assert.equal(lib.weekdays.length,7);assert.equal(lib.timeBands.length,7);
   const all=[...lib.cores,...Object.values(lib.domains).flat(),...lib.weekdays,...lib.timeBands];

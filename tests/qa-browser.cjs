@@ -30,4 +30,11 @@ async function navigate(page,view){
   if(!(await target.isVisible()))await page.locator('.menu-toggle').click();
   await target.click();
 }
-module.exports={launch,navigate,BASE:process.env.QA_BASE_URL||'http://127.0.0.1:4173'};
+async function fillBirthday(page,value){
+  const [year,month,day]=value.split('-');
+  await page.locator('[name=birthEra]').selectOption('ce');
+  await page.locator('[name=birthDay]').fill(String(Number(day)));
+  await page.locator('[name=birthMonth]').selectOption(String(Number(month)));
+  await page.locator('[name=birthYear]').fill(year);
+}
+module.exports={launch,navigate,fillBirthday,BASE:process.env.QA_BASE_URL||'http://127.0.0.1:4173'};
