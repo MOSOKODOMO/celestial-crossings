@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#eceddc">
+  <meta name="description" content="โลกมูใจ — พาน้องการ์ดมาเดินเล่นในโลกเล็ก ๆ ที่อบอุ่น / A little world for you and your charms.">
+  <title>โลกมูใจ / MooJai World</title>
+  <link rel="icon" href="assets/moon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="site-extras.css">
+  <link rel="stylesheet" href="world.css">
+  <link rel="modulepreload" href="vendor/three.module.min.js">
+  <link rel="modulepreload" href="vendor/three.core.min.js">
+  <script defer src="config.js"></script>
+  <script defer src="site-extras.js"></script>
+  <script defer src="world-core.js"></script>
+  <script defer src="world-care.js"></script>
+  <script type="module" src="world.js"></script>
+</head>
+<body>
+  <main id="world-app">
+    <canvas id="world-canvas" tabindex="0" aria-label="โลกมูใจ — ใช้ปุ่มลูกศรหรือ WASD เพื่อเดิน"></canvas>
+    <div id="world-labels" aria-hidden="true"></div>
+    <header class="world-header site-header">
+      <a href="./" class="home-chip"><span aria-hidden="true">☾</span><span>มูใจ <small>MooJai</small></span><span aria-hidden="true">↗</span></a>
+      <div class="world-heading"><span class="eyebrow">MOOJAI WORLD</span><h1 id="zone-name">ทุ่งพระจันทร์</h1><span id="connection" class="connection"></span></div>
+      <div class="header-right"><span class="dust-chip" title="Stardust"><span aria-hidden="true">✦</span> <b id="dust">0</b></span><button id="language" class="round-button" aria-label="English">EN</button><button id="settings-button" class="round-button" data-label="settings" aria-haspopup="dialog">⚙</button></div>
+    </header>
+    <aside id="empty-banner" class="empty-banner" hidden><span data-text="noPets"></span> <a href="./#ritual" data-text="drawFirst"></a></aside>
+    <div class="world-tools"><button id="map-button" class="tool-button" aria-haspopup="dialog"><span aria-hidden="true">⌖</span><span data-text="map"></span></button><button id="players-button" class="tool-button" aria-haspopup="dialog"><span aria-hidden="true">♧</span><span id="online-count">1</span><span data-text="friends"></span></button></div>
+    <section id="chat-panel" class="chat-panel" aria-label="Chat">
+      <button id="chat-toggle" class="chat-toggle" aria-expanded="true" aria-controls="chat-body"><span data-text="meadowChat"></span><span aria-hidden="true">⌄</span></button>
+      <div id="chat-body"><div id="chat-log" role="log" aria-live="polite" aria-relevant="additions"></div><form id="chat-form"><input id="chat-input" maxlength="120" autocomplete="off" data-placeholder="sayHello" data-label="chat"><button type="submit" data-label="send">↑</button></form><div id="emotes" class="emotes"></div></div>
+    </section>
+    <div id="joystick" class="joystick" role="group" data-label="move"><span id="joystick-knob"></span><span class="joystick-arrows" aria-hidden="true">✧</span></div>
+    <div class="journey-hint"><span data-text="wander"></span><small data-text="controls"></small></div>
+    <div class="pet-actions"><button id="interact-button" class="primary" hidden data-text="enterPavilion"></button><section id="companion-status" class="companion-status" hidden><div class="care-heading"><strong id="active-pet-name"></strong><span id="care-state"></span></div><div id="compact-needs"></div><div class="quick-care"><button id="feed-button" aria-haspopup="dialog" data-text="feed"></button><button id="rest-button" aria-pressed="false" data-text="rest"></button></div></section><button id="pets-button" class="pets-button" aria-haspopup="dialog"><span aria-hidden="true">♧</span><span data-text="myPets"></span><span id="pet-count">0</span></button></div>
+    <div id="toast" role="status" hidden></div>
+    <section id="loading" class="loading"><div class="loading-moon">☾</div><h2 data-text="loading">กำลังปลุกโลกเล็ก ๆ</h2><progress id="load-progress" max="100" value="15" aria-label="Loading"></progress><p data-text="loadingHint">จัดดอกไม้ จุดโคมไฟ แล้วพบกัน</p><a href="./" data-text="back">กลับมูใจ</a></section>
+  </main>
+  <dialog id="welcome-dialog" aria-labelledby="welcome-title"><button id="welcome-language" type="button" class="secondary">English</button><form id="welcome-form"><span class="dialog-symbol" aria-hidden="true">☾</span><p class="eyebrow">A LITTLE WORLD, A LITTLE WONDER</p><h2 id="welcome-title" data-text="welcome"></h2><p data-text="welcomeIntro"></p><label><span data-text="nickname"></span><input id="nickname" minlength="2" maxlength="16" autocomplete="nickname" required></label><p class="rules" data-text="rules"></p><p id="name-error" role="alert"></p><button class="primary" type="submit" data-text="letsGo"></button></form></dialog>
+  <dialog id="pets-dialog" aria-labelledby="pets-title"><button class="close" data-close data-label="close">×</button><p class="eyebrow" data-text="yourCompanions"></p><h2 id="pets-title" data-text="myPets"></h2><p data-text="petsHint"></p><div id="pet-list"></div><div id="care-actions" class="care-actions"></div><p id="care-note"></p></dialog>
+  <dialog id="feeding-dialog" aria-labelledby="feeding-title"><button class="close" data-close data-label="close">×</button><p class="eyebrow" data-text="snackTime"></p><h2 id="feeding-title"></h2><p data-text="feedingHint"></p><div id="feeding-needs"></div><div class="food-grid"><button data-food="berries"><span class="food-icon" aria-hidden="true">🫐</span><strong data-text="berries"></strong><span data-text="berryBenefit"></span><small data-text="freeFood"></small></button><button data-food="meal"><span class="food-icon" aria-hidden="true">🥗</span><strong data-text="meal"></strong><span data-text="mealBenefit"></span><small data-text="freeFood"></small></button></div><p id="feeding-status" class="feeding-status" role="status"></p><p class="rules" data-text="needsHint"></p><button class="primary" data-close data-text="backToPlay"></button></dialog>
+  <dialog id="pavilion-dialog" aria-labelledby="pavilion-title"><button class="close" data-close data-label="close">×</button><span class="dialog-symbol" aria-hidden="true">✧</span><p class="eyebrow" data-text="quietMoment"></p><h2 id="pavilion-title" data-text="pavilion"></h2><p data-text="pavilionIntro"></p><label><span data-text="intention"></span><select id="intention"></select></label><label><span data-text="privateWish"></span><textarea id="private-wish" maxlength="300" rows="2" autocomplete="off"></textarea></label><button id="pray-button" class="primary" data-text="pray"></button><p id="reflection" role="status"></p><div class="offering-grid"><button data-offering="lantern"><span aria-hidden="true">♧</span><strong data-text="lantern"></strong><small>10 ✦</small></button><button data-offering="lotus"><span aria-hidden="true">❀</span><strong data-text="lotus"></strong><small>25 ✦</small></button></div><details><summary data-text="lettingGo"></summary><p data-text="releaseHint"></p><textarea id="release-text" maxlength="300" rows="2" data-label="lettingGo" autocomplete="off"></textarea><button id="release-button" class="secondary" data-text="release"></button></details><p class="disclaimer" data-text="disclaimer"></p></dialog>
+  <dialog id="settings-dialog" aria-labelledby="settings-title"><button class="close" data-close data-label="close">×</button><h2 id="settings-title" data-text="settings"></h2><label class="toggle-row"><span data-text="performance"></span><input id="performance-mode" type="checkbox"></label><label class="toggle-row"><span data-text="sound"></span><input id="sound" type="checkbox"></label><label><span data-text="timeOfDay"></span><select id="time-of-day"><option value="auto" data-text="automatic"></option><option value="day" data-text="day"></option><option value="night" data-text="night"></option></select></label><p class="rules" data-text="staffReminder"></p><button id="bug-button" class="secondary" data-text="reportProblem"></button><p id="performance-readout"></p></dialog>
+  <dialog id="map-dialog" aria-labelledby="map-title"><button class="close" data-close data-label="close">×</button><p class="eyebrow">MOOJAI WORLD</p><h2 id="map-title" data-text="map"></h2><div id="map-art" class="map-art"><span class="map-path"></span><span id="map-you">✦</span></div><div id="zone-list"></div><p data-text="mapHint"></p></dialog>
+  <dialog id="players-dialog" aria-labelledby="players-title"><button class="close" data-close data-label="close">×</button><h2 id="players-title" data-text="friends"></h2><div id="player-list"></div><p data-text="staffReminder"></p></dialog>
+  <dialog id="player-dialog" aria-labelledby="player-title"><button class="close" data-close data-label="close">×</button><span class="dialog-symbol">♧</span><h2 id="player-title"></h2><button id="mute-button" class="secondary" data-text="mute"></button><label><span data-text="reportReason"></span><select id="report-reason"><option value="harassment" data-text="harassment"></option><option value="scam" data-text="scam"></option><option value="personal" data-text="personal"></option></select></label><button id="report-button" class="secondary" data-text="report"></button><p id="report-status" role="status"></p></dialog>
+  <noscript><p>Please enable JavaScript to visit MooJai World. <a href="./">Back to MooJai</a></p></noscript>
+</body>
+</html>

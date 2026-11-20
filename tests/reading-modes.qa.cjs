@@ -12,7 +12,7 @@ const assert=require('node:assert/strict');
     globalThis.Date=class extends NativeDate{constructor(...args){super(...(args.length?args:[now]));}static now(){return now;}};
   });
   try{
-    await page.goto('http://127.0.0.1:4173');
+    await page.goto('http://127.0.0.1:4173/reading.html');
     await page.locator('#sample-reading').click();
     const field=page.locator('[name=readingDate]'),mode=value=>page.locator(`[name=readingMode][value=${value}]`),ids=()=>page.locator('#reading-result .record-id').allTextContents();
     assert.equal(await mode('week').isChecked(),true);

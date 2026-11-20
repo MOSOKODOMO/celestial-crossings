@@ -13,7 +13,7 @@ const assert=require('node:assert/strict');
   const errors=[],external=[];
   page.on('pageerror',e=>errors.push(e.message));
   page.on('request',request=>{if(!request.url().startsWith('http://127.0.0.1:4173')&&!request.url().startsWith('blob:'))external.push(request.url());});
-  await page.goto('http://127.0.0.1:4173');
+  await page.goto('http://127.0.0.1:4173/reading.html');
   assert.equal(await page.locator('[name=birthDate]').inputValue(),'');
   assert.equal(await page.locator('[name=timeMode]').inputValue(),'unknown');
   assert.equal(await page.locator('#results').isVisible(),false);

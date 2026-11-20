@@ -7,7 +7,7 @@ $demoNode = (Get-Command node -ErrorAction Stop).Source
 if ($LASTEXITCODE -ne 0) { throw 'Could not prepare the demo.' }
 $demoHealth = $null
 try { $demoHealth = Invoke-RestMethod -Uri "$demoUrl/__health" -TimeoutSec 2 } catch {}
-if ($demoHealth -and ($demoHealth.app -ne 'celestial-crossings-local-demo' -or $demoHealth.project -ne $demoProject)) { throw 'Port 4173 belongs to another application. No process was stopped.' }
+if ($demoHealth -and ($demoHealth.app -ne 'moojai-local-demo' -or $demoHealth.project -ne $demoProject)) { throw 'Port 4173 belongs to another application. No process was stopped.' }
 if (-not $demoHealth) {
   $demoStateDir = Join-Path $demoProject '.local'
   New-Item -ItemType Directory -Path $demoStateDir -Force | Out-Null
@@ -19,7 +19,7 @@ if (-not $demoHealth) {
     try { $demoHealth=Invoke-RestMethod -Uri "$demoUrl/__health" -TimeoutSec 1; break } catch {}
     if ($demoProcess.HasExited) { break }
   }
-  if (-not $demoHealth -or $demoHealth.app -ne 'celestial-crossings-local-demo' -or $demoHealth.project -ne $demoProject) { throw 'The local server did not start. Check .local\server.err.log.' }
+  if (-not $demoHealth -or $demoHealth.app -ne 'moojai-local-demo' -or $demoHealth.project -ne $demoProject) { throw 'The local server did not start. Check .local\server.err.log.' }
 }
 Write-Output "Demo running locally: $demoUrl"
 if (-not $NoBrowser) { Start-Process $demoUrl }

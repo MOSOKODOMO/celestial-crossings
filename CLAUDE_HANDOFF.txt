@@ -1,0 +1,414 @@
+MOOJAI WORLD — CURRENT UPDATE FOR CLAUDE
+Prepared 20 November 2026 (Australia/Sydney)
+
+Read this update first. It supersedes older statements below about the entry
+page, account/backend support, package version, and the absence of a 3D world.
+The 19 November handoff is preserved below as historical project context.
+
+WORKSPACE AND RUNNING PREVIEW
+
+Project: C:\Users\natth\Documents\ChatGPT\taro card game
+World: http://127.0.0.1:4174/world.html
+Landing/card entry: http://127.0.0.1:4174/#ritual
+Original reader: /reading.html; collection: /collect.html
+Branch: codex/website-publish; HEAD: 6420f52
+Remote: https://github.com/MOSOKODOMO/celestial-crossings.git
+Package: moojai-local-demo 0.4.0; static HTML/CSS/native JS modules.
+
+There is substantial pre-existing modified and untracked work. No changes from
+these world tasks have been committed, pushed or published. Continue from this
+working folder, not a fresh clone. dist contains authored source: do not delete
+it or assume a build can recreate the world files. Preserve the existing reader,
+collector artwork, saved collection keys and draw odds.
+
+USER REQUESTS NOW COMPLETED
+
+1. Build the world described by OPEN_WORLD_PLAN.md, using the supplied cozy 3D
+   reference. There are five zones, third-person walking/orbit controls, six pet
+   species, one lead plus two followers, local preview multiplayer/chat, a map,
+   stardust care rewards, and the Wishing Pavilion/offerings. Thai and English,
+   mobile joystick, day/night, performance mode and reduced motion are present.
+
+2. Bring the world closer to the reference: softer ambient daylight and lighter
+   shadows, fuller five-blade grass clumps with painted root-to-tip colors,
+   rounded tree crowns with scalloped color bands, rounded bushes/hills. Grass
+   is instanced, without alpha planes. Tiny flower stems and distant pet models
+   were simplified to keep the crowded scene inside its geometry budget.
+
+3. Add feeding, hunger and energy:
+   - HUD gauges and per-pet meters in My companions.
+   - Hunger: 0 means full, 100 hungry. Energy: 0 tired, 100 rested.
+   - New pets start at hunger 25 / energy 85.
+   - Active lead/followers gain 1 hunger per minute idle, 2 while walking.
+   - Walking uses 3 energy per minute; resting restores 2 energy per second.
+   - Free berries: -20 hunger / +5 energy. Free garden meal: -45 / +12.
+   - Four-second chewing cooldown, full-tummy guard, all values clamped 0–100.
+   - Feeding still works after the five daily care-star rewards are exhausted.
+   - Each owned card keeps separate device-local needs. Hidden/closed time does
+     not drain them. Walking is never blocked by low needs.
+
+4. Latest completed request: visible eating and sleeping animations:
+   - Selecting food closes the dialog so the action is visible in the meadow.
+   - The lead turns toward the camera, reaches for a real bowl, lifts food and
+     chews for four seconds; the portion shrinks with the bites.
+   - Berries and garden meals have different food and mouthful geometry.
+   - Rest makes the lead and followers lie horizontally, lower their heads,
+     close their eyes, breathe gently and show floating Z marks.
+   - Bunny ears fold back; the elephant's trunk curls above the ground.
+   - Sleeping followers keep their positions. Movement wakes them and interrupts
+     eating; finished/interrupted eating removes its food props.
+   - Reduced motion uses clear still poses, static food, and one sleep mark per
+     companion, without looping movements.
+   - Phone notifications sit above the pet area and do not intercept controls.
+
+KEY FILES FOR THE NEXT EDIT
+
+dist/world.html, dist/world.css
+  World HUD, dialogs, responsive controls, meters and toast placement.
+dist/world.js
+  Gameplay/controller, pet selection, feed/rest actions, local saves, UI,
+  transport, animation lifecycle and read-only MooJaiWorld.snapshot() diagnostics.
+dist/world-scene.js
+  Procedural scenery/pet geometry, renderer, camera, light, grass, instancing,
+  LODs, effects, and calls into the care animator. combine() supports optional
+  per-part bone indices; existing static/remote models share the same geometry.
+dist/world-pet-animation.js (NEW in the latest request)
+  Three reusable local SkinnedMesh rigs with rigid per-piece weights. Separate
+  head, paws, feet, tail, eyes, bunny ears and elephant trunk; eased care poses,
+  bowl/food/mouthful meshes, instanced sleep marks, reduced motion and cleanup.
+  Animation diagnostics include pose weights, eye scale, head/paw positions,
+  food visibility/portion and skinned geometry's minimum Y for floor checks.
+dist/world-care.js
+  Pure needs, feeding and persistence validation rules; browser and Node compatible.
+dist/world-i18n.js
+  Authored Thai/English world interface copy.
+dist/world-core.js
+  Ownership, map/collision, ledger rewards, offerings, chat/state validation.
+  Its server copy in supabase/functions/_shared/world-core.js must remain byte
+  identical if you change these shared rules.
+dist/world-api.js, dist/world-transport.js
+  Account/collection requests and preview/online transport.
+docs/OPEN_WORLD_PLAN.md, docs/WORLD_VALIDATION.md, README.md
+  Current design, setup, evidence and limitations.
+
+The reviewed plan is also mirrored to:
+C:\Users\natth\Documents\fortune teller\OPEN_WORLD_PLAN.md
+Its original backup is OPEN_WORLD_PLAN.original-2026-11-20.md in that folder.
+The visual reference copy is planning/world-style-reference.png (gitignored).
+
+PERSISTENCE AND NETWORK BOUNDARIES
+
+- Existing collection key: celestial-atelier-preview-v1. Do not rename it without
+  a deliberate migration. Preview quantities derive from collector history.
+- Preferences: moojai-world-v1. Preview ledger: moojai-world-ledger-v1.
+- Needs: moojai-world-needs-v1; online adds :<account-id>. Needs remain local to
+  the device even with accounts enabled. Version 1 stores a pets map by card ID.
+- Care poses are currently local visual feedback, not broadcast to remote
+  visitors. Network state/ownership authorization was not expanded for animation.
+- Empty public Supabase settings currently enable same-browser preview tabs.
+  Server inventory, atomic draws/rewards, room authorization/RLS and online
+  integration code exist, with tests using PGlite and HTTP/channel doubles.
+  No hosted database or Edge deployment was performed in these tasks.
+- Preserve rarity odds: C 55%, R 30%, S 12%, SR 2.85%, SSR 0.15%. Care does not
+  alter card odds, ownership or real-money behavior.
+
+VERIFICATION AND EVIDENCE
+
+The preceding care/visual update passed 50 unit/database tests and all ten
+then-existing browser suites. The latest animation update passed these targeted
+browser checks after the relevant edits:
+  node tests/world-care.qa.cjs
+  node tests/world-animation.qa.cjs
+  node tests/world.qa.cjs  (WORLD_PERF_GATE=1)
+
+world-animation.qa.cjs is new: all six species, visible food/paw movement,
+shrinking portions, closed eyes/lying poses, geometry above ground, followers,
+movement interruption, end-of-meal cleanup, mobile and reduced motion.
+world.qa.cjs now also checks eating/sleeping with 39 visitors and 80 lotuses.
+The full runner now contains eleven browser suites. The entire expanded runner
+was not rerun as one command after the animation update; the targeted checks
+above passed. No live account was used for QA.
+
+To run the full suite in PowerShell against the current server:
+  $env:QA_BASE_URL = 'http://127.0.0.1:4174'
+  $env:WORLD_PERF_GATE = '1'
+  npm run check
+
+If 4174 is no longer running, start this project's server in another terminal:
+  $env:MOOJAI_PORT = '4174'
+  node server.cjs
+Use /__health to verify the project before reusing a server. There is another
+server on the default 4173 port; the isolated 4174 server avoided restarting it.
+
+Latest output/world/metrics.json, local Windows hardware:
+  Desktop: ~6.6 ms/frame; 17 draws; 112,482 triangles.
+  Crowded + offerings: ~8.1 ms; 100 draws; 145,606 triangles.
+  Crowded eating: ~9.9 ms; 103 draws; 145,910 triangles.
+  Crowded sleeping: ~8.2 ms; 103 draws; 145,750 triangles.
+  Download: ~1.31 MB. Budgets: <120 draws, <150k triangles, <6 MB.
+These are local browser measurements, not physical-phone benchmarks.
+
+Inspect output/world/eating-<species>.png and sleeping-<species>.png, plus
+mobile-eating.png and mobile-sleeping.png. desktop.png/mobile.png show the normal
+world. Screenshots use test collections, not the owner's personal save.
+An older Lighthouse result was 87 performance / 100 accessibility, before these
+visual/care updates; it has NOT been refreshed and is not the current score.
+
+PENDING / CONTINUATION
+
+The requested local features are complete. No further feature has been selected.
+Potential future work, only when requested: broadcast care animations, synchronize
+needs across devices, configure/deploy hosted services and test two real accounts,
+physical-phone performance, refreshed Lighthouse, or further art/animation polish.
+Do not treat this handoff as a request to deploy, publish or discard local work.
+
+--------------------------------------------------------------------------
+HISTORICAL HANDOFF — 19 NOVEMBER 2026; READ THE CURRENT UPDATE ABOVE FIRST
+--------------------------------------------------------------------------
+
+MOOJAI / มูใจ — PROJECT HANDOFF FOR CLAUDE
+Prepared 19 November 2026 (Australia/Sydney)
+
+STARTING INSTRUCTION
+
+Continue this existing project from its current local files. Read this handoff,
+README.md and the relevant implementation before changing anything. Preserve the
+existing artwork, working features and uncommitted changes. The immediate request
+was to prepare a handoff; no specific next feature has been selected yet.
+
+PROJECT AND LOCATION
+
+MooJai is a Thai-inspired fortune-reading and collectible card website. Its
+direction is gentle guidance, reflection and meaningful animal card charms, with
+a polished Thai celestial fantasy appearance. The approved app name is มูใจ /
+MooJai. The earlier name was Celestial Crossings, which remains in the repository
+URL, some original artwork, historical prompts and compatibility identifiers.
+
+Working folder:
+C:\Users\natth\Documents\ChatGPT\taro card game
+
+Git remote: https://github.com/MOSOKODOMO/celestial-crossings
+Public preview URL recorded in the project:
+https://MOSOKODOMO.github.io/celestial-crossings/
+
+Current branch: codex/website-publish
+Current HEAD: 6420f52 — Make Pages deployment retries reuse a unique tested artifact
+Package: moojai-local-demo, version 0.3.0
+
+IMPORTANT TRANSFER DETAIL: The current working tree contains substantial
+uncommitted work. The collector files, 30 optimized card images, new background,
+collector tests and output folder are untracked. Branding changes and several
+existing files are modified. A fresh GitHub clone will not reproduce these local
+changes. Copy the current working folder or deliberately transfer its changes.
+The public deployment was not checked during this handoff.
+
+WHAT EXISTS NOW
+
+1. Fortune reader at / or /index.html
+
+- Thai is the default; the reader and content support Thai and English.
+- Birthday entry supports Gregorian CE and Thai Buddhist Era BE years, with
+  invalid-date and future-birthday checks.
+- Birth time can be exact, approximate or unknown; unknown is a separate state.
+- Free weekly readings cover this week or next week. Specific-day readings accept
+  today or a future day. Custom-week access is an unavailable future feature.
+- Optional ordinary-day, interview and date contexts; balanced, preparation,
+  confidence and communication guidance.
+- Deterministic readings: identical relevant inputs produce the same story IDs.
+  Changing language or context guidance does not reroll the fortune.
+- Library of 52 core fortunes, 64 topic passages and 14 supporting notes, plus
+  contextual guidance and bilingual imagined future chapters.
+- Future chapters are age-aware stories covering career, family/connection,
+  wealth and legacy. They are stable across reading modes and use birthday/age.
+- Browse/search the story library, explicitly load sample details, download a
+  reading as text, print, and view the printable bilingual catalogue.
+- Responsive mobile landing experience and a simpler desktop reading form.
+- Birth details remain in memory and reset on reload. No account, analytics,
+  remote fonts or payment integration.
+
+The fortune engine uses invented editorial rules: 52 birthday bands, six
+four-hour windows, a weekly rotation and stable hashed passage selection. It is
+not a traditional Thai birth chart or a validated prediction system. Preserve
+that distinction. Astrology integration and practitioner review are future work.
+
+2. Card collection preview at /collect.html
+
+- Fully illustrated 30-card deck: six categories times five rarity ranks.
+- Categories and animal identities:
+  Love — cream moon bunny; Career — tiger cub; Wealth — golden kitten;
+  Wellbeing — baby capybara; Connection — baby elephant; Growth — baby deer.
+- Choose exactly two intentions, then choose one of three face-down cards.
+- Mouse, touch and keyboard interaction; hover/focus lift; flip and reveal;
+  reduced-motion handling; card title, category, rarity and reflective meaning.
+- All three positions have identical odds. Each choice draws one card.
+- Result is committed to browser storage before the animation so reloading or
+  closing the reveal cannot reroll that result within the normal UI flow.
+- My charms, duplicate quantities, all-card browsing, category filtering,
+  explanatory dialogs and a reset confirmation.
+- Browser localStorage saves progress and the latest 1,000 draw records. The
+  lifetime total is retained, but displayed inventory quantities derive from
+  retained history; this is not a permanent ownership ledger.
+- Collector interface and meanings are currently mainly English. Do not assume
+  the whole collector has the fortune reader's bilingual coverage.
+- Two-category combinations are advertised only as a future feature.
+
+DRAW RULES TO PRESERVE
+
+Rarity is rolled independently every time:
+SSR 0.15%; SR 2.85%; S 12%; R 30%; C 55%.
+
+Ordinary category draws are equally weighted across all six categories.
+Preferences stay fixed within each group of ten draws. If none of the first nine
+cards matches either chosen category, the tenth is selected equally from the two
+preferred categories. An earlier match fulfils that group's guarantee, so the
+tenth can then be any category. Draw eleven starts a new group; preferences can
+change between groups. This guarantees a category match, not an SSR or one card
+from each preferred category. Rarity odds never change for the guarantee.
+
+The browser uses crypto.getRandomValues. It remains a client-side simulation,
+with no purchase, server verification, account or durable inventory service.
+Keep the localStorage key "celestial-atelier-preview-v1" unless deliberately
+migrating saved collections; it was retained through the MooJai rename.
+
+APPROVED VISUAL DIRECTION AND LATEST COMPLETED WORK
+
+- Cute, painterly chibi Thai celestial animals, expressive faces, lotus details,
+  moon/cloud imagery, midnight indigo, lilac, warm gold and category accents.
+- Card fronts use a portrait 2:3 ratio. C has no ornate perimeter frame and a
+  small green corner gem; R uses blue/silver; S purple/amethyst; SR ruby red;
+  SSR the most elaborate gold frame and gold/amber rarity accent.
+- The new website background has a crescent moon, distant Thai temple spires,
+  lotus petals and a dark quiet area behind live text. It is implemented.
+- The three-card pick-and-flip interaction is implemented, not merely proposed.
+- Latest fix: the shared preview was cropping card sides, making the top-right
+  rarity gem on The Breath sit too close to the edge. The shared card display
+  now preserves the 2:3 proportions and uses object-fit: contain, showing the
+  original artwork margins across all 30 cards. Keep that correction.
+- Website copy foregrounds fortune readings and personal charms. Main collector
+  headline: "Read your fortune. Find your charm."
+
+TECHNOLOGY AND FILE MAP
+
+Static HTML, CSS and vanilla JavaScript; Node.js 22+ for local tooling/server;
+CommonJS content/build scripts; Playwright for browser QA. No frontend framework,
+bundler, database or runtime package dependencies.
+
+CRITICAL: dist is partly the authored source, not a disposable build directory.
+Do not delete or regenerate it as though all source lived elsewhere.
+
+Authored reader:
+  dist/index.html, dist/styles.css, dist/app.js, dist/engine.js
+Authored collector:
+  dist/collect.html, dist/collect.css, dist/collect.js, dist/collect-engine.js
+Editable reading content:
+  content/library.cjs, content/guidance.cjs, content/future-stories.cjs
+Collector card names, meanings, categories and rules:
+  dist/collect-engine.js
+Optimized deployable artwork and self-hosted font:
+  assets/web/ (including cards/<category>-<rank>.webp and collector-background.webp)
+Build:
+  scripts/build-demo.cjs
+  Copies assets/web into dist/assets and generates dist/data.js,
+  dist/fortune-library.json, dist/fortune-library-th-en.html and dist/.nojekyll.
+  It preserves the authored interface and engine files. Edit content sources,
+  not generated data.js or catalogue output.
+Local server:
+  server.cjs — serves dist on 127.0.0.1:4173; /__health identifies the app/project.
+Windows launchers:
+  Start Demo.cmd / Stop Demo.cmd; Start-Demo.ps1 / Stop-Demo.ps1
+Tests:
+  tests/engine.test.cjs, tests/collect-engine.test.cjs
+  tests/*.qa.cjs and scripts/run-qa.cjs
+CI/deployment:
+  .github/workflows/pages.yml
+
+RUN AND VERIFY
+
+From the project folder, on a fresh setup:
+  npm ci
+  npx playwright install chromium
+  npm run build
+  npm start
+
+Reader: http://127.0.0.1:4173/
+Collector: http://127.0.0.1:4173/collect.html
+
+On Windows, double-click Start Demo.cmd for build/start/open, and Stop Demo.cmd
+to stop it. Start-Demo.ps1 -NoBrowser starts without opening a browser.
+
+Verification commands:
+  npm test       — engine tests
+  npm run qa     — browser QA; starts/reuses the local server
+  npm run check  — engine tests plus browser QA
+
+Windows QA uses Microsoft Edge if available, otherwise Playwright Chromium.
+Linux may need: npx playwright install --with-deps chromium
+
+Fresh verification during this handoff: npm run check PASSED, with 26 unit tests
+and all five browser QA entry scripts. Checks include deterministic reading and
+date behavior, CE/BE entry, bilingual future stories, privacy/downloads, layout,
+collector persistence, category guarantee, rarity boundaries and responsive UI.
+This handoff made no application-code changes.
+
+ASSETS AND DESIGN FILES TO CARRY OVER
+
+assets/concept/ and planning/ are deliberately gitignored. They contain original
+PNG artwork, generation prompts and historical plans. They must be copied
+separately if needed on another machine. Old planning files describe earlier
+scopes; use current code and recent decisions as the current state.
+
+Important originals:
+  assets/concept/love-moonheart-collection-v1/ — five Love card fronts and prompts
+  assets/concept/celestial-guardians-common-v1/ — other five Common fronts
+  assets/concept/celestial-guardians-ranked-v1/ — other 20 ranked fronts
+  assets/concept/love-card-back-options-v1/ — back designs and Thai/English words
+
+Useful previews, relative to the project folder:
+  output/website-preview/full-deck.png — complete deck overview
+  output/moojai-card-pick-preview-v1/desktop.png and mobile.png
+  output/moojai-card-pick-preview-v1/desktop-pick.png and mobile-reveal.png
+  output/moojai-card-margin-preview-v1/desktop-the-breath.png
+  output/moojai-card-margin-preview-v1/mobile-the-breath.png
+  output/moojai-background-concept-v1/background.png and background-prompt.txt
+
+There is one layered Photoshop card-back document:
+  output/photoshop/love-thai-back-v1/Celestial-Crossings-Love-Thai-Layered.psd
+Read its sibling README.md before editing. It is 1024 x 1536, RGB/sRGB, with
+editable Thai text, separated ornaments and a full-area brocade pattern on its
+own layer (Screen blend, initially 24% opacity). The user explicitly wanted to
+adjust that opacity themselves. It is a layered reconstruction with raster art
+and live type, not original vector illustration layers. Only the latest Thai
+back was requested as a PSD; there is not a layered PSD for every front.
+
+The approved Thai back has three fortune lines:
+  ความรักกำลังผลิบานอย่างอ่อนโยน
+  คำพูดจากใจอาจพาสองหัวใจให้ใกล้กัน
+  ปล่อยให้ความรักค่อย ๆ เติบโตในจังหวะของมัน
+
+Some historical art and prompts retain Celestial Crossings. Check baked-in
+lettering when preparing updated branded artwork. The website's live interface
+has been renamed to MooJai.
+
+DEPLOYMENT AND POSSIBLE FOLLOW-ON WORK
+
+GitHub Actions builds, tests and publishes only dist after a push to main (or a
+manual workflow run). Asset paths are relative for GitHub project Pages URLs.
+Deployment uses a unique tested artifact and a separate publish job. The current
+working branch and local uncommitted files have not been published by this
+handoff. Review git status before any commit or deployment.
+
+Possible next steps, not an already-approved feature list:
+- Complete Thai/English coverage for the collector and review card wording.
+- Reconcile historical artwork branding with MooJai while preserving style.
+- Refine the connection between fortune reading and collectible charms.
+- Design and implement the two-category combination feature if requested.
+- For a commercial release, separately plan appropriate hosting, server-side
+  draws, verified payments/entitlements, accounts and durable inventory.
+- For traditional astrology, select a documented method and seek practitioner
+  review before changing the engine's claims or interpretation.
+
+For Claude Code, open the existing folder and read this file first. For a new
+machine or a Claude chat with attachments, include the current code and required
+assets; this text alone cannot supply them. Transfer ignored concept/PSD files
+when art editing is needed. node_modules can be recreated with npm ci; .local
+contains machine-local logs, process information and QA screenshots.

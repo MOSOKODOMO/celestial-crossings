@@ -2,6 +2,7 @@
 node_modules/
 assets/concept/
 planning/
+output/
 *.log
 .env
 .env.*

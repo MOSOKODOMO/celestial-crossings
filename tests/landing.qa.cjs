@@ -11,7 +11,7 @@ const {launch,navigate,fillBirthday,BASE}=require('./qa-browser.cjs');
   page.on('request',req=>{if(!['blob:','data:'].some(p=>req.url().startsWith(p))&&new URL(req.url()).origin!==new URL(BASE).origin)external.push(req.url());});
   page.on('response',res=>{if(res.status()>=400)failed.push(res.url()+': '+res.status());});
   try{
-    await page.goto(BASE);
+    await page.goto(BASE+'/reading.html');
     await page.evaluate(()=>document.fonts.ready);
     assert.equal(await page.locator('[name=birthDate]').inputValue(),'');
     assert.equal(await page.locator('[name=timeMode]').inputValue(),'unknown');

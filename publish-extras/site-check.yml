@@ -1,0 +1,37 @@
+name: Live site check
+
+# Checks the published site every day and after each deployment.
+# A failed run emails the repository owner (GitHub's default notification).
+on:
+  schedule:
+    - cron: '17 22 * * *'   # 09:17 Sydney (AEDT) daily
+  workflow_run:
+    workflows: [Test and publish website]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Check the live site
+        run: node scripts/site-check.cjs --browser --json site-check-report.json
+      - name: Keep the report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-check-report
+          path: site-check-report.json
+          retention-days: 30

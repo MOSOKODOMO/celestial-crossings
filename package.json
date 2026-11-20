@@ -1,16 +1,17 @@
 {
-  "name": "celestial-crossings-local-demo",
-  "version": "0.3.0",
+  "name": "moojai-local-demo",
+  "version": "0.4.0",
   "private": true,
-  "description": "Bilingual Thai oracle reading website with private browser-side readings",
+  "description": "MooJai bilingual Thai oracle reading website with private browser-side readings",
   "scripts": {
     "build": "node scripts/build-demo.cjs",
     "start": "node server.cjs",
-    "test": "node --test tests/engine.test.cjs",
+    "test": "node --test tests/engine.test.cjs tests/collect-engine.test.cjs tests/world-core.test.cjs tests/world-care.test.cjs tests/world-backend.test.cjs",
     "qa": "node scripts/run-qa.cjs",
-    "check": "node --test tests/engine.test.cjs && node scripts/run-qa.cjs"
+    "check": "npm test && node scripts/run-qa.cjs"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "0.5.17",
     "playwright": "^1.65.0"
   }
 }

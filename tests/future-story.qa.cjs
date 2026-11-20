@@ -5,7 +5,7 @@ const {fillBirthday,BASE}=require('./qa-browser.cjs');
 
 module.exports=async function checkBirthdayAndFutureStory(page,out){
   const errors=[];page.on('pageerror',error=>errors.push(error.message));
-  await page.goto(BASE);
+  await page.goto(BASE+'/reading.html');
   await page.locator('[data-language=en]').click();
   await page.locator('#read-button').click();
   assert.equal(await page.locator('#results').isVisible(),false);

@@ -1,0 +1,25 @@
+name: Bug report
+description: Something on MooJai is not working as expected
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: Please never paste your birth date, birth time or reading here.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: What were you doing just before?
+  - type: dropdown
+    id: page
+    attributes:
+      label: Which page?
+      options: [Fortune reading, Card charms, Story library, Other]
+  - type: textarea
+    id: details
+    attributes:
+      label: Technical details
+      description: The site's "Report a problem" button fills this in for you.

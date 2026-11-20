@@ -1,0 +1,57 @@
+/* MooJai shared extras: account button/dialog and bug-report button/dialog.
+   Two palettes: .mj-light (reading page) and .mj-dark (charm collector). */
+.mj-light{--mj-bg:#fff;--mj-text:#252128;--mj-muted:#6e6871;--mj-accent:#432338;--mj-accent-text:#fff;--mj-line:#dedde1;--mj-field:#fbfafc;--mj-soft:#f7f3f6;--mj-ok:#2f6b46;--mj-error:#a32836;--mj-backdrop:#241d2a66;--mj-font:"Noto Sans Thai",Tahoma,"Leelawadee UI",Arial,sans-serif}
+.mj-dark{--mj-bg:#171e27;--mj-text:#f0ece3;--mj-muted:#a5aab3;--mj-accent:#ddc39a;--mj-accent-text:#22201c;--mj-line:#ffffff22;--mj-field:#10151d;--mj-soft:#1f2732;--mj-ok:#9bd3ad;--mj-error:#f2a3ad;--mj-backdrop:#05080cb3;--mj-font:Atelier,"Segoe UI",sans-serif}
+
+.mj-account-button{display:inline-flex;align-items:center;gap:7px;min-height:36px;padding:6px 14px;border:1px solid var(--mj-line);border-radius:30px;background:transparent;color:var(--mj-accent);font:500 13px/1.2 var(--mj-font);white-space:nowrap;cursor:pointer}
+.mj-account-button svg,.mj-bug-button svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.mj-account-button.is-signed-in{background:var(--mj-accent);color:var(--mj-accent-text);border-color:var(--mj-accent)}
+.mj-dark .mj-account-button{border-radius:5px;margin-right:12px}
+
+.mj-bug-button{position:fixed;right:16px;bottom:16px;z-index:40;display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:8px 14px;border:1px solid var(--mj-line);border-radius:30px;background:var(--mj-bg);color:var(--mj-muted);font:500 12px/1.2 var(--mj-font);box-shadow:0 6px 24px #0000001f;cursor:pointer;opacity:.92;transition:opacity .2s,color .2s}
+.mj-bug-button:hover,.mj-bug-button:focus-visible{opacity:1;color:var(--mj-accent)}
+@media (max-width:650px){.mj-bug-button{right:12px;bottom:12px;padding:8px 11px}.mj-bug-button span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}}
+@media print{.mj-bug-button,.mj-account-button{display:none!important}}
+
+.mj-dialog{width:calc(100% - 32px);max-width:440px;max-height:calc(100dvh - 32px);overflow:auto;border:1px solid var(--mj-line);border-radius:20px;background:var(--mj-bg);color:var(--mj-text);padding:30px 28px 26px;box-shadow:0 24px 100px #0000004d;font-family:var(--mj-font);position:fixed}
+.mj-dialog::backdrop{background:var(--mj-backdrop);backdrop-filter:blur(4px)}
+.mj-dialog h2{font:600 23px/1.45 var(--mj-font);margin:4px 0 10px;color:var(--mj-text)}
+.mj-dark .mj-dialog h2{font-family:Georgia,"Times New Roman",serif;font-weight:400}
+.mj-eyebrow{margin:0;font-size:11px;letter-spacing:.14em;color:var(--mj-muted);text-transform:uppercase}
+.mj-lede{margin:0 0 18px;font-size:14px;line-height:1.75;color:var(--mj-muted)}
+.mj-email{margin:-10px 0 18px;font-weight:600;word-break:break-all}
+.mj-close{position:absolute;top:12px;right:12px;width:40px;height:40px;border:0;border-radius:50%;background:transparent;color:var(--mj-muted);font-size:24px;line-height:1;cursor:pointer}
+.mj-close:hover{background:var(--mj-soft)}
+.mj-form{display:grid;gap:14px}
+.mj-field{display:grid;gap:6px;font-size:13px;color:var(--mj-text)}
+.mj-field small{color:var(--mj-muted);font-size:12px}
+.mj-field input,.mj-field textarea{width:100%;box-sizing:border-box;min-height:46px;padding:11px 14px;border:1px solid var(--mj-line);border-radius:12px;background:var(--mj-field);color:var(--mj-text);font:15px/1.5 var(--mj-font);resize:vertical}
+.mj-field input:focus,.mj-field textarea:focus{outline:2px solid var(--mj-accent);outline-offset:1px}
+.mj-password{position:relative;display:block}
+.mj-password input{padding-right:50px}
+.mj-reveal{position:absolute;top:3px;right:3px;width:40px;height:40px;border:0;border-radius:10px;background:transparent;color:var(--mj-muted);display:grid;place-items:center;cursor:pointer}
+.mj-reveal svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7}
+.mj-reveal[aria-pressed=true]{color:var(--mj-accent)}
+.mj-check{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.6;color:var(--mj-muted)}
+.mj-check input{margin-top:3px;width:18px;height:18px;accent-color:var(--mj-accent)}
+.mj-primary,.mj-secondary{min-height:48px;padding:12px 18px;border-radius:30px;font:600 15px/1.3 var(--mj-font);cursor:pointer}
+.mj-primary{border:0;background:var(--mj-accent);color:var(--mj-accent-text)}
+.mj-secondary{border:1px solid var(--mj-line);background:transparent;color:var(--mj-accent)}
+.mj-dark .mj-primary,.mj-dark .mj-secondary{border-radius:6px}
+.mj-primary:disabled,.mj-secondary:disabled{opacity:.6;cursor:default}
+.mj-actions{display:grid;gap:10px}
+.mj-link{border:0;background:none;padding:4px 0;color:var(--mj-accent);font:500 13px/1.4 var(--mj-font);text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.mj-forgot{justify-self:end;margin-top:-6px}
+.mj-switch{margin:0;text-align:center;font-size:13px;color:var(--mj-muted)}
+.mj-status{margin:0;padding:12px 14px;border-radius:12px;background:var(--mj-soft);font-size:13.5px;line-height:1.6}
+.mj-status[data-kind=error]{color:var(--mj-error)}
+.mj-status[data-kind=ok]{color:var(--mj-ok)}
+.mj-fineprint{margin:0;font-size:11.5px;color:var(--mj-muted);text-align:center}
+.mj-privacy-note{font-size:14px;line-height:1.9;margin:0 0 16px}
+@media (prefers-reduced-motion:no-preference){.mj-dialog[open]{animation:mj-in .18s ease-out}@keyframes mj-in{from{opacity:0;transform:translateY(8px)}}}
+@media (max-width:650px){.mj-account-button{padding:6px 9px;min-height:34px}.mj-account-button span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.mj-dark .mj-account-button{margin-right:8px}}
+.mj-dialog .mj-check{flex-direction:row;gap:10px;font-size:12.5px;font-weight:400}
+.mj-dialog .mj-field{gap:6px;font-size:13px}
+.mj-dialog .mj-check input{flex:0 0 18px;width:18px;height:18px;min-height:0;margin:3px 0 0;padding:0;box-shadow:none}
+.mj-dialog .mj-check span{flex:1}
+@media (max-width:650px){body{padding-bottom:68px}}

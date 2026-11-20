@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#faf6f0">
+  <title>ไม่พบหน้านี้ · Page not found — มูใจ / MooJai</title>
+  <style>
+    :root{color-scheme:light;font-family:"Noto Sans Thai",Tahoma,"Leelawadee UI",Arial,sans-serif;color:#252128;background:#faf6f0}
+    body{margin:0;min-height:100dvh;display:grid;place-items:center;padding:24px;box-sizing:border-box;text-align:center}
+    main{max-width:460px}
+    svg{width:64px;height:64px;color:#a47a47;margin:0 auto 18px;display:block}
+    h1{font-size:28px;font-weight:600;margin:0 0 6px;color:#432338}
+    p{margin:0 0 6px;line-height:1.8;color:#6e6871}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:26px}
+    a{display:inline-flex;align-items:center;min-height:48px;padding:0 24px;border-radius:30px;text-decoration:none;font-weight:600}
+    .primary{background:#432338;color:#fff}.secondary{border:1px solid #cfc1c3;color:#432338}
+  </style>
+</head>
+<body>
+  <main>
+    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M28 3a20 20 0 1 0 17 30A19 19 0 0 1 28 3Z" fill="currentColor"/><path d="m38 8 1.7 5.3L45 15l-5.3 1.7L38 22l-1.7-5.3L31 15l5.3-1.7Z" fill="currentColor"/></svg>
+    <h1>ทางนี้ยังไม่มีดวงดาว</h1>
+    <p>ไม่พบหน้าที่คุณกำลังมองหา</p>
+    <p lang="en">This page could not be found.</p>
+    <div class="actions"><a class="primary" data-home href="./">กลับหน้าแรก · Home</a><a class="secondary" data-reading href="./reading.html">อ่านดวง · Fortune reading</a></div>
+  </main>
+  <script>
+    // GitHub project pages serve this file at any depth, so build links from the site root.
+    (function(){var seg=location.pathname.split('/').filter(Boolean);var base=/\.github\.io$/.test(location.hostname)&&seg.length?'/'+seg[0]+'/':'/';
+    document.querySelector('[data-home]').href=base;document.querySelector('[data-reading]').href=base+'reading.html';})();
+  </script>
+</body>
+</html>
