@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node scripts/build-demo.cjs",
     "start": "node server.cjs",
-    "test": "node --test tests/engine.test.cjs tests/collect-engine.test.cjs tests/world-core.test.cjs tests/world-care.test.cjs tests/world-backend.test.cjs",
+    "test": "node --test tests/engine.test.cjs tests/collect-engine.test.cjs tests/world-core.test.cjs tests/world-care.test.cjs tests/world-backend.test.cjs tests/payments.test.mjs",
     "qa": "node scripts/run-qa.cjs",
     "check": "npm test && node scripts/run-qa.cjs"
   },

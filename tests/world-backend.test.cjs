@@ -36,6 +36,13 @@ async function as(role,id,work){
 test('browser and Edge rule copies are byte-identical',()=>{
   for(const file of ['collect-engine.js','world-core.js'])assert.deepEqual(fs.readFileSync(path.join(root,'dist',file)),fs.readFileSync(path.join(root,'supabase/functions/_shared',file)));
 });
+test('payment records are idempotent and only readable by their owner',async()=>{
+  const insert=()=>pg.query("insert into public.entitlements(user_id,product,stripe_session_id,amount_total,currency) values($1,'cardWallpaper','cs_test_database',4900,'thb') on conflict(stripe_session_id) do nothing",[A]);
+  await as('service_role',null,async()=>{await insert();await insert();assert.equal((await pg.query('select count(*)::int n from public.entitlements')).rows[0].n,1);});
+  await as('authenticated',A,async()=>{assert.equal((await pg.query('select * from public.entitlements')).rows.length,1);await assert.rejects(insert(),/permission denied/);});
+  await as('authenticated',B,async()=>{assert.equal((await pg.query('select * from public.entitlements')).rows.length,0);await assert.rejects(pg.query('delete from public.entitlements'),/permission denied/);});
+  await as('anon',null,async()=>{await assert.rejects(pg.query('select * from public.entitlements'),/permission denied/);});
+});
 test('draw RPC atomically grants one card and replays a request without spending twice',async()=>{
   const out=E.draw(E.initialState(),()=>.5),request=crypto.randomUUID();
   const commit=()=>pg.query('select public.commit_draw($1,$2,$3,$4,$5,$6) result',[A,request,0,out.state,out.result,5]);

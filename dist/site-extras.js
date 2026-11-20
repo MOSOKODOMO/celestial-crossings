@@ -12,6 +12,7 @@
   const accountsEnabled = Boolean(SUPABASE && ANON);
   const SESSION_KEY = 'moojai-auth-v1';
   const recentErrors = [];
+  let checkoutAttempt = null, checkoutPending = null;
 
   window.addEventListener('error', event => {
     recentErrors.push(String(event.message || 'Error').slice(0, 200) + (event.filename ? ` @ ${event.filename.split('/').pop()}:${event.lineno}` : ''));
@@ -108,7 +109,7 @@
     try {
       response = await fetch(SUPABASE + path, {
         method,
-        headers: { apikey: ANON, 'Content-Type': 'application/json', Authorization: 'Bearer ' + (token || ANON) },
+        headers: { apikey: ANON, 'Content-Type': 'application/json', ...(token ? { Authorization: 'Bearer ' + token } : {}) },
         body: body ? JSON.stringify(body) : undefined
       });
     } catch { throw new Error(t('network')); }
@@ -167,19 +168,30 @@
       const token = await api.getAccessToken();
       await authFetch('/auth/v1/user', { method: 'PUT', token, body: { password } });
     },
-    // Payments: calls the create-checkout Edge Function (supabase/functions) and
-    // redirects to Stripe Checkout. Not wired to any button until a paid item is chosen.
+    get paymentsEnabled() { return accountsEnabled && config.payments?.enabled === true; },
     async startCheckout(productKey) {
+      if (!api.paymentsEnabled || !Object.hasOwn(config.products || {}, productKey)) throw new Error('payments_unavailable');
+      if (checkoutPending) return checkoutPending;
+      checkoutPending = (async () => {
+        const token = await api.getAccessToken();
+        if (!token) { openAccount('signin'); return false; }
+        if (!checkoutAttempt || checkoutAttempt.product !== productKey || checkoutAttempt.user !== api.user?.id) {
+          checkoutAttempt = { product: productKey, user: api.user?.id, requestId: crypto.randomUUID(), language: lang() };
+        }
+        const data = await paymentRequest('create-checkout', { product: productKey, requestId: checkoutAttempt.requestId, language: checkoutAttempt.language }, token);
+        let url; try { url = new URL(data.url); } catch { throw new Error('payment_service_unavailable'); }
+        if (url.origin !== 'https://checkout.stripe.com') throw new Error('payment_service_unavailable');
+        try { sessionStorage.setItem('moojai-checkout-v1', data.sessionId); } catch {}
+        checkoutAttempt = null;
+        location.assign(url.href);
+        return true;
+      })();
+      try { return await checkoutPending; } finally { checkoutPending = null; }
+    },
+    async checkoutStatus(sessionId) {
       const token = await api.getAccessToken();
-      if (!token) { openAccount('signin'); return; }
-      const response = await fetch(SUPABASE + '/functions/v1/create-checkout', {
-        method: 'POST',
-        headers: { apikey: ANON, Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ product: productKey, returnUrl: location.origin + location.pathname })
-      });
-      const data = await response.json().catch(() => ({}));
-      if (!response.ok || !data.url) throw new Error(data.error || t('generic'));
-      location.assign(data.url);
+      if (!token) throw new Error('signin');
+      return paymentRequest('checkout-status', { sessionId }, token);
     },
     async entitlements() {
       const token = await api.getAccessToken();
@@ -190,6 +202,15 @@
     open: mode => openAccount(mode)
   };
   window.MooJaiAccount = api;
+  async function paymentRequest(name, body, token) {
+    const response = await fetch(SUPABASE + '/functions/v1/' + name, {
+      method: 'POST', headers: { apikey: ANON, Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body), signal: AbortSignal.timeout(20000)
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || 'payment_service_unavailable');
+    return data;
+  }
 
   // Supabase email links return here with tokens in the URL hash. Consume them
   // before the reading page's own hash router sees them.

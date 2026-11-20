@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#10151d"><meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>ชำระเงิน / Checkout — MooJai</title>
+  <link rel="icon" href="assets/moon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="collect.css"><link rel="stylesheet" href="site-extras.css">
+  <link rel="stylesheet" href="experience.css"><link rel="stylesheet" href="payment.css">
+  <script src="config.js" defer></script><script src="experience.js" defer></script>
+  <script src="site-extras.js" defer></script><script src="payment.js" defer></script>
+</head>
+<body data-theme="dark" data-experience="payment">
+  <a class="skip-link" href="#payment-main">Skip to checkout</a>
+  <header data-site-header></header>
+  <main id="payment-main" class="payment-main">
+    <a class="payment-back" href="charms.html"><span data-icon="back"></span><span data-en="Back to charms" data-th="กลับไปหน้าการ์ด">กลับไปหน้าการ์ด</span></a>
+    <section class="payment-panel" aria-labelledby="payment-title">
+      <div class="payment-emblem" data-icon="cards"></div>
+      <p class="eyebrow">มูใจ · MooJai</p>
+      <h1 id="payment-title" data-en="A little magic to keep." data-th="เก็บความพิเศษไว้กับคุณ">เก็บความพิเศษไว้กับคุณ</h1>
+      <p class="payment-description" data-en="A card and its matching phone wallpaper." data-th="การ์ดพร้อมวอลเปเปอร์โทรศัพท์ที่เข้าคู่กัน">การ์ดพร้อมวอลเปเปอร์โทรศัพท์ที่เข้าคู่กัน</p>
+      <div class="payment-total"><span data-en="One-time payment" data-th="ชำระครั้งเดียว">ชำระครั้งเดียว</span><strong>฿49<span> THB</span></strong></div>
+      <div class="payment-methods" aria-label="Payment methods"><span>PromptPay QR</span><span data-en="Debit / credit card" data-th="บัตรเดบิต / เครดิต">บัตรเดบิต / เครดิต</span></div>
+      <p class="payment-help" data-en="Choose PromptPay on the secure checkout page, then pay with your Thai banking app. On the same phone, save the QR code and import it in your bank app if supported." data-th="เลือกพร้อมเพย์ในหน้าชำระเงิน แล้วชำระผ่านแอปธนาคาร หากใช้โทรศัพท์เครื่องเดียว ให้บันทึกคิวอาร์โค้ดและนำเข้าจากรูปภาพในแอปธนาคารที่รองรับ">เลือกพร้อมเพย์ในหน้าชำระเงิน แล้วชำระผ่านแอปธนาคาร หากใช้โทรศัพท์เครื่องเดียว ให้บันทึกคิวอาร์โค้ดและนำเข้าจากรูปภาพในแอปธนาคารที่รองรับ</p>
+      <p id="payment-status" class="payment-status" role="status" aria-live="polite"></p>
+      <button id="pay-button" class="gold-button" type="button" disabled><span data-en="Continue — ฿49" data-th="ไปชำระเงิน — ฿49">ไปชำระเงิน — ฿49</span><span data-icon="arrow"></span></button>
+      <button id="payment-retry" class="outline-button" type="button" hidden></button>
+      <a id="payment-return" class="payment-back" href="charms.html" hidden><span data-en="Return to MooJai" data-th="กลับสู่มูใจ">กลับสู่มูใจ</span></a>
+      <p class="payment-fineprint"><span data-icon="lock"></span><span data-en="Your birth details and readings are never sent with a payment." data-th="ข้อมูลวันเกิดและคำอ่านของคุณจะไม่ถูกส่งไปพร้อมการชำระเงิน">ข้อมูลวันเกิดและคำอ่านของคุณจะไม่ถูกส่งไปพร้อมการชำระเงิน</span></p>
+      <noscript>กรุณาเปิด JavaScript เพื่อชำระเงิน / Enable JavaScript to use checkout.</noscript>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# User-facing handlers validate the access token with Supabase Auth themselves.
+# The Stripe endpoint validates the signed webhook body instead of a JWT.
+[functions.create-checkout]
+verify_jwt = false
+
+[functions.checkout-status]
+verify_jwt = false
+
+[functions.stripe-webhook]
+verify_jwt = false

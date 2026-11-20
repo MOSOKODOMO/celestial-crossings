@@ -36,8 +36,12 @@ create table if not exists public.entitlements (
   granted_at timestamptz not null default now()
 );
 alter table public.entitlements enable row level security;
-create policy "Read own entitlements" on public.entitlements for select using (auth.uid() = user_id);
+create policy "Read own entitlements" on public.entitlements for select to authenticated using ((select auth.uid()) = user_id);
 -- No insert/update/delete policies: only the service role can write.
+revoke all on public.entitlements from anon, authenticated;
+grant select on public.entitlements to authenticated;
+grant select, insert on public.entitlements to service_role;
+grant usage, select on sequence public.entitlements_id_seq to service_role;
 
 -- 3. Bug reports from the on-site "Report a problem" button.
 --    Anyone may submit; nobody can read them through the public API.

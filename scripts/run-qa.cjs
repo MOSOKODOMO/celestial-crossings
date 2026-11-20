@@ -5,7 +5,7 @@ const http=require('node:http');
 const path=require('node:path');
 const project=path.resolve(__dirname,'..');
 const base=process.env.QA_BASE_URL||'http://127.0.0.1:4173';
-const scripts=['browser.qa.cjs','date-boundary.qa.cjs','reading-modes.qa.cjs','landing.qa.cjs','experience.qa.cjs','collect.qa.cjs','card-reveal.qa.cjs','extras.qa.cjs','world.qa.cjs','world-care.qa.cjs','world-animation.qa.cjs','world-online.qa.cjs'];
+const scripts=['browser.qa.cjs','date-boundary.qa.cjs','reading-modes.qa.cjs','landing.qa.cjs','experience.qa.cjs','collect.qa.cjs','card-reveal.qa.cjs','extras.qa.cjs','payments.qa.cjs','world.qa.cjs','world-care.qa.cjs','world-animation.qa.cjs','world-online.qa.cjs'];
 const health=()=>new Promise(resolve=>{
   const req=http.get(base+'/__health',res=>{let body='';res.on('data',c=>body+=c);res.on('end',()=>{try{const data=JSON.parse(body);resolve(data.app==='moojai-local-demo'&&path.resolve(data.project)===project);}catch{resolve(false);}});});
   req.on('error',()=>resolve(false));req.setTimeout(1500,()=>{req.destroy();resolve(false);});

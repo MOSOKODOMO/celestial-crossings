@@ -1,0 +1,70 @@
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const {launch,BASE}=require('./qa-browser.cjs');
+const config={supabaseUrl:'https://demo.supabase.co',supabaseAnonKey:'sb_publishable_fixture',payments:{enabled:true,provider:'stripe'},products:{cardWallpaper:{amount:4900,currency:'thb'}},githubRepo:'MOSOKODOMO/celestial-crossings'};
+const id='cs_test_1234567890abcdef';
+(async()=>{
+  const browser=await launch();
+  try{
+    fs.mkdirSync('output/payments',{recursive:true});
+    let page=await browser.newPage();
+    await page.goto(BASE+'/payment.html');
+    assert.ok(await page.locator('#pay-button').isDisabled());
+    assert.equal(await page.locator('nav a[href="payment.html"]').count(),0);
+    assert.match(await page.locator('#payment-status').innerText(),/ยังไม่เปิดรับชำระเงิน/);
+    await page.goto(BASE+'/payment.html?checkout=success');
+    assert.equal(await page.locator('#payment-status').getAttribute('data-state'),'error','a URL cannot prove payment');
+    await page.close();
+    for(const width of [1280,390]){
+      const context=await browser.newContext({viewport:{width,height:900}});
+      await context.addInitScript(()=>localStorage.setItem('moojai-auth-v1',JSON.stringify({access_token:'fixture',refresh_token:'fixture',expires_at:Math.floor(Date.now()/1000)+3600,user:{id:'aaaaaaaa-1111-4111-8111-111111111111',email:'buyer@example.com'}})));
+      page=await context.newPage();const errors=[],calls=[];let attempts=0,statusCalls=0,unsafe=false;
+      page.on('pageerror',e=>errors.push(e.message));
+      await page.route('**/config.js',route=>route.fulfill({contentType:'text/javascript',body:'window.MOOJAI_CONFIG='+JSON.stringify(config)}));
+      await context.route('https://checkout.stripe.com/**',route=>route.fulfill({contentType:'text/html',body:'<title>Mock Stripe checkout</title><p>Test checkout only</p>'}));
+      await page.route('https://demo.supabase.co/**',route=>{
+        const url=route.request().url(),body=JSON.parse(route.request().postData()||'{}');
+        if(url.endsWith('/create-checkout')){
+          calls.push(body);attempts++;
+          if(attempts===1)return route.fulfill({status:502,json:{error:'payment_service_unavailable'}});
+          return route.fulfill({json:{sessionId:id,url:unsafe?'https://evil.example/fake':'https://checkout.stripe.com/c/pay/'+id}});
+        }
+        if(url.endsWith('/checkout-status'))return route.fulfill({json:{state:++statusCalls===1?'processing':'paid',amount:4900,currency:'thb'}});
+        return route.fulfill({status:404,json:{}});
+      });
+      await page.goto(BASE+'/payment.html');
+      assert.equal(await page.locator('nav a[href="payment.html"]').count(),1);
+      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+      await page.screenshot({path:`output/payments/checkout-${width}.png`,fullPage:true});
+      await page.click('[data-locale=en]');assert.match(await page.locator('#payment-status').innerText(),/total is ฿49/);
+      await page.click('#pay-button');
+      await page.waitForFunction(()=>document.querySelector('#payment-status').dataset.state==='checkoutError');
+      assert.ok(!(await page.locator('#pay-button').isDisabled()));
+      unsafe=true;await page.click('#pay-button');
+      await page.waitForFunction(()=>document.querySelector('#payment-status').dataset.state==='checkoutError');
+      assert.ok(page.url().startsWith(BASE),'unexpected checkout hosts are rejected');
+      unsafe=false;
+      await page.evaluate(()=>{void MooJaiAccount.startCheckout('cardWallpaper');void MooJaiAccount.startCheckout('cardWallpaper');});
+      await page.waitForURL('https://checkout.stripe.com/**');
+      assert.equal(attempts,3,'simultaneous clicks create one request');
+      assert.equal(new Set(calls.map(c=>c.requestId)).size,1,'network retries reuse the same checkout identity');
+      assert.deepEqual(Object.keys(calls[0]).sort(),['language','product','requestId']);
+      assert.equal(calls[0].language,'en');
+      await page.goto(BASE+'/payment.html?checkout=success&session_id='+id+'&lang=en');
+      await page.waitForFunction(()=>document.querySelector('#payment-status').dataset.state==='processing');
+      assert.ok(await page.locator('#pay-button').isHidden(),'pending payment cannot trigger a second purchase');
+      await page.click('#payment-retry');
+      await page.waitForFunction(()=>document.querySelector('#payment-status').dataset.state==='paid');
+      assert.match(await page.locator('#payment-status').innerText(),/Payment received: ฿49/);
+      await page.screenshot({path:`output/payments/receipt-${width}.png`,fullPage:true});
+      assert.equal(await page.evaluate(()=>sessionStorage.getItem('moojai-checkout-v1')),null);
+      assert.deepEqual(errors,[]);await context.close();
+    }
+    page=await browser.newPage();
+    await page.route('**/config.js',route=>route.fulfill({contentType:'text/javascript',body:'window.MOOJAI_CONFIG='+JSON.stringify(config)}));
+    await page.goto(BASE+'/payment.html');await page.click('#pay-button');
+    assert.ok(await page.locator('#account-dialog').evaluate(d=>d.open),'checkout requires sign in');
+    await page.close();
+    console.log('Payment browser checks passed: Thai/English, mobile, sign-in, disabled launch, safe redirect, duplicate clicks, retry identity, pending and verified receipts.');
+  }finally{await browser.close();}
+})().catch(error=>{console.error(error);process.exitCode=1;});

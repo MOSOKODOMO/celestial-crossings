@@ -11,9 +11,10 @@ window.MOOJAI_CONFIG = {
   supabaseUrl: '',          // e.g. 'https://abcdefgh.supabase.co'
   supabaseAnonKey: '',
 
-  // Payments are prepared but not offered in the interface yet. When a paid
-  // item is chosen, list it here and call MooJaiAccount.startCheckout(key).
-  products: {},             // e.g. { customWeek: { priceLabel: '฿49' } }
+  // Enable only after the merchant account, backend and bundle delivery are ready.
+  // Stripe price IDs and secret keys belong in Edge Function secrets, never here.
+  payments: { enabled: false, provider: 'stripe', currency: 'thb' },
+  products: { cardWallpaper: { amount: 4900, currency: 'thb', priceLabel: '฿49' } },
 
   // Bug reports: with Supabase configured they are saved to the bug_reports
   // table. Without it, visitors can open a prefilled GitHub issue or copy the report.

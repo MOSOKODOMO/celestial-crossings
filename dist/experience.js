@@ -28,6 +28,13 @@
     const active=document.body.dataset.experience;
     header.className='site-header mj-header';
     header.innerHTML=`<a class="brand mj-brand" href="./" aria-label="MooJai home">${brand}</a><nav class="main-nav" id="main-nav" aria-label="Main navigation">${[['home','./','Discover','รู้จักมูใจ'],['reading','reading.html','Readings','คำอ่าน'],['charms','charms.html#collection','My charms','การ์ดของฉัน'],['world','world.html','Pet World','โลกมูใจ']].map(([id,url,en,th])=>`<a href="${url}" ${id===active?'aria-current="page"':''}><span data-en="${en}" data-th="${th}">${en}</span></a>`).join('')}</nav><div class="mj-header-actions header-right"><div class="language-switch" role="group" aria-label="Language"><button type="button" data-locale="th" data-language="th">ไทย</button><span>/</span><button type="button" data-locale="en" data-language="en">EN</button></div>${active==='home'?'<a class="gold-button sticky-start" href="reading.html" hidden><span data-en="Start reading" data-th="เริ่มคำอ่าน">Start reading</span>'+icon('arrow')+'</a>':''}<button type="button" class="menu-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Menu">${icon('menu')}</button></div>`;
+    const paymentConfig=window.MOOJAI_CONFIG;
+    if(paymentConfig?.payments?.enabled&&paymentConfig.supabaseUrl&&paymentConfig.supabaseAnonKey){
+      const shop=document.createElement('a');shop.href='payment.html';
+      shop.innerHTML='<span data-en="Shop" data-th="ร้านค้า">Shop</span>';
+      if(active==='payment')shop.setAttribute('aria-current','page');
+      header.querySelector('nav').appendChild(shop);
+    }
     const toggle=header.querySelector('.menu-toggle');
     const close=()=>{header.classList.remove('menu-open');toggle.setAttribute('aria-expanded','false');};
     toggle.onclick=()=>{const open=header.classList.toggle('menu-open');toggle.setAttribute('aria-expanded',String(open));};
