@@ -19,21 +19,7 @@ const assert=require('node:assert/strict');
     assert.equal(await page.locator('#day-context').isVisible(),false);
     assert.equal(await field.isVisible(),false);assert.equal(await field.isDisabled(),true);
     assert.match(await page.locator('#reading-status').textContent(),/4.*8/);
-    const beforeLocked=await ids(),locked=page.locator('#custom-week-locked'),dialog=page.locator('#custom-week-dialog');
-    for(const language of ['th','en']){
-      await page.locator(`[data-language=${language}]`).click();
-      await locked.click();assert.equal(await dialog.isVisible(),true);
-      assert.match(await page.locator('#payment-unavailable').textContent(),language==='th'?/ยังไม่เปิดให้ชำระเงิน/:/not available in this demo/);
-      await page.keyboard.press('Escape');assert.equal(await dialog.isVisible(),false);
-      assert.equal(await locked.evaluate(el=>document.activeElement===el),true);assert.deepEqual(await ids(),beforeLocked);
-      for(const width of [390,320]){
-        await page.setViewportSize({width,height:850});await locked.click();
-        assert.ok(await dialog.evaluate(el=>el.scrollWidth<=el.clientWidth+1));
-        assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
-        if(language==='th'&&width===390)await page.screenshot({path:path.resolve(__dirname,'../.local/qa/locked-week-th-mobile.png')});
-        await page.locator('#close-custom-week').click();assert.equal(await dialog.isVisible(),false);
-      }
-    }
+    assert.equal(await page.locator('#custom-week-locked').isVisible(),false,'Unavailable purchase does not interrupt the reading flow');
     await page.setViewportSize({width:1280,height:1000});await page.locator('[data-language=th]').click();
     await page.locator('[data-week=next]').click();assert.match(await page.locator('#week-period-confirm').textContent(),/9.*15/);
     await page.locator('#read-button').click();assert.match(await page.locator('#reading-status').textContent(),/9.*15/);
@@ -74,6 +60,7 @@ const assert=require('node:assert/strict');
     const pastResult=await page.locator('#reading-result').textContent();await field.fill('2026-11-03');await page.locator('#read-button').click();
     assert.equal(await field.evaluate(el=>el.checkValidity()),false);assert.equal(await page.locator('#reading-result').textContent(),pastResult);
     await field.fill('2026-11-11');await page.locator('[name=occasion]').selectOption('interview');await page.locator('[name=support]').selectOption('confidence');await page.locator('#read-button').click();
+    await page.locator('#include-birth-details').check();
     const downloadPromise=page.waitForEvent('download');await page.locator('#save-reading').click();const download=await downloadPromise;
     assert.match(download.suggestedFilename(),/^fortune-day-2026-11-11-/);
     const exported=fs.readFileSync(await download.path(),'utf8');assert.match(exported,/Reading for 11 Nov 2026/);assert.match(exported,/Job interview/);assert.match(exported,/If nerves make you rush/);assert.match(exported,/12 Jun 1995 · Monday · 08:00–11:59 · Exact clock time/);assert.doesNotMatch(exported,/No birth time is invented/);
@@ -99,6 +86,6 @@ const assert=require('node:assert/strict');
       assert.ok((await page.locator('#reading-status').textContent()).includes(expected));
     }
     assert.deepEqual(errors,[]);
-    console.log('Passed: date picker only in daily mode, independent day/week selections, locked paid-week modal and keyboard dismissal, current/future periods, next-week boundaries, 12 advice choices, stable cards, past-date rejection, Thai/English, text/print export and responsive layouts.');
+    console.log('Passed: date picker only in daily mode, independent day/week selections, unavailable purchase hidden, current/future periods, next-week boundaries, 12 advice choices, stable cards, past-date rejection, Thai/English, text/print export and responsive layouts.');
   }finally{await browser.close();}
 })().catch(error=>{console.error(error);process.exit(1);});

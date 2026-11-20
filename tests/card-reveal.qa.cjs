@@ -11,7 +11,10 @@ const storageKey = 'celestial-atelier-preview-v1';
   const completed = () => page.waitForFunction(() => document.querySelector('#reveal-dialog').dataset.phase === 'revealed');
   const settled = () => page.waitForFunction(() => !document.querySelector('#reveal-dialog').open && !document.querySelector('.card-pick').disabled);
   try {
-    await page.goto(`${BASE}/`);
+    await page.goto(`${BASE}/charms.html`);
+    await page.locator('[data-language=en]').click();
+    await page.locator('[data-category=love]').click();
+    await page.locator('[data-category=career]').click();
 
     // A real touch draw commits once, traps focus, and hides result controls until revealed.
     await page.locator('.card-pick').first().tap();
@@ -29,7 +32,7 @@ const storageKey = 'celestial-atelier-preview-v1';
     const savedCard = await page.evaluate(key => JSON.parse(localStorage.getItem(key)).history[0].cardId, storageKey);
     assert.ok((await page.locator('#revealed-card img').getAttribute('src')).includes(savedCard));
     assert.match(await page.locator('#announcement').textContent(), /You drew/);
-    await page.locator('#keep-card').click();
+    await page.locator('#close-reveal').click();
     await settled();
     assert.equal(await page.locator('.card-pick').first().evaluate(el => el === document.activeElement), true);
 
@@ -48,6 +51,7 @@ const storageKey = 'celestial-atelier-preview-v1';
     await page.keyboard.press('Escape');
     await settled();
     assert.equal(await total(), 3);
+    await page.goto(`${BASE}/charms.html#deck`);
     await page.locator('.gallery-card').first().click();
     assert.equal(await page.locator('#reveal-dialog').evaluate(el => el.classList.contains('cinematic')), false);
     assert.match(await page.locator('#saved-note').textContent(), /Not added/);
@@ -57,6 +61,7 @@ const storageKey = 'celestial-atelier-preview-v1';
     assert.equal(await page.locator('#skip-reveal').isVisible(), false);
     await page.locator('#close-reveal').click();
 
+    await page.locator('#header-draw').click();
     // Reloading mid-reveal keeps the draw, and the next pick still works.
     await page.locator('.card-pick').first().click();
     await page.reload();
@@ -66,7 +71,7 @@ const storageKey = 'celestial-atelier-preview-v1';
     await page.emulateMedia({reducedMotion:'reduce'});
     await completed();
     assert.equal(await page.locator('#skip-reveal').isVisible(), false);
-    await page.locator('#keep-card').click();
+    await page.locator('#close-reveal').click();
     await settled();
 
     // Reduced motion is immediate, and all controls/card edges fit small and landscape screens.
@@ -83,7 +88,7 @@ const storageKey = 'celestial-atelier-preview-v1';
       assert.ok(layout.card.left >= 0 && layout.card.right <= width, 'Card stays in the viewport');
       assert.ok(Math.abs(layout.card.width/layout.card.height-2/3)<.005, 'Artwork keeps its full 2:3 aspect ratio');
       assert.ok(layout.close.top >= 0 && layout.close.bottom <= height, 'Close is always reachable');
-      await page.locator('#keep-card').click();
+      await page.locator('#close-reveal').click();
       await settled();
     }
     assert.equal(await total(), 10);
@@ -92,7 +97,9 @@ const storageKey = 'celestial-atelier-preview-v1';
     // Missing art still exposes the message and a working exit; no animation can trap the user.
     const broken = await browser.newPage({reducedMotion:'reduce'});
     await broken.route('**/assets/cards/*.webp', route => route.abort());
-    await broken.goto(`${BASE}/`);
+    await broken.goto(`${BASE}/charms.html`);
+    await broken.locator('[data-category=love]').click();
+    await broken.locator('[data-category=career]').click();
     await broken.locator('.card-pick').first().click();
     await broken.waitForFunction(() => document.querySelector('#reveal-dialog').classList.contains('art-unavailable'));
     assert.equal(await broken.locator('#keep-card').isVisible(), true);

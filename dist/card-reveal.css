@@ -1,4 +1,4 @@
-/* A single 3.4-second reveal: violet back → gold turn → illustrated charm. */
+/* A single 1.2-second reveal: violet back → gold turn → illustrated charm. */
 .reveal-details > .gold-button { width:100%; justify-content:center; font-size:12px; padding:13px; }
 .reveal-brand, .reveal-back, .reveal-aura, .reveal-orbit, .reveal-dust,
 .reveal-burst, .reveal-veil, .reveal-shine, .reveal-floor { display:none; }
@@ -173,13 +173,13 @@ dialog.cinematic[open] { display:flex; flex-direction:column; align-items:center
 .cinematic[data-phase="playing"] > .eyebrow { visibility:hidden; }
 .cinematic[data-phase="loading"] .reveal-stage,
 .cinematic[data-phase="playing"] .reveal-stage { transform:translateY(100px); }
-.cinematic[data-phase="playing"] .reveal-card-wrap { animation:charm-arrive 3400ms both; }
-.cinematic[data-phase="playing"] .reveal-rotator { animation:charm-turn 3400ms both; }
-.cinematic[data-phase="playing"] .reveal-veil { animation:charm-unveil 3400ms both; }
-.cinematic[data-phase="playing"] .reveal-aura { animation:charm-aura 3400ms both; }
-.cinematic[data-phase="playing"] .reveal-burst { animation:charm-burst 3400ms both; }
+.cinematic[data-phase="playing"] .reveal-card-wrap { animation:charm-arrive 1200ms both; }
+.cinematic[data-phase="playing"] .reveal-rotator { animation:charm-turn 1200ms both; }
+.cinematic[data-phase="playing"] .reveal-veil { animation:charm-unveil 1200ms both; }
+.cinematic[data-phase="playing"] .reveal-aura { animation:charm-aura 1200ms both; }
+.cinematic[data-phase="playing"] .reveal-burst { animation:charm-burst 1200ms both; }
 .cinematic[data-phase="playing"] .reveal-dust > span { animation:charm-dust 2.8s var(--delay) infinite ease-in-out; }
-.cinematic[data-phase="playing"] .reveal-shine::after { animation:charm-shine 3400ms both; }
+.cinematic[data-phase="playing"] .reveal-shine::after { animation:charm-shine 1200ms both; }
 .cinematic[data-phase="revealed"] .reveal-rotator { transform:rotateY(180deg); }
 .cinematic[data-phase="revealed"] .reveal-veil { opacity:0; visibility:hidden; }
 .cinematic[data-phase="revealed"] .reveal-stage { transition:transform .65s cubic-bezier(.2,.7,.2,1); }

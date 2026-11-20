@@ -33,21 +33,21 @@ const fakeConfig=`window.MOOJAI_CONFIG={version:'test',supabaseUrl:'https://demo
     }
     // 2. Reader nav links to the collector in both languages.
     {const page=await browser.newPage({viewport:{width:1280,height:900}});await page.goto(BASE+'/reading.html');
-     assert.equal(await page.locator('.main-nav a[href="./"]').innerText().then(t=>t.includes('การ์ดมูใจ')),true);
-     await page.click('[data-language=en]');assert.match(await page.locator('.main-nav a[href="./"]').innerText(),/Card charms/);
+     assert.equal(await page.locator('.main-nav a[href="charms.html#collection"]').innerText().then(t=>t.includes('การ์ดของฉัน')),true);
+     await page.click('[data-language=en]');assert.match(await page.locator('.main-nav a[href="charms.html#collection"]').innerText(),/My charms/);
      assert.match(await page.locator('#bug-report-button').innerText(),/Report a problem/);await page.close();}
     // 2b. Site structure: dark MooJai page is home, reader at reading.html, old collect.html links redirect.
     {const page=await browser.newPage({viewport:{width:1280,height:900}});
-     await page.goto(BASE+'/');assert.ok(await page.locator('#card-picks').count(),'home is the dark charms page');
-     assert.ok(await page.locator('.world-link').isVisible(),'hero links to Pet World');assert.ok(await page.locator('#pet-world a.gold-button[href="world.html"]').isVisible(),'Pet World section has an Enter button');
+     await page.goto(BASE+'/');assert.equal(await page.locator('#card-picks').count(),0,'home introduces the journey without duplicating the collector');
+     assert.ok(await page.locator('#pet-world a[href="world.html"]').isVisible(),'hero links to Pet World');assert.ok(await page.locator('#pet-world a[href="world.html"]').isVisible(),'Pet World section has an Enter button');
      await page.click('header nav a[href="reading.html"]');await page.waitForURL(/reading\.html/);assert.ok(await page.locator('#read-button').count(),'reader reachable from home');
-     await page.goto(BASE+'/collect.html#ritual');await page.waitForURL(u=>!u.pathname.endsWith('collect.html'));
-     assert.equal(new URL(page.url()).pathname,'/');assert.equal(new URL(page.url()).hash,'#ritual');
+     await page.goto(BASE+'/collect.html#ritual');await page.waitForURL(u=>u.pathname.endsWith('charms.html'));
+     assert.equal(new URL(page.url()).pathname,'/charms.html');assert.equal(new URL(page.url()).hash,'#ritual');
      const missing=await page.goto(BASE+'/no-such-page');assert.equal(missing.status(),404);assert.ok(await page.locator('[data-reading]').count());
      await page.close();}
     // 2c. Phones (top menu hidden) still reach Pet World from the home page.
     {const page=await browser.newPage({viewport:{width:390,height:844}});await page.goto(BASE+'/');
-     assert.ok(await page.locator('.world-link').isVisible(),'Pet World link visible on phones');await page.close();}
+     assert.ok(await page.locator('#pet-world a[href="world.html"]').isVisible(),'Pet World link visible on phones');await page.close();}
     // 3. Accounts on (mocked): sign-up, wrong password, sign-in, sign-out, bug report to Supabase.
     const page=await browser.newPage({viewport:{width:1280,height:900}});
     const calls=[];

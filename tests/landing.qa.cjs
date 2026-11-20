@@ -16,11 +16,10 @@ const {launch,navigate,fillBirthday,BASE}=require('./qa-browser.cjs');
     assert.equal(await page.locator('[name=birthDate]').inputValue(),'');
     assert.equal(await page.locator('[name=timeMode]').inputValue(),'unknown');
     assert.equal(await page.locator('#results').isVisible(),false);
-    assert.ok(await page.locator('#hero-card').evaluate(img=>img.complete&&img.naturalWidth>0));
+    assert.ok(await page.locator('#birth-form').isVisible());
     assert.ok(await page.evaluate(()=>document.fonts.check('600 16px "Noto Sans Thai"')));
     await page.screenshot({path:path.join(out,'published-desktop.png'),fullPage:true});
-    await page.locator('.start-reading').click();
-    await page.waitForFunction(()=>document.activeElement.id==='start');
+    await page.locator('#start').scrollIntoViewIfNeeded();
     // Capture the approved form without a browser-specific scroll animation in flight.
     await page.locator('#start').screenshot({path:path.join(out,'published-desktop-form.png'),animations:'disabled'});
     await page.locator('#read-button').click();
@@ -40,7 +39,7 @@ const {launch,navigate,fillBirthday,BASE}=require('./qa-browser.cjs');
     await page.reload();
     assert.equal(await page.locator('[name=birthDate]').inputValue(),'');
     assert.equal(await page.locator('#results').isVisible(),false);
-    assert.deepEqual(await page.evaluate(()=>({local:localStorage.length,session:sessionStorage.length,cookie:document.cookie})),{local:0,session:0,cookie:''});
+    assert.deepEqual(await page.evaluate(()=>({local:Object.keys(localStorage),session:sessionStorage.length,cookie:document.cookie})),{local:['moojai-language-v1'],session:0,cookie:''});
     for(const width of [1440,1024,768,650,430,390,375,320]){
       await page.setViewportSize({width,height:1000});
       for(const language of ['th','en']){

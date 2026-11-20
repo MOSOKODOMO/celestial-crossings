@@ -8,7 +8,7 @@ const read = (key, fallback) => { try { return JSON.parse(localStorage.getItem(k
 let storageOK = true;
 function save(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch { storageOK = false; } }
 const prefs = read(SAVE, {}), reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-let lang = prefs.language === 'en' ? 'en' : 'th', online = false, ready = false, joined = false, loading = true;
+let lang = window.MooJaiUI?.language || (prefs.language === 'en' ? 'en' : 'th'), online = false, ready = false, joined = false, loading = true;
 let quantities = {}, pets = [], ledger = W.freshLedger(), selectedPlayer = null, mode = 'preview', room = null;
 let transport = null, view = null, raf = 0, lastFrame = 0, worldTime = 0, lastSent = 0, lastHeartbeat = 0, sequence = 0;
 let toastTimer = 0, statusAt = 0, adaptiveAt = 0, meanFrame = 16.7, frameCount = 0, renderMs = 0;
@@ -62,7 +62,7 @@ function updateHUD() {
   $('#dust').textContent=W.balance(ledger,quantities);me.glow=ledger.glowUntil>Date.now();
   $('#pet-count').textContent=pets.length;$('#empty-banner').hidden=pets.length>0;
   $('#zone-name').textContent=W.zoneAt(me.x,me.y)[lang];
-  $('#online-count').textContent=1+peers.size+(online?0:demo.length);
+  $('#online-count').textContent=1+peers.size; // Demo companions are not online visitors.
   $('#interact-button').hidden=!ready||!W.nearPavilion(me.x,me.y);
   $('#pray-button').disabled=!W.canPray(ledger)||careBusy;
   $('#pray-button').textContent=t(W.canPray(ledger)?'pray':'prayed');
@@ -175,7 +175,7 @@ function renderPlayers() {
 function openPlayer(player) {
   selectedPlayer=player;$('#player-title').textContent=nickname(player);$('#mute-button').textContent=t(muted.has(player.id)?'unmute':'mute');$('#report-status').textContent=t('reportEvidence');openDialog('player-dialog');
 }
-function openDialog(id) { keys.clear();joystick.x=joystick.y=0;me.moving=false;sendState();const d=document.getElementById(id);if(!d.open)d.showModal(); }
+function openDialog(id) { keys.clear();joystick.x=joystick.y=0;me.moving=false;sendState();document.querySelectorAll('dialog[open]').forEach(d=>{if(d.id!==id)d.close();});const d=document.getElementById(id);if(!d.open)d.showModal(); }
 function addMessage(actor,text,kind='chat') {
   if(muted.has(actor.id))return;
   const filtered=W.filterChat(text).text;if(!filtered)return;
@@ -340,7 +340,10 @@ function setupControls(){
 function setupUI(){
   $('#feed-button').onclick=openFeeding;$('#rest-button').onclick=toggleRest;
   document.querySelectorAll('[data-food]').forEach(button=>button.onclick=()=>feedPet(button.dataset.food));
-  $('#language').onclick=()=>{lang=lang==='th'?'en':'th';applyLanguage();};
+  $('#language').onclick=()=>{window.MooJaiUI.setLanguage(lang==='th'?'en':'th');};
+  document.addEventListener('moojai:language',e=>{lang=e.detail;applyLanguage();});
+  $('#dismiss-hint').onclick=()=>{$('#movement-hint').hidden=true;save('moojai-movement-hint',true);};
+  $('#movement-hint').hidden=read('moojai-movement-hint',false);
   $('#welcome-language').onclick=$('#language').onclick;
   for(const[button,dialog]of [['pets-button','pets-dialog'],['map-button','map-dialog'],['players-button','players-dialog'],['settings-button','settings-dialog'],['interact-button','pavilion-dialog']])$('#'+button).onclick=()=>{if(button==='players-button')renderPlayers();if(button==='settings-button')$('#performance-readout').textContent=`${meanFrame.toFixed(1)} ms · ${view.metrics.drawCalls} draws · ${Math.round(view.metrics.triangles/1000)}k triangles · ${Math.round(view.scale*100)}%`;openDialog(dialog);};
   document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>b.closest('dialog').close());
@@ -394,7 +397,7 @@ async function start(){
     if(!online){const saved=read(LOTUSES,[]);if(Array.isArray(saved))for(const l of saved.slice(-80))addLotus(l);}
     $('#load-progress').value=100;$('#loading').hidden=true;ready=true;loading=false;
     const intro=document.createElement('p');intro.dataset.text='emptyChat';intro.textContent=t('emptyChat');$('#chat-log').append(intro);
-    if(innerWidth<760){$('#chat-panel').dataset.collapsed='true';$('#chat-toggle').setAttribute('aria-expanded','false');}
+    $('#chat-panel').dataset.collapsed='true';$('#chat-toggle').setAttribute('aria-expanded','false');
     if(me.name)await join();else openDialog('welcome-dialog');
     if(!storageOK)toast(t('storageUnavailable'));
   }catch(error){loading=false;$('#loading h2').textContent=t('loadFailed');$('#loading p').textContent=error.message==='signin'?t('signin'):online?t('collectionError'):t('loadFailed');$('#load-progress').hidden=true;}

@@ -1,6 +1,6 @@
 # มูใจ / MooJai
 
-A Thai-first, bilingual fortune-reading website with an illustrated mobile landing page and a minimal desktop form. Readings run entirely in the browser. No account or payment is required.
+A Thai-first, bilingual website for reflective readings, symbolic card charms and a companion world. The MooJai experience uses a shared crescent identity, midnight/gold discovery page, ivory reading workspace and sage world controls. Readings run entirely in the browser. No account or payment is required.
 
 ## Run locally
 
@@ -15,11 +15,11 @@ Open http://127.0.0.1:4173. On Windows, the included Start Demo and Stop Demo la
 
 ## Collectible card preview
 
-Open http://127.0.0.1:4173/ for the MooJai home page and card collection (dark theme); the fortune reader is at http://127.0.0.1:4173/reading.html. The old /collect.html address redirects to the home page. Choose two intentions, then pick one of three face-down cards to reveal a charm. Each position uses the same draw odds. Preferences remain fixed within each group of ten draws. If the first nine miss both preferences, the tenth is selected equally from either preferred category. An earlier match fulfils that group's guarantee; a new group begins on draw eleven.
+Open http://127.0.0.1:4173/ for the discovery page, `/reading.html` for readings, `/charms.html` to reveal a charm, and `/charms.html#collection` for saved charms. The old `/collect.html` address and homepage collection hashes continue to work. Choose two intentions explicitly, then pick one of three face-down cards. Each position uses the same draw odds. Preferences remain fixed within each group of ten draws. If the first nine miss both preferences, the tenth is selected equally from either preferred category. An earlier match fulfils that group's guarantee; a new group begins on draw eleven.
 
 Each draw opens a full-screen reveal: a floating purple card turns to gold, then light and particles reveal the illustrated charm. Skip animation shows the result immediately; reduced-motion preferences bypass the sequence. Closing or reloading during the animation preserves the saved draw. Browsing existing cards still opens the compact detail view. The effect is authored in `dist/card-reveal.js` and `dist/card-reveal.css` and uses no additional packages or external assets.
 
-Rarity is rolled independently on every draw: SSR 0.15%, SR 2.85%, S 12%, R 30%, C 55%. Ordinary category draws are equally weighted. The illustrated deck contains 30 cards, one per category and rank. Duplicates are counted, and the latest 1,000 draws plus current progress are saved in browser local storage; Reset preview clears them. Two-category combinations are shown as a future feature.
+Rarity is rolled independently on every draw: SSR 0.15%, SR 2.85%, S 12%, R 30%, C 55%. Ordinary category draws are equally weighted. The illustrated deck contains 30 cards, one per category and rank. Duplicates are counted, and the latest 1,000 draws plus current progress are saved in browser local storage; Reset local collection clears them. The original storage key is retained so existing collections survive the redesign.
 
 With accounts unconfigured, this is a browser-only preview. The gallery shows all 30 illustrated fronts and supports category filters. Configured, signed-in accounts use the server-authoritative draw function and durable inventory described below; local preview history stays separate. There is no payment flow for charms. The original reading experience is at `/reading.html`.
 
@@ -63,14 +63,18 @@ server can use `MOOJAI_PORT`; set `QA_BASE_URL` to its URL for browser checks.
 - Enter a birth date, with exact, approximate or unknown birth time.
 - Read this week or next week for free, or choose a specific day from today onwards.
 - Add preparation, confidence or communication guidance for an ordinary day, interview or date.
-- Switch Thai/English without changing reading IDs; explicitly download or print your reading.
+- Switch Thai/English without changing reading IDs. The language preference follows you between pages; birth details are never persisted.
+- Preview a sample and restore your original form and reading. Downloads omit birth details unless you check the explicit inclusion option.
+- Read one practical action first, then expand individual topics and optional fictional chapters. Printing includes the expandable reading content.
 - Explore all 52 core fortunes, 64 topic passages and 14 supporting notes in the story library.
 
-The custom-week option is a future feature. It explains its unavailable status and cannot take payments or grant access.
+Unavailable custom-week purchasing is hidden from the reading flow. Existing access rules remain enforced by the engine.
 
 ## Editing
 
-- `dist/index.html`, `dist/styles.css`, `dist/app.js`: authored interface files; the build preserves them.
+- `dist/index.html`, `dist/charms.html`, `dist/reading.html`, `dist/world.html`: authored page shells; the build preserves them.
+- `dist/experience.js` / `.css`: shared identity, icons, navigation, locale, native scroll reveals and reduced-motion behavior.
+- `dist/app.js`, `dist/reading-experience.css`: reading flow and ivory presentation; `dist/collect.js`, `dist/charm-i18n.js`: charm flow and Thai copy; `dist/world-experience.css`: world controls.
 - `dist/engine.js`: deterministic calendar and reading selection.
 - `content/library.cjs`, `content/guidance.cjs`: editable Thai/English content.
 - `assets/web`: optimized artwork, self-hosted font, font license and icon, copied into `dist/assets` by the build.

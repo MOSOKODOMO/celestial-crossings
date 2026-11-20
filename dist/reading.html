@@ -20,26 +20,18 @@
   <link rel="preload" href="assets/noto-sans-thai.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="site-extras.css">
-  <script defer src="config.js"></script><script defer src="site-extras.js"></script><script defer src="data.js"></script><script defer src="engine.js"></script><script defer src="app.js"></script>
-</head>
-<body>
+  <script defer src="config.js"></script><script defer src="experience.js"></script><script defer src="site-extras.js"></script><script defer src="data.js"></script><script defer src="engine.js"></script><script defer src="app.js"></script>
+<link rel="stylesheet" href="experience.css"><link rel="stylesheet" href="reading-experience.css"></head>
+<body class="reader-experience" data-experience="reading">
   <a class="skip-link" href="#start" data-i18n="skipToForm">ข้ามไปที่แบบฟอร์ม</a>
   <div class="app">
-    <header class="site-header">
-      <a class="brand" href="#reading" aria-label="มูใจ / MooJai"><svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M28 3a20 20 0 1 0 17 30A19 19 0 0 1 28 3Z" fill="currentColor"/><path d="m38 8 1.7 5.3L45 15l-5.3 1.7L38 22l-1.7-5.3L31 15l5.3-1.7Z" fill="currentColor"/></svg><span class="brand-name"><span lang="th">มูใจ</span><small lang="en">MooJai</small></span></a>
-      <nav class="main-nav" id="main-nav" aria-label="Main navigation"><button type="button" data-page="reading" aria-current="page" data-i18n="navReading">คำทำนาย</button><button type="button" data-page="library" data-i18n="navLibrary">คลังเรื่องราว</button><button type="button" data-page="plan" data-i18n="navPlan">วิธีการอ่าน</button><a class="nav-charms" href="./"><span data-i18n="navCharms">การ์ดมูใจ</span><span class="nav-new" data-i18n="navNew">ใหม่</span></a><a href="world.html" data-i18n="navWorld">โลกมูใจ</a></nav>
-      <div class="header-right"><div class="language-switch" role="group" aria-label="Language"><button type="button" data-language="th" aria-pressed="true">ไทย</button><span aria-hidden="true">/</span><button type="button" data-language="en" aria-pressed="false">EN</button></div><button class="menu-toggle" type="button" aria-controls="main-nav" aria-expanded="false" aria-label="เปิดเมนู"><span></span><span></span><span></span></button></div>
-    </header>
+<header data-site-header></header><nav class="reader-tabs" aria-label="Reading navigation"><button type="button" data-page="reading" data-i18n="navReading"></button><button type="button" data-page="library" data-i18n="navLibrary"></button><button type="button" data-page="plan" data-i18n="navPlan"></button></nav>
     <main>
       <section id="reading-page" class="page">
-        <div class="hero">
-          <div class="hero-copy"><p class="eyebrow" data-i18n="heroEyebrow">พื้นที่เล็ก ๆ สำหรับทบทวนใจ</p><h1><span data-i18n="heroTitle">ดวงของคุณ</span><span data-i18n="heroTitleSecond">ในจังหวะนี้</span></h1><p class="hero-description" data-i18n="heroDescription">คำอ่านเรื่องงาน ความรัก และโอกาส พร้อมก้าวต่อไปที่คุณเลือกได้</p></div>
-          <figure class="hero-art"><div class="card-stage"><img src="assets/phra-chan-640.webp" srcset="assets/phra-chan-400.webp 400w, assets/phra-chan-640.webp 640w" sizes="(max-width: 650px) 204px, 240px" width="640" height="1387" alt="พระจันทร์ทรงม้าขาวใต้แสงจันทร์ ภาพประกอบศิลปะไทย" fetchpriority="high" id="hero-card"><svg class="card-brand" viewBox="0 0 640 1387" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M180 20h280v23H180Z" fill="#071426"/><text x="320" y="36" text-anchor="middle" fill="#ead2a4" font-family="Georgia,serif" font-size="16" letter-spacing="3">MooJai</text></svg></div><figcaption data-i18n="symbolicArt">ภาพประกอบเชิงสัญลักษณ์</figcaption></figure>
-          <div class="hero-actions"><button type="button" class="primary-button start-reading"><span data-i18n="startFree">เริ่มอ่านฟรี</span><span aria-hidden="true">›</span></button><button type="button" class="sample-link" id="sample-reading" data-i18n="sampleReading">ดูตัวอย่างคำอ่าน</button><p class="hero-reassurance" data-i18n="noSignup">ไม่ต้องสมัครสมาชิก · ไม่ต้องใช้บัตร</p></div>
-        </div>
         <section class="profile-panel" id="start" aria-labelledby="profile-title" tabindex="-1">
           <div class="panel-title"><h2 id="profile-title" data-i18n="profileHeading">เริ่มคำอ่านของคุณ</h2><p data-i18n="profileIntro">เริ่มต้นด้วยวันและเวลาเกิดของคุณ</p></div>
-          <p id="example-notice" class="example-notice" data-i18n="exampleLabel" hidden>ข้อมูลตัวอย่าง · แก้ไขได้</p>
+          <div id="example-notice" class="example-notice" hidden><span data-i18n="exampleLabel"></span><button type="button" id="restore-profile" class="text-button"><span data-en="Back to my details" data-th="กลับไปข้อมูลของฉัน">Back to my details</span></button></div>
+<button type="button" class="sample-link" id="sample-reading" data-i18n="sampleReading">ดูตัวอย่างคำอ่าน</button>
           <form id="birth-form" autocomplete="off">
             <div class="birth-fields">
               <fieldset class="birth-date-group" aria-describedby="calendar-hint birth-date-confirm birth-date-error">
@@ -66,13 +58,13 @@
                 <button type="button" data-week="this" aria-pressed="true"><strong data-i18n="thisWeek">สัปดาห์นี้</strong><span data-i18n="free">ฟรี</span><svg class="selection-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></button>
                 <button type="button" data-week="next" aria-pressed="false"><strong data-i18n="nextWeek">สัปดาห์หน้า</strong><span data-i18n="free">ฟรี</span><svg class="selection-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></button>
               </div>
-              <button type="button" id="custom-week-locked" class="locked-week-button" aria-haspopup="dialog" aria-controls="custom-week-dialog"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span data-i18n="customWeek">เลือกสัปดาห์อื่น</span><span class="locked-badge" data-i18n="comingSoon">เร็ว ๆ นี้</span></button>
+              <button type="button" id="custom-week-locked" hidden class="locked-week-button" aria-haspopup="dialog" aria-controls="custom-week-dialog"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span data-i18n="customWeek">เลือกสัปดาห์อื่น</span><span class="locked-badge" data-i18n="comingSoon">เร็ว ๆ นี้</span></button>
               <p id="week-period-confirm" class="field-note" aria-live="polite"></p>
             </div>
             <label class="reading-date-field" id="reading-date-field" hidden><span id="reading-date-label">วันที่อยากดูคำทำนาย</span><input name="readingDate" type="date" disabled aria-describedby="date-limit-hint reading-date-confirm"><small id="date-limit-hint" data-i18n="dateLimitHint">เลือกได้ตั้งแต่วันนี้เป็นต้นไป</small><small id="reading-date-confirm"></small></label>
             <p id="period-note" class="field-note period-note"></p>
             <div id="day-context" class="day-context" hidden><label><span data-i18n="occasionLabel">วันนั้นมีเรื่องอะไรในใจ?</span><select name="occasion"></select></label><label><span data-i18n="supportLabel">อยากได้คำแนะนำด้านไหนเป็นพิเศษ?</span><select name="support"></select></label><p class="field-note" data-i18n="contextHint">เลือกได้ตามใจ เพื่อปรับคำแนะนำให้เข้ากับสิ่งที่คุณกำลังเตรียมตัว</p></div>
-            <p class="future-teaser" data-i18n="futureTeaser">พร้อมเรื่องราวอนาคตของคุณ · ครอบครัว งาน และความฝันเรื่องเงิน</p>
+
             <div class="submit-area"><button class="primary-button" id="read-button" type="submit"><span data-i18n="readButton">อ่านคำทำนาย</span><span aria-hidden="true">›</span></button><p data-i18n="freeNoSignup">ฟรี · ไม่ต้องสมัครสมาชิก</p></div>
             <p class="form-error" id="form-error" role="alert" hidden></p>
           </form>
@@ -93,7 +85,7 @@
       </section>
       <section id="plan-page" class="page content-page" hidden></section>
     </main>
-    <footer><span data-i18n="footerNote">เพื่อการสะท้อนใจและความบันเทิง</span><div><button type="button" class="text-button" id="privacy-button" data-i18n="privacyLink">ข้อมูลและความเป็นส่วนตัว</button><a href="./" data-i18n="footerCharms">สุ่มการ์ดมูใจ</a></div></footer>
+    <footer class="mj-footer"><a class="mj-brand" href="./" data-brand aria-label="MooJai home"></a><div><button type="button" class="text-button" id="privacy-button" data-i18n="privacyLink"></button><a href="charms.html"><span data-en="Explore charms" data-th="สำรวจการ์ด">Explore charms</span></a></div><span data-i18n="footerNote"></span></footer>
   </div>
   <dialog id="custom-week-dialog" class="premium-dialog" aria-labelledby="custom-week-title" aria-describedby="custom-week-description payment-unavailable"><p class="eyebrow" data-i18n="comingSoon">เร็ว ๆ นี้</p><h2 id="custom-week-title" data-i18n="customWeekTitle">คำอ่านเฉพาะสัปดาห์</h2><p id="custom-week-description" data-i18n="customWeekDescription">เลือกสัปดาห์ในอนาคตที่สำคัญกับคุณ</p><p id="payment-unavailable" class="payment-unavailable" data-i18n="paymentUnavailable">ยังไม่เปิดให้ชำระเงิน คุณอ่านสัปดาห์นี้และสัปดาห์หน้าได้ฟรี</p><button type="button" id="close-custom-week" class="primary-button" data-i18n="backToFree">กลับไปอ่านฟรี</button></dialog>
   <dialog id="privacy-dialog" class="premium-dialog" aria-labelledby="privacy-title"><h2 id="privacy-title" data-i18n="privacyLink">ข้อมูลและความเป็นส่วนตัว</h2><p data-i18n="privacyDetails">วันเกิดและเวลาเกิดใช้สร้างคำอ่านในเบราว์เซอร์เท่านั้น</p><p class="payment-unavailable" data-i18n="scope">กติกาทดลองสำหรับทดสอบเนื้อหา ยังไม่ใช่การผูกดวงโหราศาสตร์ไทย</p><button type="button" id="close-privacy" class="primary-button" data-i18n="close">ปิด</button></dialog>

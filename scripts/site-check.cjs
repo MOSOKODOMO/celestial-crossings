@@ -38,7 +38,7 @@ function references(html) {
 
 async function httpChecks() {
   const pages = { 'index.html': '', 'reading.html': '' };
-  for (const [name, expect] of [['', 'Find your'], ['reading.html', 'มูใจ'], ['collect.html', 'location.replace']]) {
+  for (const [name, expect] of [['', 'A little clarity'], ['reading.html', 'มูใจ'], ['charms.html', 'Your charms'], ['world.html', 'MooJai World'], ['collect.html', 'location.replace']]) {
     try {
       const r = await get(BASE + name);
       const html = r.body.toString('utf8');
@@ -106,9 +106,11 @@ async function browserChecks() {
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
       record(`${name}: reader has no sideways scroll`, overflow <= 1, overflow > 1 ? `${overflow}px wider than screen` : '');
 
-      await page.goto(BASE, { waitUntil: 'networkidle' });
+      await page.goto(BASE + 'charms.html', { waitUntil: 'networkidle' });
       await page.evaluate(() => localStorage.clear());
       await page.reload({ waitUntil: 'networkidle' });
+      await page.locator('[data-category=love]').click();
+      await page.locator('[data-category=career]').click();
       await page.locator('#card-picks button').first().click();
       const revealed = await page.locator('#reveal-dialog[open]').waitFor({ timeout: 8000 }).then(() => true).catch(() => false);
       record(`${name}: charm draw reveals a card`, revealed);

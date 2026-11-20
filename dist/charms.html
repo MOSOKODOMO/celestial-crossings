@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10151d">
+  <meta name="description" content="Discover your fortune and find a card charm with meaning. Explore readings for love, work, and life at มูใจ / MooJai.">
+  <meta property="og:title" content="A little meaning to carry. — มูใจ / MooJai">
+  <meta property="og:description" content="Pick a face-down card and reveal an illustrated Thai celestial animal charm for love, career, wealth and more.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mosokodomo.github.io/celestial-crossings/charms.html">
+  <meta property="og:image" content="https://mosokodomo.github.io/celestial-crossings/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://mosokodomo.github.io/celestial-crossings/charms.html">
+  <title>Your charms — มูใจ / MooJai</title>
+  <link rel="icon" href="assets/moon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="collect.css">
+  <link rel="stylesheet" href="card-reveal.css">
+  <link rel="stylesheet" href="site-extras.css">
+  <script src="config.js" defer></script>
+  <script src="experience.js" defer></script>
+  <script src="site-extras.js" defer></script>
+  <script src="collect-engine.js" defer></script>
+  <script src="card-reveal.js" defer></script>
+  <script src="charm-i18n.js" defer></script><script src="collect.js" defer></script>
+<link rel="stylesheet" href="experience.css">
+</head>
+<body class="charm-workspace" data-experience="charms">
+  <a class="skip-link" href="#ritual">Skip to card charms</a>
+<header data-site-header></header>
+  <main>
+<section class="workspace-heading wrap"><p class="eyebrow"><span data-en="A CHARM TO MAKE YOUR OWN" data-th="การ์ดที่มีความหมายสำหรับคุณ">A CHARM TO MAKE YOUR OWN</span></p><h1><span data-en="A little meaning to carry." data-th="เก็บความหมายดี ๆ ไว้กับคุณ">A little meaning to carry.</span></h1><p><span data-en="Choose two intentions, reveal a symbolic charm, then meet its little companion. This draw is separate from your reading." data-th="เลือกสองความตั้งใจ เปิดการ์ดเชิงสัญลักษณ์ แล้วพบน้องคู่ใจ การสุ่มการ์ดแยกจากคำอ่านวันเกิดของคุณ">Choose two intentions, reveal a symbolic charm, then meet its little companion. This draw is separate from your reading.</span></p><div class="workspace-actions"><button id="header-draw" class="gold-button" type="button"><span data-en="Reveal a charm" data-th="เปิดการ์ดมูใจ">Reveal a charm</span><span data-icon="arrow" aria-hidden="true"></span></button><button id="collection-nav" class="outline-button" type="button"><span data-en="My charms" data-th="การ์ดของฉัน">My charms</span> <span id="collection-count">0</span></button><span class="storage-badge" id="collection-storage"></span></div></section>
+<div class="wrap">      <div id="collection-load-error" class="collection-error" role="alert" hidden></div><button type="button" id="retry-collection" class="outline-button" hidden>Retry / ลองใหม่</button></div>
+    <section class="ritual-section wrap" id="ritual" aria-labelledby="ritual-title">
+      <div class="section-heading"><div><p class="eyebrow"><span data-en="YOUR TWO INTENTIONS" data-th="สองความตั้งใจของคุณ">YOUR TWO INTENTIONS</span></p><h2 id="ritual-title"><span data-en="What matters to you?" data-th="ตอนนี้อะไรสำคัญกับคุณ?">What matters to you?</span></h2></div></div>
+      <div class="ritual-grid">
+        <div class="preferences-panel">
+          <div class="panel-heading"><h3><span data-en="Choose two intentions" data-th="เลือกสองความตั้งใจ">Choose two intentions</span></h3><span id="selection-count">2 OF 2 SELECTED</span></div>
+          <div class="category-grid" id="categories" role="group" aria-label="Choose two preferred categories"></div>
+          <p class="selection-note" id="selection-note" aria-live="polite"></p><p class="draw-rules"><span data-en="Any category can appear. Each set of ten includes at least one match to either intention. Rarity is independent." data-th="การ์ดออกได้ทุกหมวด ทุกสิบครั้งจะตรงกับความตั้งใจอย่างน้อยหนึ่งใบ ความหายากสุ่มแยกกัน">Any category can appear. Each set of ten includes at least one match to either intention. Rarity is independent.</span></p>
+        </div>
+        <div class="draw-panel">
+          <div class="draw-heading"><span class="eyebrow"><span data-en="YOUR PERSONAL CARD CHARM" data-th="การ์ดมูใจของคุณ">YOUR PERSONAL CARD CHARM</span></span><button type="button" class="info-button" id="rules-button" aria-label="How to play: charm rules and rarity odds" aria-haspopup="dialog" aria-controls="info-dialog" title="How to play"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle class="info-dot" cx="12" cy="7" r="1"/></svg></button></div>
+          <div class="pick-stage">
+            <h3 id="pick-title"><span data-en="Pick one card" data-th="เลือกหนึ่งใบ">Pick one card</span></h3>
+            <p id="draw-label">Choose one card to reveal your charm.</p>
+            <div class="card-picks" id="card-picks" role="group" aria-labelledby="pick-title" aria-describedby="draw-label"></div>
+          </div>
+          <p class="draw-rules"><span data-en="Each position has the same odds. Duplicates are possible." data-th="ทุกตำแหน่งมีโอกาสเท่ากัน และอาจได้การ์ดซ้ำ">Each position has the same odds. Duplicates are possible.</span></p><button class="rules-link" id="draw-rules-link" type="button"><span data-icon="info" aria-hidden="true"></span><span data-en="Rarity &amp; draw rules" data-th="ความหายากและกติกาการสุ่ม">Rarity & draw rules</span></button><div class="guarantee-top"><span><span class="shield-icon" aria-hidden="true">◇</span> <span data-en="Your ten-draw promise" data-th="คำมั่นในสิบครั้ง">Your ten-draw promise</span></span><strong id="draw-progress">0 / 10</strong></div>
+          <div class="progress-track" id="progress-track" role="progressbar" aria-label="Draws in this group of ten" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"></div>
+          <p class="guarantee-note" id="guarantee-note" hidden></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="edition-section wrap" id="deck" aria-labelledby="edition-title">
+      <div class="section-heading"><div><p class="eyebrow"><span data-en="THE CARD CHARM COLLECTION" data-th="คลังการ์ดมูใจ">THE CARD CHARM COLLECTION</span></p><h2 id="edition-title" tabindex="-1"><span data-en="Your charm collection." data-th="คลังการ์ดของคุณ">Your charm collection.</span></h2></div><div class="edition-controls"><button type="button" class="filter-button active" id="browse-button" aria-pressed="true"><span data-en="Explore all 30" data-th="ดูการ์ดทั้ง 30 ใบ">Explore all 30</span></button><button type="button" class="filter-button" id="owned-button" aria-pressed="false"><span data-en="My charms" data-th="การ์ดของฉัน">My charms</span> <span id="owned-count">0</span></button></div></div>
+<div class="gallery-tools" id="gallery-tools"><label><span data-en="Category" data-th="หมวดหมู่">Category</span> <select id="collection-filter"><option value="all">All categories</option></select></label><p id="collection-summary" aria-live="polite"></p></div>
+      <div class="card-gallery" id="card-gallery"></div>
+      <div class="empty-collection" id="empty-collection" hidden><span>✧</span><h3>Your first charm is waiting.</h3><p>Reveal a charm to begin your collection.</p><a href="#ritual" class="outline-button" id="empty-action">Find your first charm →</a></div>
+    </section>
+  </main>
+<footer class="mj-footer"><a class="mj-brand" href="./" data-brand aria-label="MooJai home"></a><div><a href="reading.html#plan"><span data-en="How it works" data-th="วิธีการอ่าน">How it works</span></a><a href="reading.html#privacy"><span data-en="Privacy" data-th="ความเป็นส่วนตัว">Privacy</span></a><a href="charms.html#ritual"><span data-en="Explore charms" data-th="สำรวจการ์ด">Explore charms</span></a></div><p><span data-en="For reflection and entertainment" data-th="เพื่อการสะท้อนใจและความบันเทิง">For reflection and entertainment</span></p></footer><div class="wrap collection-settings"><button type="button" class="rules-link" id="reset-button"><span data-en="Reset local collection" data-th="ล้างคลังการ์ดในเครื่อง">Reset local collection</span></button></div>
+  <p class="demo-footer wrap" id="storage-note">Preview only · For reflection and entertainment</p>
+  <dialog id="reveal-dialog" class="reveal-dialog" aria-labelledby="reveal-title">
+    <button type="button" class="dialog-close" id="close-reveal" aria-label="Close card reveal">×</button>
+    <div class="reveal-brand" aria-hidden="true" data-brand></div>
+    <p class="eyebrow" id="reveal-eyebrow">A NEW PIECE OF YOUR STORY</p>
+    <div class="reveal-stage">
+      <div class="reveal-aura" aria-hidden="true"></div>
+      <div class="reveal-orbit" aria-hidden="true"></div>
+      <div class="reveal-dust" id="reveal-dust" aria-hidden="true"></div>
+      <div class="reveal-burst" aria-hidden="true"></div>
+      <div class="reveal-card-wrap">
+        <div class="reveal-rotator">
+          <div class="reveal-back" aria-hidden="true">
+            <div class="reveal-back-frame"></div>
+            <span class="reveal-back-star">✦</span>
+            <span class="reveal-sigil"><span>☾</span></span>
+            <span class="reveal-back-name">มูใจ<small>M O O J A I</small></span>
+            <span class="reveal-back-star">✧</span>
+          </div>
+          <div class="reveal-front">
+            <div id="revealed-card"></div>
+            <div class="reveal-veil" aria-hidden="true"><span>✧</span></div>
+            <div class="reveal-shine" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-floor" aria-hidden="true"></div>
+      <p class="reveal-status" id="reveal-status" hidden><span data-en="Your charm is finding you…" data-th="การ์ดของคุณกำลังปรากฏ…">Your charm is finding you…</span></p>
+    </div>
+    <div class="reveal-details" id="reveal-details">
+      <span class="result-tag" id="reveal-category"></span>
+      <h2 id="reveal-title"></h2>
+      <p id="reveal-meaning"></p>
+      <p class="preferred-result" id="preferred-result"></p>
+      <button type="button" class="gold-button" id="keep-card"><span data-en="View my charms" data-th="ดูการ์ดของฉัน">View my charms</span><span data-icon="arrow" aria-hidden="true"></span></button>
+      <a class="world-pet-link" id="reveal-world-link" href="world.html" hidden><span data-icon="paw" aria-hidden="true"></span><span data-en="Meet my companion" data-th="พบน้องคู่ใจ">Meet my companion</span></a>
+      <p class="saved-note" id="saved-note">Added to your collection</p>
+    </div>
+    <button type="button" class="reveal-skip" id="skip-reveal" hidden><span data-en="Skip animation" data-th="ข้ามภาพเปิด">Skip animation</span> <span aria-hidden="true">↗</span></button>
+  </dialog>
+  <dialog id="info-dialog" class="info-dialog" aria-labelledby="info-title">
+    <button type="button" class="dialog-close" id="close-info" aria-label="Close guide">×</button>
+    <p class="eyebrow"><span data-en="HOW TO PLAY" data-th="วิธีเปิดการ์ด">HOW TO PLAY</span></p><h2 id="info-title"><span data-en="Find your personal charm." data-th="ค้นพบการ์ดที่มีความหมาย">Find your personal charm.</span></h2>
+    <div class="rule-list"><div><span>01</span><p><strong><span data-en="Choose two intentions." data-th="เลือกสองความตั้งใจ">Choose two intentions.</span></strong><span data-en="Choose Love, Career, Wealth, Wellbeing, Connection or Growth. Ordinary draws give all six categories an equal chance." data-th="เลือกความรัก การงาน การเงิน สุขภาวะ ความผูกพัน หรือเติบโต การสุ่มทั่วไปมีโอกาสเท่ากันทั้งหกหมวด">Choose Love, Career, Wealth, Wellbeing, Connection or Growth. Ordinary draws give all six categories an equal chance.</span></p></div><div><span>02</span><p><strong><span data-en="Pick a face-down card." data-th="เลือกการ์ดหนึ่งใบ">Pick a face-down card.</span></strong><span data-en="Every position uses the same odds. Your charm is saved before its reveal begins. Duplicates add to your existing count." data-th="ทุกตำแหน่งมีโอกาสเท่ากัน บันทึกการ์ดก่อนเริ่มภาพเปิด การ์ดซ้ำจะเพิ่มจำนวนใบที่มีอยู่">Every position uses the same odds. Your charm is saved before its reveal begins. Duplicates add to your existing count.</span></p></div><div><span>03</span><p><strong><span data-en="Your ten-draw promise." data-th="คำมั่นในสิบครั้ง">Your ten-draw promise.</span></strong><span data-en="Each set of ten includes a match to either intention. If the first nine miss, the tenth chooses equally between your two intentions. An earlier match fulfils the promise. Intentions stay fixed until the set is complete." data-th="ทุกชุดสิบครั้งจะตรงกับความตั้งใจอย่างน้อยหนึ่งหมวด หากเก้าครั้งแรกไม่ตรง ครั้งที่สิบจะสุ่มระหว่างสองหมวดที่เลือกอย่างเท่าเทียม หากตรงก่อนถือว่าครบตามคำมั่นแล้ว ความตั้งใจจะคงเดิมจนจบชุด">Each set of ten includes a match to either intention. If the first nine miss, the tenth chooses equally between your two intentions. An earlier match fulfils the promise. Intentions stay fixed until the set is complete.</span></p></div><div><span>04</span><p><strong><span data-en="Rarity is independent." data-th="ความหายากสุ่มแยกกัน">Rarity is independent.</span></strong><span data-en="Each category has C, R, S, SR and SSR charms. Matching your intention does not guarantee a higher rank." data-th="ทุกหมวดมี C, R, S, SR และ SSR การตรงกับความตั้งใจไม่ได้รับประกันว่าจะได้ระดับสูงขึ้น">Each category has C, R, S, SR and SSR charms. Matching your intention does not guarantee a higher rank.</span></p></div></div>
+    <div class="odds-table" id="odds-table" aria-label="Rarity odds per draw"></div>
+    <div class="guide-extra"><h3><span data-en="Your charm collection" data-th="คลังการ์ดของคุณ">Your charm collection</span></h3><p><span data-en="Your charms, duplicate counts, and progress are saved in this browser. Use Reset preview to start again." data-th="การ์ด จำนวนใบซ้ำ และความคืบหน้าเก็บในเบราว์เซอร์นี้ บัญชีที่เข้าสู่ระบบใช้คลังแยกกัน คุณล้างคลังในเครื่องได้จากท้ายหน้า">Your charms, duplicate counts, and progress are saved in this browser. Use Reset preview to start again.</span></p></div>
+    <p class="guide-footnote"><span data-en="30 concept charms · 5 ranks in every category · Example odds for this preview." data-th="การ์ด 30 ใบ · 5 ระดับในทุกหมวด · โอกาสสุ่มของตัวอย่างนี้">30 concept charms · 5 ranks in every category · Example odds for this preview.</span></p>
+    <button type="button" class="gold-button" id="guide-done"><span data-en="Find my charm" data-th="ไปเปิดการ์ด">Find my charm</span> <span aria-hidden="true">↗</span></button>
+  </dialog>
+  <dialog id="reset-dialog" class="info-dialog reset-dialog" aria-labelledby="reset-title"><p class="eyebrow"><span data-en="A FRESH START" data-th="เริ่มต้นใหม่">A FRESH START</span></p><h2 id="reset-title"><span data-en="Reset your preview?" data-th="ล้างคลังในเครื่องหรือไม่?">Reset your preview?</span></h2><p><span data-en="This clears the cards and draw progress saved in this browser." data-th="การ์ดและความคืบหน้าที่เก็บในเบราว์เซอร์นี้จะถูกลบ">This clears the cards and draw progress saved in this browser.</span></p><div class="reset-actions"><button type="button" class="outline-button" id="cancel-reset"><span data-en="Keep my collection" data-th="เก็บคลังไว้">Keep my collection</span></button><button type="button" class="gold-button" id="confirm-reset"><span data-en="Reset preview" data-th="ล้างคลังในเครื่อง">Reset preview</span></button></div></dialog>
+  <div class="sr-only" id="announcement" role="status" aria-live="polite"></div>
+</body>
+</html>

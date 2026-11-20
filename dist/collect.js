@@ -1,13 +1,22 @@
 (() => {
   'use strict';
-  const E = window.CollectEngine;
+  const E = window.CollectEngine, ui=window.MooJaiUI, copy=window.MooJaiCharmCopy;
+  const say=(en,th)=>ui.language==='th'?th:en;
+  const catName=c=>ui.language==='th'?copy.categories[c.id][0]:c.name;
+  const catDescription=c=>ui.language==='th'?copy.categories[c.id][1]:c.description;
+  const cardIndex=c=>E.ranks.findIndex(r=>r.id===c.rank);
+  const cardTitle=c=>ui.language==='th'?copy.titles[c.category][cardIndex(c)]:c.title;
+  const cardMeaning=c=>ui.language==='th'?copy.meanings[c.category][cardIndex(c)]:c.meaning;
+  let viewedCard=null, viewedResult=null, goToCollection=false;
   const $ = selector => document.querySelector(selector);
   // Keep the original storage key so existing MooJai collections survive the rename.
   const key = 'celestial-atelier-preview-v1';
   let state = E.initialState();
   let storageAvailable = true;
   try { const stored = localStorage.getItem(key); if (stored) state = E.restore(stored); } catch { storageAvailable = false; }
-  let galleryMode = 'explore';
+  // Blank initial intentions belong to the UI; the tested engine rules stay intact.
+  try {const raw=JSON.parse(localStorage.getItem(key)||'null');if(!raw||!E.validatePreferences(raw.preferences))state.preferences=[];}catch{state.preferences=[];}
+  let galleryMode = location.hash==='#collection'?'owned':'explore';
   let drawing = false;
   let accountLoading = false, onlineQuantities = null, accountId = null, pendingRequest = null;
   const isOnline = () => Boolean(window.MooJaiAccount?.enabled && window.MooJaiAccount?.user);
@@ -29,25 +38,17 @@
     button.type = 'button';
     button.className = 'card-pick';
     button.setAttribute('aria-label', `${position} card`);
-    button.innerHTML = '<span class="pick-inner" aria-hidden="true"><span class="pick-back"><span>☾</span></span><span class="pick-front"></span></span>';
+    button.innerHTML = '<span class="pick-inner" aria-hidden="true"><span class="pick-back">'+ui.mark+'<small>MOOJAI</small></span><span class="pick-front"></span></span>';
     $('#card-picks').append(button);
     return button;
   });
-  const icons = {
-    heart: '<path d="M12 21S2 15 2 8.5C2 3 8 1 12 6c4-5 10-3 10 2.5C22 15 12 21 12 21Z"/>',
-    sun: '<circle cx="12" cy="12" r="5"/><path d="M12 1v3m0 16v3M1 12h3m16 0h3M4.2 4.2l2.1 2.1m11.4 11.4 2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>',
-    coin: '<circle cx="12" cy="12" r="10"/><path d="m12 5 6 7-6 7-6-7 6-7Zm0 0v14M6 12h12"/>',
-    leaf: '<path d="M12 22V12m0 4C3 16 1 9 2 3c7 0 11 5 10 13Zm0-3C12 5 17 2 23 2c0 7-4 12-11 11Z"/>',
-    stars: '<path d="m8 2 2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5Zm10 11 1.4 3.6L23 18l-3.6 1.4L18 23l-1.4-3.6L13 18l3.6-1.4L18 13Z"/>',
-    moon: '<path d="M19.5 16.5A9.5 9.5 0 0 1 7.5 3 9.5 9.5 0 1 0 21 15c-.5.6-1 1.1-1.5 1.5Z"/><path d="m18 2 1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3Z"/>'
-  };
-  function icon(category) { return `<svg viewBox="0 0 24 24" aria-hidden="true">${icons[category.symbol]}</svg>`; }
+  function icon(category) { return ui.icon(category.symbol); }
   function pill(rank) { return `<span class="rank-pill" data-rank="${rank}">${rank}</span>`; }
   function face(card, quantity = 0, loading = 'lazy') {
     const badge = quantity > 1 ? `<span class="quantity-tag">×${quantity}</span>` : '';
     return `<div class="oracle-face photo-card" data-rank="${card.rank}">
       <img src="assets/cards/${card.id}.webp" alt="" width="600" height="900"
-        loading="${loading}" decoding="async">${badge}
+        loading="${loading}" decoding="async"><span class="card-brand-overlay" aria-hidden="true">MOOJAI</span>${badge}
     </div>`;
   }
   function persist() {
@@ -59,22 +60,22 @@
   function announce(message) { $('#announcement').textContent = message; }
   function renderPreferences() {
     const locked = drawing || accountLoading || (state.cycle.length > 0 && state.cycle.length < 10);
-    $('#categories').innerHTML = E.categories.map(category => `<button type="button" class="category-button" data-category="${category.id}" aria-pressed="${state.preferences.includes(category.id)}" aria-describedby="selection-note" style="--category-color:${category.color}" ${locked ? 'disabled' : ''}><span class="category-icon">${icon(category)}</span><strong>${category.name}</strong><small>${category.description}</small><span class="selection-check" aria-hidden="true">✓</span></button>`).join('');
-    $('#selection-count').textContent = `${state.preferences.length} OF 2 SELECTED`;
-    $('#selection-note').hidden = locked || state.preferences.length === 2;
-    $('#selection-note').textContent = state.preferences.length < 2 ? `Choose ${2-state.preferences.length} more ${state.preferences.length === 0 ? 'categories' : 'category'} to begin.` : '';
+    $('#categories').innerHTML = E.categories.map(category => `<button type="button" class="category-button" data-category="${category.id}" aria-pressed="${state.preferences.includes(category.id)}" aria-describedby="selection-note" style="--category-color:${category.color}" ${locked ? 'disabled' : ''}><span class="category-icon">${icon(category)}</span><strong>${catName(category)}</strong><small>${catDescription(category)}</small><span class="selection-check" aria-hidden="true">✓</span></button>`).join('');
+    $('#selection-count').textContent = say(`${state.preferences.length} OF 2 SELECTED`, `เลือกแล้ว ${state.preferences.length} จาก 2`);
+    $('#selection-note').hidden = false;
+    $('#selection-note').textContent = locked ? say('Intentions stay fixed until this set of ten is complete.','ความตั้งใจคงเดิมจนเปิดครบสิบครั้งในชุดนี้') : state.preferences.length < 2 ? say(`Choose ${2-state.preferences.length} more to begin.`,`เลือกอีก ${2-state.preferences.length} หมวดเพื่อเริ่ม`) : say('Two intentions selected. Tap a selected tile to change it.','เลือกครบแล้ว แตะหมวดที่เลือกไว้เพื่อเปลี่ยน');
     const ready = E.validatePreferences(state.preferences);
     picks.forEach(button => { button.disabled = !ready || drawing || accountLoading; });
-    $('#draw-label').textContent = drawing ? 'Revealing your charm…' : ready
-      ? 'Choose one card to reveal your charm.'
-      : 'Choose two intentions to unlock the cards.';
+    $('#draw-label').textContent = drawing ? say('Revealing your charm…','กำลังเปิดการ์ด…') : ready
+      ? say('Choose one card to reveal your charm.','เลือกหนึ่งใบเพื่อเปิดการ์ดของคุณ')
+      : say('Choose two intentions to unlock the cards.','เลือกสองความตั้งใจเพื่อเปิดการ์ด');
     $('#reset-button').disabled = drawing || isOnline();
     $('#rules-button').disabled = drawing;
     $('#categories').querySelectorAll('button').forEach(button => button.addEventListener('click', () => {
       const id = button.dataset.category;
       if (state.preferences.includes(id)) state.preferences = state.preferences.filter(item => item !== id);
       else if (state.preferences.length < 2) state.preferences = [...state.preferences, id];
-      else { $('#selection-note').hidden = false; $('#selection-note').textContent = 'Two preferences selected. Deselect one to choose a different category.'; announce('Deselect a category before choosing another.'); return; }
+      else { $('#selection-note').hidden = false; $('#selection-note').textContent = say('Two preferences selected. Deselect one to choose a different category.','เลือกครบสองหมวดแล้ว แตะหมวดเดิมออกก่อนเลือกหมวดใหม่'); announce(say('Deselect a category before choosing another.','แตะหมวดที่เลือกออกก่อนเลือกหมวดใหม่')); return; }
       renderPreferences();
       if (E.validatePreferences(state.preferences)) persist();
       const replacement = $(`[data-category="${id}"]`); if (replacement) replacement.focus({preventScroll:true});
@@ -92,12 +93,14 @@
     const note = $('#guarantee-note');
     note.classList.toggle('fulfilled', matched);
     note.hidden = count !== 10 && !matched && count !== 9;
-    if (count === 10) note.innerHTML = '<strong>Promise fulfilled.</strong> A new set of intentions awaits.';
-    else if (matched) note.innerHTML = '<strong>A charm for one of your intentions.</strong>';
-    else if (count === 9) note.innerHTML = '<strong>Your next card is guaranteed</strong> to match either intention.';
+    if (count === 10) note.textContent = say('Promise fulfilled. You can choose new intentions.','ครบตามคำมั่นแล้ว เลือกความตั้งใจใหม่ได้');
+    else if (matched) note.textContent = say('A charm for one of your intentions.','ได้รับการ์ดตรงกับหนึ่งความตั้งใจแล้ว');
+    else if (count === 9) note.textContent = say('Your next card is guaranteed to match either intention.','ใบถัดไปจะตรงกับหนึ่งในสองความตั้งใจของคุณ');
     else note.textContent = '';
     $('#collection-count').textContent = state.total;
     $('#owned-count').textContent = state.total;
+    $('#collection-storage').textContent=accountLoading?say('Loading account collection…','กำลังโหลดคลังบัญชี…'):isOnline()?say('Account collection','คลังในบัญชี'):storageAvailable?say('Saved in this browser','เก็บในเบราว์เซอร์นี้'):say('This session only','เฉพาะครั้งนี้');
+    $('#storage-note').textContent=isOnline()?say('Account collection · Local preview charms stay separate.','คลังบัญชี · แยกจากการ์ดตัวอย่างในเครื่อง'):storageAvailable?say('Guest charms are saved in this browser. Signing in uses a separate collection. No automatic transfer.','การ์ดผู้เยี่ยมชมเก็บในเบราว์เซอร์นี้ เมื่อเข้าสู่บัญชีจะใช้คลังแยกกัน ไม่โอนให้อัตโนมัติ'):say('Browser storage is unavailable. Your charms last only until you reload or leave this page.','ใช้พื้นที่เก็บข้อมูลไม่ได้ การ์ดจะอยู่เฉพาะจนกว่าจะโหลดใหม่หรือออกจากหน้านี้');
   }
   function renderGallery() {
     const owned = galleryMode === 'owned';
@@ -112,44 +115,50 @@
     else state.history.forEach(item => quantities.set(item.cardId, (quantities.get(item.cardId) || 0) + 1));
     if (owned) {
       shown = [...quantities.keys()].reverse().map(id => E.cards.find(card => card.id === id)).filter(card => filter === 'all' || card.category === filter);
-      $('#collection-summary').textContent = `${state.total} ${state.total===1?'charm':'charms'} · ${quantities.size} unique${!isOnline()&&state.total>1000?' · showing latest 1,000 reveals':''}`;
+      $('#collection-summary').textContent = say(`${quantities.size} unique charms · ${state.total} collected${!isOnline()&&state.total>1000?' · showing latest 1,000 reveals':''}`,`${quantities.size} แบบ · สะสม ${state.total} ใบ${!isOnline()&&state.total>1000?' · แสดงล่าสุด 1,000 ครั้ง':''}`);
     } else {
       shown = E.cards.filter(card => filter === 'all' || card.category === filter);
-      $('#collection-summary').textContent = `${shown.length} charms`;
+      $('#collection-summary').textContent = say(`${shown.length} charms · Preview only`, `${shown.length} ใบ · ตัวอย่างการ์ด`);
     }
     $('#empty-collection').hidden = shown.length > 0;
-    $('#empty-collection h3').textContent = state.total && owned ? 'A little more to discover.' : 'Your first charm is waiting.';
-    $('#empty-collection p').textContent = state.total && owned ? 'No charms in this category yet.' : 'Reveal a charm to begin your collection.';
+    $('#empty-collection h3').textContent = state.total && owned ? say('No charms in this category.','ยังไม่มีการ์ดในหมวดนี้') : say('Your first charm is waiting.','การ์ดใบแรกกำลังรอคุณ');
+    $('#empty-collection p').textContent = state.total && owned ? say('Try another category or clear your filter.','เลือกหมวดอื่นหรือล้างตัวกรอง') : say('Reveal a charm to begin your collection.','เปิดการ์ดเพื่อเริ่มสะสม');
+    $('#empty-action').textContent=state.total&&owned?say('Clear filter','ล้างตัวกรอง'):say('Reveal my first charm','เปิดการ์ดใบแรก');
+    $('#empty-action').onclick=e=>{if(state.total&&owned){e.preventDefault();$('#collection-filter').value='all';renderGallery();}};
     $('#card-gallery').innerHTML = shown.map(card => {
       const category = E.categories.find(item => item.id === card.category);
-      return `<button type="button" class="gallery-card" data-card="${card.id}" aria-label="View ${card.title}, ${category.name}, ${card.rank}${owned?`, ${quantities.get(card.id)} collected`:''}">${face(card, owned ? quantities.get(card.id) : 0)}<h3>${card.title}</h3><div class="gallery-meta"><span><i class="category-dot" style="--category-color:${category.color}"></i>${category.name}</span>${pill(card.rank)}</div></button>`;
+      return `<button type="button" class="gallery-card" data-card="${card.id}" aria-label="View ${card.title}, ${category.name}, ${card.rank}${owned?`, ${quantities.get(card.id)} collected`:''}">${face(card, owned ? quantities.get(card.id) : 0)}<h3>${cardTitle(card)}</h3><div class="gallery-meta"><span>${icon(category)}${catName(category)}</span>${pill(card.rank)}</div></button>`;
     }).join('');
     $('#card-gallery').querySelectorAll('button').forEach(button => button.addEventListener('click', () => {
       if (!drawing) showCard(E.cards.find(card => card.id === button.dataset.card), null);
     }));
   }
   function showCard(card, result) {
+    viewedCard=card;viewedResult=result;
     const category = E.categories.find(item => item.id === card.category);
     $('#revealed-card').innerHTML = face(card, 0, 'eager');
-    $('#reveal-category').innerHTML = `${category.name} ${pill(card.rank)}`;
-    $('#reveal-title').textContent = card.title;
+    $('#reveal-category').innerHTML = `${icon(category)} ${catName(category)} ${pill(card.rank)}`;
+    $('#reveal-title').textContent = cardTitle(card);
     // Drawn or owned charms can be visited as a pet; preview-only cards cannot.
     const worldLink = $('#reveal-world-link');
     if (worldLink) { worldLink.hidden = !(result || galleryMode === 'owned'); worldLink.href = 'world.html?lead=' + encodeURIComponent(card.id); }
-    $('#reveal-meaning').textContent = card.meaning;
-    $('#reveal-eyebrow').textContent = result ? 'A MESSAGE FOR YOUR JOURNEY' : 'A CLOSER LOOK';
-    $('#preferred-result').textContent = result ? result.guaranteed ? '✧ Your 10-draw promise · preferred category' : result.preferred ? '✧ One of your preferred categories' : 'A little discovery beyond your preferences' : E.ranks.find(rank => rank.id===card.rank).name + ' · First edition';
-    $('#saved-note').textContent = result ? storageAvailable ? `Card #${result.serial} · Added to your collection` : `Card #${result.serial} · Kept for this session only` : galleryMode === 'owned' ? 'From your collection' : 'Collection preview · Not added to your collection';
+    $('#reveal-meaning').textContent = cardMeaning(card);
+    const quantity=isOnline()&&onlineQuantities?onlineQuantities[card.id]||0:state.history.filter(c=>c.cardId===card.id).length;
+    $('#reveal-eyebrow').textContent = result ? quantity>1?say('ANOTHER COPY · ×'+quantity,'การ์ดซ้ำ · ×'+quantity):say('A NEW PIECE OF YOUR STORY','เรื่องราวใหม่ของคุณ') : say('A CLOSER LOOK','มองการ์ดใกล้ ๆ');
+    $('#keep-card').querySelector('span[data-en]').textContent=result||galleryMode==='owned'?say('View my charms','ดูการ์ดของฉัน'):say('Back to collection','กลับคลังการ์ด');
+    $('#preferred-result').textContent = result ? result.guaranteed ? say('Your 10-draw promise · preferred category','คำมั่นในสิบครั้ง · ตรงกับความตั้งใจ') : result.preferred ? say('One of your preferred categories','ตรงกับหนึ่งในความตั้งใจของคุณ') : say('A little discovery beyond your preferences','ความหมายใหม่ นอกเหนือจากความตั้งใจที่เลือก') : say('Collection preview · '+card.rank,'ตัวอย่างการ์ด · '+card.rank);
+    $('#saved-note').textContent = result ? say('Added to your collection','เพิ่มเข้าคลังแล้ว')+' · '+(isOnline()?say('Account collection','คลังบัญชี'):storageAvailable?say('This browser','เบราว์เซอร์นี้'):say('This session only','เฉพาะครั้งนี้')) : galleryMode === 'owned' ? say('From your collection','จากคลังของคุณ') : say('Collection preview · Not added to your collection','ตัวอย่างการ์ด · ยังไม่ได้เพิ่มเข้าคลัง');
     window.CharmReveal.open({
       cinematic: Boolean(result),
-      onReveal: result ? () => announce(`You drew ${card.title}, ${card.rank}, ${category.name}.`) : null
+      onReveal: result ? () => announce(say(`You drew ${card.title}, ${card.rank}, ${category.name}.`,`คุณได้ ${cardTitle(card)} ${card.rank} หมวด${catName(category)}`)) : null
     });
   }
   for (const [slot, id] of Object.entries({left:'love-SSR', main:'growth-SSR', right:'wealth-SSR'})) {
-    $(`#hero-${slot}`).innerHTML = face(E.cards.find(card => card.id === id), 0, 'eager');
+    if($(`#hero-${slot}`))$(`#hero-${slot}`).innerHTML = face(E.cards.find(card => card.id === id), 0, 'eager');
   }
   $('#odds-table').innerHTML = E.ranks.map(rank => `<div>${pill(rank.id)}<span>${rank.chance}%</span><small>${rank.name}</small></div>`).join('');
-  $('#collection-filter').innerHTML += E.categories.map(category => `<option value="${category.id}">${category.name}</option>`).join('');
+  $('#collection-filter').innerHTML = '<option value="all">'+say('All categories','ทุกหมวด')+'</option>';
+  $('#collection-filter').innerHTML += E.categories.map(category => `<option value="${category.id}">${catName(category)}</option>`).join('');
   function render() { renderPreferences(); renderProgress(); renderGallery(); }
   async function pickCharm(button) {
     if (drawing || accountLoading || !E.validatePreferences(state.preferences)) return;
@@ -197,54 +206,61 @@
     if (!pickedCard) return;
     drawing = false;
     renderPreferences();
-    pickedCard.focus({preventScroll:true});
+    if(goToCollection){$('#edition-title').focus({preventScroll:true});goToCollection=false;}else pickedCard.focus({preventScroll:true});
     pickedCard = null;
   });
   $('#close-reveal').addEventListener('click', () => $('#reveal-dialog').close());
-  $('#keep-card').addEventListener('click', () => $('#reveal-dialog').close());
+  $('#keep-card').addEventListener('click', () => {goToCollection=Boolean(viewedResult)||galleryMode==='owned';$('#reveal-dialog').close();if(goToCollection){location.hash='collection';setGallery('owned',true);}else setGallery('explore',true);});
   $('#rules-button').addEventListener('click', () => $('#info-dialog').showModal());
+  $('#draw-rules-link').onclick=()=>$('#info-dialog').showModal();
   ['close-info','guide-done'].forEach(id => $(`#${id}`).addEventListener('click', () => $('#info-dialog').close()));
   function setGallery(mode, scroll) {
     if (galleryMode !== mode) $('#collection-filter').value = 'all';
     galleryMode = mode;
     renderGallery();
-    if (scroll) $('.edition-section').scrollIntoView({behavior:'smooth'});
+    if(scroll){$('#ritual').hidden=true;$('.edition-section').hidden=false;$('.edition-section').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});}
   }
-  $('#browse-button').addEventListener('click', () => setGallery('explore', false));
-  $('#owned-button').addEventListener('click', () => setGallery('owned', false));
-  $('#collection-nav').addEventListener('click', () => setGallery('owned', true));
+  $('#browse-button').addEventListener('click', () => {location.hash='deck';setGallery('explore',false);});
+  $('#owned-button').addEventListener('click', () => {location.hash='collection';setGallery('owned',false);});
+  $('#collection-nav').addEventListener('click', () => {location.hash='collection';setGallery('owned',true);});
   $('#collection-filter').addEventListener('change', renderGallery);
-  $('#header-draw').addEventListener('click', () => $('#ritual').scrollIntoView({
-    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
-  }));
+  $('#header-draw').addEventListener('click', () => {location.hash='ritual';showRoute();});
   $('#reset-button').addEventListener('click', () => $('#reset-dialog').showModal());
   $('#cancel-reset').addEventListener('click', () => $('#reset-dialog').close());
   $('#confirm-reset').addEventListener('click', () => {
     if (isOnline()) return;
-    state = E.initialState();
+    state = E.initialState();state.preferences=[];
     persist();
     $('#collection-filter').value = 'all';
     $('#reset-dialog').close();
     render();
-    announce('Preview reset. Your collection and draw progress are empty.');
+    announce(say('Collection reset. Your cards and draw progress are empty.','ล้างคลังแล้ว การ์ดและความคืบหน้าว่างแล้ว'));
   });
   document.querySelectorAll('dialog').forEach(dialog => dialog.addEventListener('click', event => {
     if (event.target !== dialog) return;
     const bounds = dialog.getBoundingClientRect();
     if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
   }));
-  render();
+  function showRoute(){
+    const collection=['#collection','#deck'].includes(location.hash);
+    $('#ritual').hidden=collection;$('.edition-section').hidden=!collection;
+    if(collection)setGallery(location.hash==='#collection'?'owned':'explore',false);
+    $('#header-draw').setAttribute('aria-pressed',String(!collection));
+    $('#collection-nav').setAttribute('aria-pressed',String(collection&&galleryMode==='owned'));
+  }
+  window.addEventListener('hashchange',()=>{showRoute();const target=location.hash==='#ritual'?$('#ritual'):$('.edition-section');target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});});
+  document.addEventListener('moojai:language',()=>{render();if(viewedCard&&$('#reveal-dialog').open){$('#reveal-title').textContent=cardTitle(viewedCard);$('#reveal-meaning').textContent=cardMeaning(viewedCard);}const chosen=$('#collection-filter').value;$('#collection-filter').innerHTML='<option value="all">'+say('All categories','ทุกหมวด')+'</option>'+E.categories.map(c=>'<option value="'+c.id+'">'+catName(c)+'</option>').join('');$('#collection-filter').value=chosen;});
+  render();showRoute();
   async function syncAccount() {
     const nextId = window.MooJaiAccount?.user?.id || null;
     if (nextId === accountId) return;
     accountId = nextId; pendingRequest = null; onlineQuantities = null;
     if (drawing) { drawing = false; pickedCard = null; $('#reveal-dialog').close(); }
-    accountLoading = Boolean(nextId);
+    accountLoading = Boolean(nextId);$('#collection-load-error').hidden=true;$('#retry-collection').hidden=true;
     // Clear the displayed preview before starting an online load.
-    try { state = nextId ? E.initialState() : E.restore(localStorage.getItem(key)); } catch { state = E.initialState(); }
+    try { const raw=localStorage.getItem(key);state = nextId ? E.initialState() : E.restore(raw);if(nextId||!E.validatePreferences(JSON.parse(raw||'null')?.preferences))state.preferences=[]; } catch { state = E.initialState();state.preferences=[]; }
     render();
-    if (!nextId) { $('#storage-note').textContent = 'Concept preview · No payments · For reflection and entertainment'; return; }
-    $('#storage-note').textContent = 'Your account collection · Free daily charms · Saved securely online';
+    if (!nextId) return;
     try {
       const [states, cards] = await Promise.all([
         accountRequest('/rest/v1/draw_state?select=state'),
@@ -252,15 +268,16 @@
       ]);
       if (accountId !== nextId) return;
       state = states[0] ? E.restore(JSON.stringify(states[0].state)) : E.initialState();
+      if(!states[0])state.preferences=[];
       onlineQuantities = Object.fromEntries(cards.map(c => [c.card_id, c.quantity]));
       accountLoading = false; render();
     } catch (error) {
       if (accountId !== nextId) return;
       // Fail closed; a configured account never silently falls back to local draws.
-      $('#draw-label').textContent = error.message + ' Refresh to retry.'; announce(error.message);
+      $('#draw-label').textContent = error.message;$('#collection-load-error').hidden=false;$('#collection-load-error').textContent=say('Your account collection could not be loaded. Your saved charms have not been removed.','โหลดคลังบัญชีไม่ได้ การ์ดที่บันทึกไว้ยังไม่ถูกลบ');$('#retry-collection').hidden=false;$('#card-gallery').innerHTML='';$('#empty-collection').hidden=true;announce(error.message);
     }
   }
+  $('#retry-collection').onclick=()=>{accountId=null;syncAccount();};
   document.addEventListener('moojai:auth', syncAccount);
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', syncAccount, { once: true }); else syncAccount();
-  if (!storageAvailable) $('#storage-note').textContent = 'Concept preview · No payments · Collection lasts for this session; browser storage unavailable · For reflection and entertainment';
 })();

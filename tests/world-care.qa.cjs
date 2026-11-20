@@ -44,7 +44,10 @@ const need=(s,id='love-C')=>s.needs.pets[id];
     assert.ok(need(meal).hunger<1);assert.equal(need(meal).energy,55);
     assert.equal(meal.ledger.careCount,5,'nutrition still works after daily reward cap');
     fs.mkdirSync('output/world',{recursive:true});await page.waitForTimeout(400);await page.screenshot({path:'output/world/desktop-feeding.png'});
-    await page.click('#rest-button');await page.waitForTimeout(1200);
+    await page.click('#rest-button');
+    // Software-rendered CI can deliver fewer frames within a wall-clock delay.
+    // Wait for the actual recovery while keeping the original energy assertions.
+    await page.waitForFunction(()=>{const s=MooJaiWorld.snapshot();return s.resting&&s.needs.pets['love-C'].energy>57&&s.needs.pets['career-R'].energy>62;},null,{timeout:10000});
     const rested=await snapshot(page);assert.ok(rested.resting);assert.ok(need(rested).energy>57);assert.ok(need(rested,'career-R').energy>62);
     // Measure from when walking has actually started (resting restores energy until then).
     await page.keyboard.down('KeyW');await page.waitForFunction(()=>MooJaiWorld.snapshot().me.moving&&!MooJaiWorld.snapshot().resting);

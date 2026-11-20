@@ -55,6 +55,7 @@ module.exports=async function checkBirthdayAndFutureStory(page,out){
     const text=fs.readFileSync(await (await downloadEvent).path(),'utf8');
     assert.ok(text.includes(await page.locator('.future-story h2').textContent()));
     assert.ok(text.includes(await page.locator('.future-note').textContent()));
+    await page.locator('.optional-reading').first().evaluate(el=>el.open=true);
     for(const width of [1440,768,390,320]){
       await page.setViewportSize({width,height:1000});
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),`${language} ${width} overflow`);

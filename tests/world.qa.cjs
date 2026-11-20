@@ -50,7 +50,7 @@ for(const n of [.03,.2,.37,.53,.7,.87,.03,.03,.03]){const rolls=[n,n===.03?0:n];
   // Mute and report are reachable without pointing at a moving 3D avatar.
   await other.click('#players-button');await other.locator('#player-list button').first().click();await other.click('#mute-button');await other.click('#report-button');
   assert.match(await other.locator('#report-status').innerText(),/no report was sent/);await other.locator('#player-dialog [data-close]').click();
-  await page.waitForTimeout(1300);await page.fill('#chat-input','muted message');await page.locator('#chat-form button').click();await page.waitForTimeout(100);assert.doesNotMatch(await other.locator('#chat-log').innerText(),/muted message/);
+  await page.locator('#chat-toggle').click();await page.waitForTimeout(1300);await page.fill('#chat-input','muted message');await page.locator('#chat-form button').click();await page.waitForTimeout(100);assert.doesNotMatch(await other.locator('#chat-log').innerText(),/muted message/);
   // Walk to the pavilion with the same keyboard controls a visitor uses.
   await page.locator('#world-canvas').focus();
   for(let i=0;i<65;i++){

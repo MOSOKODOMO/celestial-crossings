@@ -49,7 +49,7 @@ const vendor=`window.__worldMock={channels:new Map(),sent:[],tokens:[]};window.s
     if(url.pathname==='/auth/v1/logout')return ok({});
     return r.fulfill({status:404,contentType:'application/json',body:'{}'});
   });
-  const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));await page.goto(BASE+'/');
+  const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));await page.goto(BASE+'/charms.html');
   await page.waitForFunction(()=>!document.querySelector('.card-pick').disabled);
   failDraw=true;await page.locator('.card-pick').first().click();await page.waitForFunction(()=>document.querySelector('#draw-label').textContent.includes('Could not reach'));
   assert.equal(state.total,0);assert.equal(await page.locator('#reveal-dialog').evaluate(d=>d.open),false);
@@ -82,7 +82,7 @@ const vendor=`window.__worldMock={channels:new Map(),sent:[],tokens:[]};window.s
   await inject({type:'state',id:B,seq:++seq,state:{id:B,name:'Bua',x:1220,y:1050,pet:'career-R'}});assert.equal(await world.evaluate(()=>MooJaiWorld.snapshot().peers[0].pet),'career-R');
   await inject({type:'chat',id:B,seq:++seq,text:'hello <img src=x onerror=alert(1)> www.scam.com'});
   assert.equal(await world.locator('#chat-log img').count(),0);assert.doesNotMatch(await world.locator('#chat-log').innerText(),/scam\.com/);
-  await world.fill('#chat-input','hello');await world.locator('#chat-form button').click();
+  await world.locator('#chat-toggle').click();await world.fill('#chat-input','hello');await world.locator('#chat-form button').click();
   assert.equal(await world.evaluate(({A})=>__worldMock.sent.filter(p=>p.type==='broadcast').every(p=>p.topic==='world:lobby-1:'+A),{A}),true);
   await world.locator('#world-canvas').focus();
   // Count only Presence messages sent while walking (heartbeats every 3 s are expected on slow runs).

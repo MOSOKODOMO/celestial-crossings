@@ -65,7 +65,7 @@
       if (active !== run || started) return;
       started = true;
       dialog.dataset.phase = 'playing';
-      later(finish, 3400);
+      later(finish, 1200);
     };
     // Give uncached artwork a head start; slow/broken images cannot block closing or skipping.
     later(start, 450);
