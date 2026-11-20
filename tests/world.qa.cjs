@@ -39,10 +39,11 @@ for(const n of [.03,.2,.37,.53,.7,.87,.03,.03,.03]){const rolls=[n,n===.03?0:n];
   await page.waitForFunction(()=>MooJaiWorld.snapshot().peers.length===1);await other.waitForFunction(()=>MooJaiWorld.snapshot().peers.length===1);
   await page.bringToFront();await page.keyboard.down('KeyD');await page.waitForTimeout(550);await page.keyboard.up('KeyD');await page.waitForTimeout(250);
   const moved=(await snapshot(page)).me;assert.ok(Math.abs((await snapshot(other)).peers[0].x-moved.x)<8,'remote movement follows');
-  await page.fill('#chat-input','hello www.scam.com 081-234-5678 fuck');await page.locator('#chat-form button').click();
+  // Send two messages in the same task so the 1.2 s rate limit is tested even on slow (software-GPU) machines.
+  await page.evaluate(()=>{const f=document.querySelector('#chat-form'),i=document.querySelector('#chat-input');i.value='hello www.scam.com 081-234-5678 fuck';f.requestSubmit();i.value='too fast';f.requestSubmit();});
   await other.waitForFunction(()=>document.querySelector('#chat-log').textContent.includes('hello'));
   assert.doesNotMatch(await other.locator('#chat-log').innerText(),/scam\.com|081|fuck/);
-  const count=await other.locator('#chat-log p').count();await page.fill('#chat-input','too fast');await page.locator('#chat-form button').click();await page.waitForTimeout(100);assert.equal(await other.locator('#chat-log p').count(),count);
+  await page.waitForTimeout(400);assert.doesNotMatch(await other.locator('#chat-log').innerText(),/too fast/,'rate limit blocks a second message within 1.2 s');
   // Malformed and unsafe state must not render a new peer.
   await page.evaluate(()=>{const c=new BroadcastChannel('moojai-world-preview-v1');c.postMessage({type:'state',id:'forged-visitor',seq:1,state:{id:'forged-visitor',x:'1180',y:1060,pet:'not-a-card'}});c.close();});
   await page.waitForTimeout(100);assert.equal((await snapshot(other)).peers.length,1);

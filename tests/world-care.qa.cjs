@@ -22,15 +22,19 @@ const need=(s,id='love-C')=>s.needs.pets[id];
     const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
     await page.goto(BASE+'/world.html');await wait(page);
     assert.ok(await page.locator('#companion-status').isVisible());
-    const before=await snapshot(page);
+    const before=await snapshot(page),fedAt=Date.now();
     await page.click('#feed-button');await page.click('[data-food=berries]');
     assert.equal(await page.locator('#feeding-dialog').evaluate(d=>d.open),false,'food choice returns to the visible eating animation');
     await page.waitForFunction(()=>MooJaiWorld.snapshot().ledger.careCount===5);
     const berry=await snapshot(page);
-    assert.ok(Math.abs(need(berry).hunger-(need(before).hunger-20))<.2);
+    // Berries remove 20 hunger; hunger keeps rising slowly in real time (max 2/min), so allow that drift on slow machines.
+    const drift=need(berry).hunger-(need(before).hunger-20),minutes=(Date.now()-fedAt)/60000;
+    assert.ok(drift>-.2&&drift<minutes*2+.2,`berries remove 20 hunger (drift ${drift.toFixed(2)})`);
     assert.equal(need(berry).energy,43);
     assert.equal(need(berry,'career-R').energy,60,'feeding only affects the selected pet');
-    assert.ok(await page.locator('[data-food=meal]').isDisabled());
+    // While the 4 s chewing cooldown runs, food is disabled (checked atomically so slow machines can't race it).
+    const chew=await page.evaluate(()=>{const s=MooJaiWorld.snapshot(),p=s.needs.pets[s.me.pet];return {disabled:document.querySelector('[data-food=meal]').disabled,chewing:Date.now()<p.feedReadyAt-300};});
+    assert.ok(!chew.chewing||chew.disabled,'food is disabled while the pet is chewing');
     const readyAt=need(berry).feedReadyAt;
     await page.reload();await wait(page);await page.click('#feed-button');
     assert.equal(need(await snapshot(page)).feedReadyAt,readyAt,'cooldown survives reload');
@@ -42,9 +46,11 @@ const need=(s,id='love-C')=>s.needs.pets[id];
     fs.mkdirSync('output/world',{recursive:true});await page.waitForTimeout(400);await page.screenshot({path:'output/world/desktop-feeding.png'});
     await page.click('#rest-button');await page.waitForTimeout(1200);
     const rested=await snapshot(page);assert.ok(rested.resting);assert.ok(need(rested).energy>57);assert.ok(need(rested,'career-R').energy>62);
-    await page.keyboard.down('KeyW');await page.waitForTimeout(1100);await page.keyboard.up('KeyW');
-    const walked=await snapshot(page);assert.equal(walked.resting,false);assert.ok(need(walked).energy<need(rested).energy);
-    assert.ok(need(walked).hunger>need(rested).hunger);
+    // Measure from when walking has actually started (resting restores energy until then).
+    await page.keyboard.down('KeyW');await page.waitForFunction(()=>MooJaiWorld.snapshot().me.moving&&!MooJaiWorld.snapshot().resting);
+    const startWalk=await snapshot(page);await page.waitForTimeout(1100);
+    const walked=await snapshot(page);await page.keyboard.up('KeyW');assert.equal(walked.resting,false);assert.ok(need(walked).energy<need(startWalk).energy,'walking uses energy');
+    assert.ok(need(walked).hunger>need(startWalk).hunger,'walking makes the pet hungrier');
     // Tab visibility is a browser lifecycle input, not a game mutation hook.
     await page.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,value:true});document.dispatchEvent(new Event('visibilitychange'));});
     const paused=await snapshot(page);await page.waitForTimeout(600);assert.deepEqual((await snapshot(page)).needs,paused.needs);

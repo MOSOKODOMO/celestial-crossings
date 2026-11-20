@@ -85,8 +85,10 @@ const vendor=`window.__worldMock={channels:new Map(),sent:[],tokens:[]};window.s
   await world.fill('#chat-input','hello');await world.locator('#chat-form button').click();
   assert.equal(await world.evaluate(({A})=>__worldMock.sent.filter(p=>p.type==='broadcast').every(p=>p.topic==='world:lobby-1:'+A),{A}),true);
   await world.locator('#world-canvas').focus();
+  // Count only Presence messages sent while walking (heartbeats every 3 s are expected on slow runs).
+  const presenceBefore=await world.evaluate(()=>__worldMock.sent.filter(p=>p.presence).length);
   await world.keyboard.down('KeyW');await world.waitForTimeout(700);await world.keyboard.up('KeyW');
-  assert.ok(await world.evaluate(()=>__worldMock.sent.filter(p=>p.presence).length<6),'movement does not broadcast Presence at 10 Hz');
+  assert.ok(await world.evaluate(n=>__worldMock.sent.filter(p=>p.presence).length-n<3,presenceBefore),'movement does not broadcast Presence at 10 Hz');
   await context.close();assert.deepEqual(errors,[]);
   // Configured but signed-out worlds ask for account login and never expose a preview collection.
   const guest=await browser.newContext();await guest.route('**/config.js',r=>r.fulfill({contentType:'text/javascript',body:config}));

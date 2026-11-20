@@ -23,7 +23,9 @@ function browserPath(){
 async function launch(){
   const {chromium}=loadPlaywright();
   const executablePath=browserPath();
-  return chromium.launch({headless:true,...(executablePath?{executablePath}:{})});
+  // CI runners have no GPU: ask Chromium for its software WebGL renderer explicitly so the 3D world can start.
+  const args=process.platform==='linux'?['--use-angle=swiftshader','--enable-unsafe-swiftshader']:[];
+  return chromium.launch({headless:true,args,...(executablePath?{executablePath}:{})});
 }
 async function navigate(page,view){
   const target=page.locator(`[data-page=${view}]`);

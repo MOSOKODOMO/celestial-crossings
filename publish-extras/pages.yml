@@ -1,0 +1,73 @@
+name: Test and publish website
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    outputs:
+      pages_artifact: github-pages-${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - run: npm run check
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+          name: github-pages-${{ github.run_attempt }}
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      # Upload completion can precede visibility in the artifact-list API.
+      # Keeping deployment separate also lets a retry reuse the tested build.
+      - name: Wait for the uploaded site
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PAGES_ARTIFACT: ${{ needs.build.outputs.pages_artifact }}
+        run: |
+          node --input-type=module <<'NODE'
+          const {GITHUB_API_URL,GITHUB_REPOSITORY,GITHUB_RUN_ID,GH_TOKEN,PAGES_ARTIFACT}=process.env;
+          const url=`${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts?per_page=100`;
+          for(let attempt=0;attempt<20;attempt++){
+            const response=await fetch(url,{headers:{Authorization:`Bearer ${GH_TOKEN}`,Accept:'application/vnd.github+json','Cache-Control':'no-cache'},signal:AbortSignal.timeout(15000)});
+            if(!response.ok)throw new Error(`Could not check the site upload: HTTP ${response.status}`);
+            const data=await response.json();
+            const matches=data.artifacts.filter(item=>item.name===PAGES_ARTIFACT&&!item.expired);
+            if(matches.length===1){console.log('The tested site is ready to publish.');process.exit(0);}
+            if(matches.length>1)throw new Error('More than one matching site upload was found.');
+            await new Promise(resolve=>setTimeout(resolve,3000));
+          }
+          throw new Error('The uploaded site was not visible within one minute. Retry the publish job.');
+          NODE
+      - name: Publish
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ${{ needs.build.outputs.pages_artifact }}
