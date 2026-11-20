@@ -21,16 +21,32 @@
       <p class="eyebrow">มูใจ · MooJai</p>
       <h1 id="payment-title" data-en="A little magic to keep." data-th="เก็บความพิเศษไว้กับคุณ">เก็บความพิเศษไว้กับคุณ</h1>
       <p class="payment-description" data-en="A card and its matching phone wallpaper." data-th="การ์ดพร้อมวอลเปเปอร์โทรศัพท์ที่เข้าคู่กัน">การ์ดพร้อมวอลเปเปอร์โทรศัพท์ที่เข้าคู่กัน</p>
+      <div class="bundle-choice">
+        <img id="bundle-image" src="assets/cards/growth-C.webp" width="160" height="240" alt="The New Leaf card">
+        <div><label for="bundle-card" data-en="Choose your Growth card" data-th="เลือกการ์ดหมวดเติบโต">เลือกการ์ดหมวดเติบโต</label>
+          <select id="bundle-card">
+            <option value="growth-C" data-en="The New Leaf" data-th="ใบไม้ผลิใหม่">ใบไม้ผลิใหม่</option>
+            <option value="growth-R" data-en="The Open Door" data-th="ประตูที่เปิดอยู่">ประตูที่เปิดอยู่</option>
+            <option value="growth-S" data-en="The Becoming" data-th="การเติบโต">การเติบโต</option>
+            <option value="growth-SR" data-en="The Phoenix" data-th="ฟีนิกซ์">ฟีนิกซ์</option>
+            <option value="growth-SSR" data-en="Phra Chan" data-th="พระจันทร์">พระจันทร์</option>
+          </select>
+          <p data-en="You receive this exact card and its matching text-free wallpaper." data-th="ได้รับการ์ดใบที่เลือก พร้อมวอลเปเปอร์ภาพล้วนที่เข้าคู่กัน">ได้รับการ์ดใบที่เลือก พร้อมวอลเปเปอร์ภาพล้วนที่เข้าคู่กัน</p>
+        </div>
+      </div>
+      <details class="wallpaper-preview"><summary data-en="Preview the matching wallpapers" data-th="ดูตัวอย่างวอลเปเปอร์ที่เข้าคู่กัน">ดูตัวอย่างวอลเปเปอร์ที่เข้าคู่กัน</summary><a href="assets/growth-wallpaper-preview.png" target="_blank" rel="noopener"><img src="assets/growth-wallpaper-preview.png" alt="Five Growth cards paired with their phone wallpapers" loading="lazy"></a></details>
       <div class="payment-total"><span data-en="One-time payment" data-th="ชำระครั้งเดียว">ชำระครั้งเดียว</span><strong>฿49<span> THB</span></strong></div>
       <div class="payment-methods" aria-label="Payment methods"><span>PromptPay QR</span><span data-en="Debit / credit card" data-th="บัตรเดบิต / เครดิต">บัตรเดบิต / เครดิต</span></div>
       <p class="payment-help" data-en="Choose PromptPay on the secure checkout page, then pay with your Thai banking app. On the same phone, save the QR code and import it in your bank app if supported." data-th="เลือกพร้อมเพย์ในหน้าชำระเงิน แล้วชำระผ่านแอปธนาคาร หากใช้โทรศัพท์เครื่องเดียว ให้บันทึกคิวอาร์โค้ดและนำเข้าจากรูปภาพในแอปธนาคารที่รองรับ">เลือกพร้อมเพย์ในหน้าชำระเงิน แล้วชำระผ่านแอปธนาคาร หากใช้โทรศัพท์เครื่องเดียว ให้บันทึกคิวอาร์โค้ดและนำเข้าจากรูปภาพในแอปธนาคารที่รองรับ</p>
       <p id="payment-status" class="payment-status" role="status" aria-live="polite"></p>
       <button id="pay-button" class="gold-button" type="button" disabled><span data-en="Continue — ฿49" data-th="ไปชำระเงิน — ฿49">ไปชำระเงิน — ฿49</span><span data-icon="arrow"></span></button>
       <button id="payment-retry" class="outline-button" type="button" hidden></button>
+      <div id="paid-downloads" class="paid-downloads" hidden></div>
       <a id="payment-return" class="payment-back" href="charms.html" hidden><span data-en="Return to MooJai" data-th="กลับสู่มูใจ">กลับสู่มูใจ</span></a>
       <p class="payment-fineprint"><span data-icon="lock"></span><span data-en="Your birth details and readings are never sent with a payment." data-th="ข้อมูลวันเกิดและคำอ่านของคุณจะไม่ถูกส่งไปพร้อมการชำระเงิน">ข้อมูลวันเกิดและคำอ่านของคุณจะไม่ถูกส่งไปพร้อมการชำระเงิน</span></p>
       <noscript>กรุณาเปิด JavaScript เพื่อชำระเงิน / Enable JavaScript to use checkout.</noscript>
     </section>
+    <section id="purchase-history" class="purchase-history" hidden><h2 data-en="Your purchases" data-th="รายการซื้อของคุณ">รายการซื้อของคุณ</h2><div id="purchase-list"></div></section>
   </main>
 </body>
 </html>

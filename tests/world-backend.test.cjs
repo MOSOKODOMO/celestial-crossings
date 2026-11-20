@@ -6,7 +6,7 @@ const { PGlite } = require('@electric-sql/pglite');
 const E = require('../dist/collect-engine.js');
 const W = require('../dist/world-core.js');
 const root = path.join(__dirname, '..');
-const A='aaaaaaaa-1111-4111-8111-111111111111', B='bbbbbbbb-2222-4222-8222-222222222222';
+const A='aaaaaaaa-1111-4111-8111-111111111111', B='bbbbbbbb-2222-4222-8222-222222222222', C='cccccccc-3333-4333-8333-333333333333';
 let pg;
 test.before(async () => {
   pg = new PGlite();
@@ -25,7 +25,9 @@ test.before(async () => {
   await pg.exec(fs.readFileSync(path.join(root,'supabase/schema.sql'),'utf8'));
   await pg.exec(fs.readFileSync(path.join(root,'supabase/world.sql'),'utf8'));
   await pg.exec(fs.readFileSync(path.join(root,'supabase/world.sql'),'utf8')); // repeatable setup
-  await pg.query('insert into auth.users(id) values ($1),($2)',[A,B]);
+  await pg.exec(fs.readFileSync(path.join(root,'supabase/migrations/20261120221939_paid_card_bundles.sql'),'utf8'));
+  await pg.exec(fs.readFileSync(path.join(root,'supabase/migrations/20261120222050_account_access_hardening.sql'),'utf8'));
+  await pg.query('insert into auth.users(id) values ($1),($2),($3)',[A,B,C]);
 });
 test.after(async()=>pg?.close());
 async function as(role,id,work){
@@ -42,6 +44,22 @@ test('payment records are idempotent and only readable by their owner',async()=>
   await as('authenticated',A,async()=>{assert.equal((await pg.query('select * from public.entitlements')).rows.length,1);await assert.rejects(insert(),/permission denied/);});
   await as('authenticated',B,async()=>{assert.equal((await pg.query('select * from public.entitlements')).rows.length,0);await assert.rejects(pg.query('delete from public.entitlements'),/permission denied/);});
   await as('anon',null,async()=>{await assert.rejects(pg.query('select * from public.entitlements'),/permission denied/);});
+});
+test('bundle fulfillment grants one exact card, retries do not duplicate it, and refund removes only the purchased copy',async()=>{
+  await as('service_role',null,async()=>{
+    const grant=()=>pg.query("select public.fulfill_card_bundle($1,'cs_test_bundle','pi_bundle','growth-SR') as result",[C]);
+    await grant();assert.equal((await grant()).rows[0].result.replayed,true);
+    await assert.rejects(pg.query("select public.fulfill_card_bundle($1,'cs_test_bundle','pi_bundle','growth-C')",[C]),/purchase_mismatch/);
+    assert.equal((await pg.query("select quantity from public.charm_collection where user_id=$1 and card_id='growth-SR'",[C])).rows[0].quantity,1);
+    await pg.query("update public.charm_collection set quantity=2 where user_id=$1 and card_id='growth-SR'",[C]);
+    await pg.query("select public.revoke_card_bundle('pi_bundle')");await pg.query("select public.revoke_card_bundle('pi_bundle')");
+    assert.equal((await pg.query("select quantity from public.charm_collection where user_id=$1 and card_id='growth-SR'",[C])).rows[0].quantity,1);
+    assert.equal((await grant()).rows[0].result.revoked,true);
+    await pg.query("select public.revoke_card_bundle('pi_before')");
+    assert.equal((await pg.query("select public.fulfill_card_bundle($1,'cs_test_earlyrefund','pi_before','growth-C') result",[C])).rows[0].result.revoked,true);
+    assert.equal((await pg.query("select * from public.entitlements where payment_intent_id='pi_before'")).rows.length,0);
+  });
+  await as('authenticated',B,async()=>{await assert.rejects(pg.query("select public.fulfill_card_bundle($1,'cs_fake','pi_fake','growth-SSR')",[B]),/permission denied/);});
 });
 test('draw RPC atomically grants one card and replays a request without spending twice',async()=>{
   const out=E.draw(E.initialState(),()=>.5),request=crypto.randomUUID();

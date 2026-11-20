@@ -169,16 +169,16 @@
       await authFetch('/auth/v1/user', { method: 'PUT', token, body: { password } });
     },
     get paymentsEnabled() { return accountsEnabled && config.payments?.enabled === true; },
-    async startCheckout(productKey) {
+    async startCheckout(productKey, cardId) {
       if (!api.paymentsEnabled || !Object.hasOwn(config.products || {}, productKey)) throw new Error('payments_unavailable');
       if (checkoutPending) return checkoutPending;
       checkoutPending = (async () => {
         const token = await api.getAccessToken();
         if (!token) { openAccount('signin'); return false; }
-        if (!checkoutAttempt || checkoutAttempt.product !== productKey || checkoutAttempt.user !== api.user?.id) {
-          checkoutAttempt = { product: productKey, user: api.user?.id, requestId: crypto.randomUUID(), language: lang() };
+        if (!checkoutAttempt || checkoutAttempt.product !== productKey || checkoutAttempt.cardId !== cardId || checkoutAttempt.user !== api.user?.id) {
+          checkoutAttempt = { product: productKey, cardId, user: api.user?.id, requestId: crypto.randomUUID(), language: lang() };
         }
-        const data = await paymentRequest('create-checkout', { product: productKey, requestId: checkoutAttempt.requestId, language: checkoutAttempt.language }, token);
+        const data = await paymentRequest('create-checkout', { product: productKey, cardId, requestId: checkoutAttempt.requestId, language: checkoutAttempt.language }, token);
         let url; try { url = new URL(data.url); } catch { throw new Error('payment_service_unavailable'); }
         if (url.origin !== 'https://checkout.stripe.com') throw new Error('payment_service_unavailable');
         try { sessionStorage.setItem('moojai-checkout-v1', data.sessionId); } catch {}
@@ -193,10 +193,22 @@
       if (!token) throw new Error('signin');
       return paymentRequest('checkout-status', { sessionId }, token);
     },
+    async purchases() {
+      const token = await api.getAccessToken();
+      if (!token) return [];
+      return (await paymentRequest('purchase-download', { action:'list' }, token)).purchases;
+    },
+    async downloadPurchase(sessionId,kind) {
+      const token=await api.getAccessToken();if(!token)throw new Error('signin');
+      const data=await paymentRequest('purchase-download',{sessionId,kind},token);
+      const url=new URL(data.url);
+      if(url.origin!==new URL(SUPABASE).origin||!url.pathname.startsWith('/storage/v1/object/sign/moojai-paid/'))throw new Error('download_unavailable');
+      const link=document.createElement('a');link.href=url.href;link.rel='noopener';link.download='';document.body.append(link);link.click();link.remove();
+    },
     async entitlements() {
       const token = await api.getAccessToken();
       if (!token) return [];
-      const response = await fetch(SUPABASE + '/rest/v1/entitlements?select=product,granted_at', { headers: { apikey: ANON, Authorization: 'Bearer ' + token } });
+      const response = await fetch(SUPABASE + '/rest/v1/entitlements?select=product,card_id,granted_at&revoked_at=is.null', { headers: { apikey: ANON, Authorization: 'Bearer ' + token } });
       return response.ok ? response.json() : [];
     },
     open: mode => openAccount(mode)

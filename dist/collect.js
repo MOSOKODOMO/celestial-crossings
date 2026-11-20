@@ -97,8 +97,9 @@
     else if (matched) note.textContent = say('A charm for one of your intentions.','ได้รับการ์ดตรงกับหนึ่งความตั้งใจแล้ว');
     else if (count === 9) note.textContent = say('Your next card is guaranteed to match either intention.','ใบถัดไปจะตรงกับหนึ่งในสองความตั้งใจของคุณ');
     else note.textContent = '';
-    $('#collection-count').textContent = state.total;
-    $('#owned-count').textContent = state.total;
+    const collectionTotal=isOnline()&&onlineQuantities?Object.values(onlineQuantities).reduce((sum,n)=>sum+n,0):state.total;
+    $('#collection-count').textContent = collectionTotal;
+    $('#owned-count').textContent = collectionTotal;
     $('#collection-storage').textContent=accountLoading?say('Loading account collection…','กำลังโหลดคลังบัญชี…'):isOnline()?say('Account collection','คลังในบัญชี'):storageAvailable?say('Saved in this browser','เก็บในเบราว์เซอร์นี้'):say('This session only','เฉพาะครั้งนี้');
     $('#storage-note').textContent=isOnline()?say('Account collection · Local preview charms stay separate.','คลังบัญชี · แยกจากการ์ดตัวอย่างในเครื่อง'):storageAvailable?say('Guest charms are saved in this browser. Signing in uses a separate collection. No automatic transfer.','การ์ดผู้เยี่ยมชมเก็บในเบราว์เซอร์นี้ เมื่อเข้าสู่บัญชีจะใช้คลังแยกกัน ไม่โอนให้อัตโนมัติ'):say('Browser storage is unavailable. Your charms last only until you reload or leave this page.','ใช้พื้นที่เก็บข้อมูลไม่ได้ การ์ดจะอยู่เฉพาะจนกว่าจะโหลดใหม่หรือออกจากหน้านี้');
   }
@@ -115,7 +116,8 @@
     else state.history.forEach(item => quantities.set(item.cardId, (quantities.get(item.cardId) || 0) + 1));
     if (owned) {
       shown = [...quantities.keys()].reverse().map(id => E.cards.find(card => card.id === id)).filter(card => filter === 'all' || card.category === filter);
-      $('#collection-summary').textContent = say(`${quantities.size} unique charms · ${state.total} collected${!isOnline()&&state.total>1000?' · showing latest 1,000 reveals':''}`,`${quantities.size} แบบ · สะสม ${state.total} ใบ${!isOnline()&&state.total>1000?' · แสดงล่าสุด 1,000 ครั้ง':''}`);
+      const total=isOnline()?Array.from(quantities.values()).reduce((sum,n)=>sum+n,0):state.total;
+      $('#collection-summary').textContent = say(`${quantities.size} unique charms · ${total} collected${!isOnline()&&state.total>1000?' · showing latest 1,000 reveals':''}`,`${quantities.size} แบบ · สะสม ${total} ใบ${!isOnline()&&state.total>1000?' · แสดงล่าสุด 1,000 ครั้ง':''}`);
     } else {
       shown = E.cards.filter(card => filter === 'all' || card.category === filter);
       $('#collection-summary').textContent = say(`${shown.length} charms · Preview only`, `${shown.length} ใบ · ตัวอย่างการ์ด`);
@@ -142,6 +144,8 @@
     // Drawn or owned charms can be visited as a pet; preview-only cards cannot.
     const worldLink = $('#reveal-world-link');
     if (worldLink) { worldLink.hidden = !(result || galleryMode === 'owned'); worldLink.href = 'world.html?lead=' + encodeURIComponent(card.id); }
+    const bundleLink=$('#reveal-bundle-link');
+    if(bundleLink){bundleLink.hidden=!(window.MooJaiAccount?.paymentsEnabled&&card.category==='growth');bundleLink.href='payment.html?card='+encodeURIComponent(card.id);}
     $('#reveal-meaning').textContent = cardMeaning(card);
     const quantity=isOnline()&&onlineQuantities?onlineQuantities[card.id]||0:state.history.filter(c=>c.cardId===card.id).length;
     $('#reveal-eyebrow').textContent = result ? quantity>1?say('ANOTHER COPY · ×'+quantity,'การ์ดซ้ำ · ×'+quantity):say('A NEW PIECE OF YOUR STORY','เรื่องราวใหม่ของคุณ') : say('A CLOSER LOOK','มองการ์ดใกล้ ๆ');
@@ -279,5 +283,10 @@
   }
   $('#retry-collection').onclick=()=>{accountId=null;syncAccount();};
   document.addEventListener('moojai:auth', syncAccount);
+  window.addEventListener('storage',event=>{
+    if(event.key!=='moojai-collection-update-v1'||!accountId||drawing)return;
+    try{if(JSON.parse(event.newValue)?.userId===accountId){accountId=null;syncAccount();}}catch{}
+  });
+  window.addEventListener('pageshow',event=>{if(event.persisted&&accountId&&!drawing){accountId=null;syncAccount();}});
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', syncAccount, { once: true }); else syncAccount();
 })();

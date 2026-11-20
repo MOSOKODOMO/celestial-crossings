@@ -1,6 +1,9 @@
 // Server-only payment decisions. Amounts are integer satang; browser prices
 // and success redirects are never accepted as evidence of payment.
 const PRODUCT = 'cardWallpaper', AMOUNT = 4900;
+const CARD_NAMES = {'growth-C':['The New Leaf','ใบไม้ผลิใหม่'],'growth-R':['The Open Door','ประตูที่เปิดอยู่'],'growth-S':['The Becoming','การเติบโต'],'growth-SR':['The Phoenix','ฟีนิกซ์'],'growth-SSR':['Phra Chan','พระจันทร์']};
+const CARDS = new Set(Object.keys(CARD_NAMES));
+const BUCKET = 'moojai-paid';
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const SESSION = /^cs_(?:test_|live_)?[A-Za-z0-9]{8,200}$/;
 const encoder = new TextEncoder();
@@ -43,22 +46,21 @@ export function createPayments({ env, fetch: request = globalThis.fetch, now = D
     if (!response.ok || !UUID.test(account.id || '') || account.is_anonymous || !account.email_confirmed_at) fail('signin', 401);
     return account;
   }
+  const serviceHeaders = () => ({ apikey: serviceKey, ...(serviceKey.startsWith('sb_secret_') ? {} : { Authorization: 'Bearer ' + serviceKey }) });
   async function database(path, body) {
     if (!api || !serviceKey) fail('payments_unavailable', 503);
     const response = await request(api + '/rest/v1/' + path, {
-      method: body ? 'POST' : 'GET', headers: { apikey: serviceKey,
-        ...(serviceKey.startsWith('sb_secret_') ? {} : { Authorization: 'Bearer ' + serviceKey }),
-        'Content-Type': 'application/json', Prefer: 'resolution=ignore-duplicates,return=minimal' },
+      method: body ? 'POST' : 'GET', headers: { ...serviceHeaders(), 'Content-Type': 'application/json' },
       body: body ? JSON.stringify(body) : undefined, signal: AbortSignal.timeout(10000)
     });
     if (!response.ok) fail('payment_record_unavailable', 503);
-    return body ? null : response.json();
+    return response.json();
   }
   const ours = session => session?.metadata?.app === 'moojai' && session.metadata.product === PRODUCT;
   function validPaid(session) {
     const item = session.line_items?.data?.[0];
     return ours(session) && session.mode === 'payment' && session.status === 'complete' && session.payment_status === 'paid'
-      && UUID.test(session.metadata.user_id || '') && session.client_reference_id === session.metadata.user_id
+      && UUID.test(session.metadata.user_id || '') && session.client_reference_id === session.metadata.user_id && CARDS.has(session.metadata.card_id)
       && session.currency === 'thb' && session.amount_total === AMOUNT
       && session.line_items?.data?.length === 1 && !session.line_items.has_more && item.quantity === 1
       && /^price_[A-Za-z0-9]+$/.test(session.metadata.price_id || '')
@@ -66,14 +68,26 @@ export function createPayments({ env, fetch: request = globalThis.fetch, now = D
   }
   async function retrieve(id) {
     if (!SESSION.test(id || '')) fail('invalid_session');
-    return stripe('checkout/sessions/' + id + '?expand[]=line_items&expand[]=payment_intent');
+    return stripe('checkout/sessions/' + id + '?expand[]=line_items&expand[]=payment_intent.latest_charge');
   }
+  const intentId = session => typeof session.payment_intent === 'string' ? session.payment_intent : session.payment_intent?.id;
+  const refunded = session => session.payment_intent?.latest_charge?.refunded === true;
   async function fulfill(session) {
     if (!validPaid(session)) fail('invalid_paid_session');
-    await database('entitlements?on_conflict=stripe_session_id', {
-      user_id: session.metadata.user_id, product: PRODUCT, stripe_session_id: session.id,
-      amount_total: session.amount_total, currency: session.currency
+    if (refunded(session)) { await database('rpc/revoke_card_bundle',{p_intent:intentId(session)}); return {revoked:true}; }
+    return database('rpc/fulfill_card_bundle', {p_user:session.metadata.user_id,p_session:session.id,p_intent:intentId(session),p_card:session.metadata.card_id});
+  }
+  async function signedAsset(cardId, kind) {
+    const path = kind === 'card' ? `cards/${cardId}.webp` : `wallpapers/${cardId}.png`;
+    const response = await request(`${api}/storage/v1/object/sign/${BUCKET}/${path}`, {
+      method:'POST',headers:{...serviceHeaders(),'Content-Type':'application/json'},body:JSON.stringify({expiresIn:300}),signal:AbortSignal.timeout(10000)
     });
+    const data = await response.json().catch(()=>({}));
+    if (!response.ok || typeof data.signedURL !== 'string') fail('download_unavailable',503);
+    const url = new URL(api + '/storage/v1' + data.signedURL);
+    if (url.origin !== new URL(api).origin || !url.pathname.startsWith(`/storage/v1/object/sign/${BUCKET}/`)) fail('download_unavailable',503);
+    url.searchParams.set('download',`MooJai-${cardId}-${kind}.${kind==='card'?'webp':'png'}`);
+    return url.href;
   }
   function browser(handler) {
     return async req => {
@@ -88,7 +102,9 @@ export function createPayments({ env, fetch: request = globalThis.fetch, now = D
   }
   const checkout = browser(async (body, account) => {
     if (env('PAYMENTS_ENABLED') !== 'true') fail('payments_unavailable', 503);
-    if (body.product !== PRODUCT || !UUID.test(body.requestId || '')) fail('invalid_request');
+    if (body.product !== PRODUCT || !UUID.test(body.requestId || '') || !CARDS.has(body.cardId)) fail('invalid_request');
+    // Verify both private assets can be served before accepting a new purchase.
+    await Promise.all(['card','wallpaper'].map(kind=>signedAsset(body.cardId,kind)));
     const priceId = env('STRIPE_PRICE_CARDWALLPAPER') || '';
     if (!/^price_[A-Za-z0-9]+$/.test(priceId)) fail('payments_unavailable', 503);
     const price = await stripe('prices/' + priceId);
@@ -98,9 +114,10 @@ export function createPayments({ env, fetch: request = globalThis.fetch, now = D
       'line_items[0][price]': priceId, 'line_items[0][quantity]': '1',
       'payment_method_types[0]': 'promptpay', 'payment_method_types[1]': 'card',
       client_reference_id: account.id, customer_email: account.email,
-      'metadata[app]': 'moojai', 'metadata[user_id]': account.id, 'metadata[product]': PRODUCT, 'metadata[price_id]': priceId,
+      'metadata[app]': 'moojai', 'metadata[user_id]': account.id, 'metadata[product]': PRODUCT, 'metadata[price_id]': priceId, 'metadata[card_id]':body.cardId,
+      'custom_text[submit][message]':language==='th'?`${CARD_NAMES[body.cardId][1]}: การ์ดพร้อมวอลเปเปอร์โทรศัพท์ที่เข้าคู่กัน`:`${CARD_NAMES[body.cardId][0]}: card + matching phone wallpaper`,
       success_url: returnPage + '?checkout=success&session_id={CHECKOUT_SESSION_ID}&lang=' + language,
-      cancel_url: returnPage + '?checkout=cancelled&lang=' + language
+      cancel_url: returnPage + '?checkout=cancelled&card=' + body.cardId + '&lang=' + language
     });
     const session = await stripe('checkout/sessions', { method: 'POST', body: form,
       headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Idempotency-Key': 'moojai:' + account.id + ':' + body.requestId } });
@@ -113,12 +130,20 @@ export function createPayments({ env, fetch: request = globalThis.fetch, now = D
     if (!ours(session) || session.metadata.user_id !== account.id || session.client_reference_id !== account.id) fail('not_found', 404);
     if (session.payment_status === 'paid') {
       // This also recovers delayed webhooks; Stripe is queried before writing.
-      await fulfill(session);
-      return { state: 'paid', product: PRODUCT, amount: AMOUNT, currency: 'thb' };
+      const result=await fulfill(session);
+      if(result.revoked)return {state:'refunded'};
+      return { state: 'paid', product: PRODUCT, cardId:session.metadata.card_id, amount: AMOUNT, currency: 'thb' };
     }
     if (session.status === 'expired') return { state: 'expired' };
     if (session.payment_intent?.status === 'canceled' || (session.status === 'complete' && session.payment_intent?.status === 'requires_payment_method')) return { state: 'failed' };
     return { state: session.status === 'open' ? 'awaiting_payment' : 'processing' };
+  });
+  const downloads = browser(async(body,account)=>{
+    if(body.action==='list')return {purchases:await database(`entitlements?select=stripe_session_id,card_id,granted_at&user_id=eq.${account.id}&product=eq.cardWallpaper&revoked_at=is.null&card_id=not.is.null&order=granted_at.desc`)};
+    if(!SESSION.test(body.sessionId||'')||!['card','wallpaper'].includes(body.kind))fail('invalid_request');
+    const rows=await database(`entitlements?select=card_id&user_id=eq.${account.id}&stripe_session_id=eq.${body.sessionId}&product=eq.cardWallpaper&revoked_at=is.null`);
+    if(!rows.length||!CARDS.has(rows[0].card_id))fail('not_found',404);
+    return {url:await signedAsset(rows[0].card_id,body.kind),expiresIn:300};
   });
   const webhook = async req => {
     if (req.method !== 'POST') return json({ error: 'method' }, 405);
@@ -128,6 +153,12 @@ export function createPayments({ env, fetch: request = globalThis.fetch, now = D
       const payload = await req.text(); if (payload.length > 262144) fail('invalid_request', 413);
       if (!await verifySignature(payload, req.headers.get('stripe-signature') || '', signingSecret, now())) fail('invalid_signature');
       let event; try { event = JSON.parse(payload); } catch { fail('invalid_request'); }
+      if(event.type==='charge.refunded'){
+        if(!/^ch_[A-Za-z0-9]+$/.test(event.data?.object?.id||''))fail('invalid_request');
+        const charge=await stripe('charges/'+event.data.object.id);
+        if(charge.refunded&&/^pi_[A-Za-z0-9]+$/.test(charge.payment_intent||''))await database('rpc/revoke_card_bundle',{p_intent:charge.payment_intent});
+        return json({received:true});
+      }
       if (!['checkout.session.completed', 'checkout.session.async_payment_succeeded'].includes(event.type)) return json({ received: true });
       if (!ours(event.data?.object)) return json({ received: true });
       const session = await retrieve(event.data.object.id);
@@ -135,7 +166,7 @@ export function createPayments({ env, fetch: request = globalThis.fetch, now = D
       return json({ received: true });
     } catch (error) { return json({ error: error.status ? error.message : 'payment_service_unavailable' }, error.status || 503); }
   };
-  return { checkout, status, webhook };
+  return { checkout, status, webhook, downloads };
 }
 export async function verifySignature(payload, header, secret, now = Date.now()) {
   const parts = header.split(',').map(part => part.trim().split('='));

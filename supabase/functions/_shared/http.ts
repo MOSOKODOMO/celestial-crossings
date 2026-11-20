@@ -1,6 +1,10 @@
 const url = Deno.env.get('SUPABASE_URL')!;
-const anon = Deno.env.get('SUPABASE_ANON_KEY')!;
-const service = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+function key(modern: string, legacy: string) {
+  try { const value=JSON.parse(Deno.env.get(modern)||'{}').default;if(value)return value; } catch {}
+  return Deno.env.get(legacy)||'';
+}
+const anon = key('SUPABASE_PUBLISHABLE_KEYS','SUPABASE_ANON_KEY');
+const service = key('SUPABASE_SECRET_KEYS','SUPABASE_SERVICE_ROLE_KEY');
 const origins = (Deno.env.get('SITE_ORIGIN') || 'https://mosokodomo.github.io').split(',').map(s => s.trim());
 export function headers(req: Request) {
   const origin = req.headers.get('origin') || '';
@@ -22,11 +26,11 @@ export async function user(req: Request) {
   const token = req.headers.get('authorization'); if (!token?.startsWith('Bearer ')) throw new Error('signin');
   const response = await fetch(url + '/auth/v1/user', { headers: { apikey: anon, Authorization: token }, signal: AbortSignal.timeout(10000) });
   const account = await response.json();
-  if (!response.ok || !account.id || account.is_anonymous) throw new Error('signin');
+  if (!response.ok || !account.id || account.is_anonymous || !account.email_confirmed_at) throw new Error('signin');
   return account.id as string;
 }
 export async function db(path: string, body?: unknown) {
-  const response = await fetch(url + '/rest/v1/' + path, { method: body === undefined ? 'GET' : 'POST', headers: { apikey: service, Authorization: 'Bearer ' + service, 'Content-Type': 'application/json' }, body: body === undefined ? undefined : JSON.stringify(body), signal: AbortSignal.timeout(10000) });
+  const response = await fetch(url + '/rest/v1/' + path, { method: body === undefined ? 'GET' : 'POST', headers: { apikey: service, ...(service.startsWith('sb_secret_')?{}:{Authorization: 'Bearer ' + service}), 'Content-Type': 'application/json' }, body: body === undefined ? undefined : JSON.stringify(body), signal: AbortSignal.timeout(10000) });
   const data = await response.json();
   if (!response.ok) throw new Error(data.message?.includes('version_conflict') ? 'version_conflict' : data.message?.includes('daily_limit') ? 'daily_limit' : 'database');
   return data;

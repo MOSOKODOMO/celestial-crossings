@@ -8,3 +8,12 @@ verify_jwt = false
 
 [functions.stripe-webhook]
 verify_jwt = false
+
+[functions.purchase-download]
+verify_jwt = false
+
+[functions.draw]
+verify_jwt = false
+
+[functions.world-action]
+verify_jwt = false

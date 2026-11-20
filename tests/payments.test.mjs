@@ -8,11 +8,11 @@ const timestamp = 1795210000;
 const response = (data, status = 200) => new Response(JSON.stringify(data), { status });
 function fixture(overrides = {}) {
   const env = { SITE_URL: 'https://moojai.example/site/', SUPABASE_URL: 'https://demo.supabase.co', SUPABASE_PUBLISHABLE_KEYS: '{"default":"sb_publishable_fixture"}', SUPABASE_SECRET_KEYS: '{"default":"sb_secret_fixture"}', STRIPE_SECRET_KEY: 'sk_test_fixture', STRIPE_WEBHOOK_SECRET: 'whsec_fixture', PAYMENTS_ENABLED: 'true', STRIPE_PRICE_CARDWALLPAPER: 'price_fixture', ...overrides };
-  const state = { calls: [], records: new Map(), authStatus: 200, dbStatus: 201,
+  const state = { calls: [], records: new Map(), authStatus: 200, dbStatus: 201, storageStatus:200, charge:{id:'ch_fixture',payment_intent:'pi_fixture',refunded:false},
     user: { id: A, email: 'buyer@example.com', email_confirmed_at: '2026-01-01T00:00:00Z' },
     price: { id: 'price_fixture', active: true, type: 'one_time', currency: 'thb', unit_amount: 4900 },
     session: { id, mode: 'payment', status: 'complete', payment_status: 'paid', client_reference_id: A, currency: 'thb', amount_total: 4900,
-      metadata: { app: 'moojai', user_id: A, product: 'cardWallpaper', price_id: 'price_fixture' },
+      metadata: { app: 'moojai', user_id: A, product: 'cardWallpaper', price_id: 'price_fixture', card_id:'growth-C' },payment_intent:{id:'pi_fixture',latest_charge:{refunded:false}},
       line_items: { data: [{ quantity: 1, price: { id: 'price_fixture', currency: 'thb', unit_amount: 4900 } }], has_more: false } }
   };
   const fetch = async (url, options = {}) => {
@@ -21,20 +21,23 @@ function fixture(overrides = {}) {
     if (url.includes('/prices/')) return response(state.price);
     if (url.endsWith('/checkout/sessions')) return response({ id, url: 'https://checkout.stripe.com/c/pay/' + id });
     if (url.includes('/checkout/sessions/')) return response(state.session);
-    if (url.includes('/rest/v1/entitlements')) {
+    if(url.includes('/charges/'))return response(state.charge);
+    if(url.includes('/storage/v1/object/sign/'))return response({signedURL:url.split('/storage/v1')[1]+'?token=fixture'},state.storageStatus);
+    if (url.includes('/rest/v1/rpc/fulfill_card_bundle')) {
       assert.equal(options.headers.apikey, 'sb_secret_fixture');
       assert.equal(options.headers.Authorization, undefined, 'modern secret keys are not JWTs');
-      assert.equal(options.headers.Prefer, 'resolution=ignore-duplicates,return=minimal');
-      const row = JSON.parse(options.body);
+      const params=JSON.parse(options.body),row={user_id:params.p_user,product:'cardWallpaper',stripe_session_id:params.p_session,amount_total:4900,currency:'thb',card_id:params.p_card};
       if (state.dbStatus === 201 && !state.records.has(row.stripe_session_id)) state.records.set(row.stripe_session_id, row);
-      return new Response(null, { status: state.dbStatus });
+      return response({cardId:row.card_id},state.dbStatus);
     }
+    if(url.includes('/rest/v1/entitlements'))return response([...state.records.values()].filter(row=>url.includes('user_id=eq.'+row.user_id)));
+    if(url.includes('/rest/v1/rpc/revoke_card_bundle')){state.records.clear();return response({replayed:false});}
     throw new Error('Unexpected request: ' + url);
   };
   return { ...createPayments({ env: name => env[name], fetch, now: () => timestamp * 1000 }), state, env };
 }
 function request(body, headers = {}) { return new Request('https://demo.supabase.co/functions/v1/example', { method: 'POST', headers: { origin: 'https://moojai.example', authorization: 'Bearer fixture-user-token', 'content-type': 'application/json', ...headers }, body: JSON.stringify(body) }); }
-const body = { product: 'cardWallpaper', requestId, language: 'th' };
+const body = { product: 'cardWallpaper', cardId:'growth-C', requestId, language: 'th' };
 function eventRequest(session, type = 'checkout.session.completed', signature) {
   const payload = JSON.stringify({ type, data: { object: session } });
   const signed = createHmac('sha256', 'whsec_fixture').update(timestamp + '.' + payload).digest('hex');
@@ -51,6 +54,8 @@ test('Thai checkout enforces ฿49, PromptPay/cards, locale, safe return URL and
   assert.equal(form.get('payment_method_types[1]'), 'card');
   assert.equal(form.get('locale'), 'th');
   assert.equal(form.get('metadata[user_id]'), A);
+  assert.equal(form.get('metadata[card_id]'),'growth-C');
+  assert.match(form.get('custom_text[submit][message]'),/ใบไม้ผลิใหม่/);
   assert.equal(form.get('success_url'), 'https://moojai.example/site/payment.html?checkout=success&session_id={CHECKOUT_SESSION_ID}&lang=th');
   assert.ok(!form.toString().includes('attacker'));
   assert.equal(form.get('line_items[0][price_data][unit_amount]'), null);
@@ -62,6 +67,7 @@ test('checkout rejects disabled sales, spoofed origin, anonymous users and inval
   assert.equal((await f.checkout(request(body, { authorization: '' }))).status, 401);
   assert.equal((await f.checkout(request({ ...body, product: '__proto__' }))).status, 400);
   assert.equal((await f.checkout(request({ ...body, requestId: '' }))).status, 400);
+  assert.equal((await f.checkout(request({...body,cardId:'../../private'}))).status,400);
   f.state.user.is_anonymous = true;
   assert.equal((await f.checkout(request(body))).status, 401);
   assert.equal(f.state.calls.filter(c => c.url.endsWith('/checkout/sessions')).length, 0);
@@ -72,6 +78,12 @@ test('wrong currency, amount, recurring or inactive prices cannot start checkout
     assert.equal((await f.checkout(request(body))).status, 503);
     assert.ok(!f.state.calls.some(c => c.url.endsWith('/checkout/sessions')));
   }
+});
+
+test('a missing private bundle file prevents starting payment',async()=>{
+  const f=fixture();f.state.storageStatus=404;
+  assert.equal((await f.checkout(request(body))).status,503);
+  assert.ok(!f.state.calls.some(call=>call.url.endsWith('/checkout/sessions')));
 });
 test('status is private and a forged success redirect cannot grant access', async () => {
   const f = fixture(); f.state.session.metadata.user_id = B;
@@ -91,7 +103,32 @@ test('paid return and duplicate/delayed webhooks record one verified purchase', 
   const requests = [f.status(request({ sessionId: id })), f.webhook(eventRequest(f.state.session)), f.webhook(eventRequest(f.state.session, 'checkout.session.async_payment_succeeded'))];
   for (const result of await Promise.all(requests)) assert.equal(result.status, 200);
   assert.equal(f.state.records.size, 1);
-  assert.deepEqual(f.state.records.get(id), { user_id: A, product: 'cardWallpaper', stripe_session_id: id, amount_total: 4900, currency: 'thb' });
+  assert.deepEqual(f.state.records.get(id), { user_id: A, product: 'cardWallpaper', stripe_session_id: id, amount_total: 4900, currency: 'thb',card_id:'growth-C' });
+});
+test('only the owner can obtain short-lived download links for the purchased card',async()=>{
+  const f=fixture();
+  assert.equal((await f.downloads(request({sessionId:id,kind:'wallpaper'}))).status,404);
+  await f.webhook(eventRequest(f.state.session));
+  const result=await(await f.downloads(request({sessionId:id,kind:'wallpaper'}))).json();
+  assert.equal(result.expiresIn,300);assert.match(result.url,/storage\/v1\/object\/sign\/moojai-paid\/wallpapers\/growth-C.png/);
+  const sign=f.state.calls.filter(c=>c.url.includes('/object/sign/')).at(-1);assert.equal(JSON.parse(sign.body).expiresIn,300);
+  f.state.user.id=B;assert.equal((await f.downloads(request({sessionId:id,kind:'wallpaper'}))).status,404);
+  assert.equal((await f.downloads(request({sessionId:id,kind:'../../secret'}))).status,400);
+});
+test('a full refund cannot be regranted by a delayed successful-payment event',async()=>{
+  const f=fixture();await f.webhook(eventRequest(f.state.session));f.state.session.payment_intent.latest_charge.refunded=true;
+  assert.deepEqual(await(await f.status(request({sessionId:id}))).json(),{state:'refunded'});
+  await f.webhook(eventRequest(f.state.session));assert.equal(f.state.records.size,0);
+});
+
+test('refund webhooks verify Stripe before revoking, and partial refunds retain access',async()=>{
+  const f=fixture();await f.webhook(eventRequest(f.state.session));
+  assert.equal((await f.webhook(eventRequest({...f.state.charge,refunded:true},'charge.refunded'))).status,200);
+  assert.equal(f.state.records.size,1,'the unverified webhook payload cannot revoke a purchase');
+  f.state.charge.refunded=true;
+  assert.equal((await f.webhook(eventRequest(f.state.charge,'charge.refunded'))).status,200);
+  assert.equal(f.state.records.size,0);
+  assert.equal((await f.downloads(request({sessionId:id,kind:'wallpaper'}))).status,404);
 });
 test('mismatched paid amount or line items are not fulfilled', async () => {
   for (const change of [{ amount_total: 1 }, { currency: 'usd' }, { line_items: { data: [], has_more: false } }]) {
