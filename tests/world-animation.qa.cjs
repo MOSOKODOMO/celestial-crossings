@@ -4,6 +4,10 @@ const {launch,BASE}=require('./qa-browser.cjs');
 const W=require('../dist/world-core.js');
 const cards=['love-C','career-R','wealth-C','wellbeing-C','connection-C','growth-C'];
 const snapshot=p=>p.evaluate(()=>MooJaiWorld.snapshot());
+async function capturePose(page,path){
+  await page.clock.pauseAt(await page.evaluate(()=>Date.now()+1000));
+  try{await page.screenshot({path});}finally{await page.clock.resume();}
+}
 // Control animation time while sampling two real rendered frames. On a software
 // GPU, rendering and automation can otherwise outlast the four-second meal.
 // Advancing 550 ms then 400 ms also exercises blending at low frame rates.
@@ -26,7 +30,9 @@ async function observeFeeding(page,kind,screenshotPath){
 (async()=>{
   const browser=await launch(),errors=[];
   async function setup(options={}){
-    const context=await browser.newContext({viewport:{width:1440,height:900},...options});
+    // Keep the full CSS viewport while reducing raster work on GPU-less CI.
+    // Geometry, movement, draw budgets and all pose assertions stay identical.
+    const context=await browser.newContext({viewport:{width:1440,height:900},deviceScaleFactor:process.env.CI ? .5 : 1,...options});
     await context.addInitScript(({cards,ledger})=>{
       localStorage.setItem('moojai-world-v1',JSON.stringify({name:'Mali',language:'en',lead:'love-C',followers:['career-R','wellbeing-C']}));
       localStorage.setItem('celestial-atelier-preview-v1',JSON.stringify({history:cards.map(cardId=>({cardId}))}));
@@ -54,7 +60,7 @@ async function observeFeeding(page,kind,screenshotPath){
       assert.ok(asleep.animation.pets[0].headY<.7);assert.ok(asleep.animation.pets[0].eyes<.1,'eyes close');
       assert.ok(asleep.animation.pets[0].minY>-.08,`${card}: sleeping geometry stays above the ground (${asleep.animation.pets[0].minY})`);
       assert.ok(asleep.animation.sleepMarks>=3);assert.equal(asleep.animation.pets.filter(p=>p.visible).length,1+asleep.me.followers.length);
-      await page.screenshot({path:`output/world/sleeping-${W.parseCard(card).species}.png`});
+      await capturePose(page,`output/world/sleeping-${W.parseCard(card).species}.png`);
       assert.ok(asleep.metrics.drawCalls<120&&asleep.metrics.triangles<150000);
       await page.keyboard.down('KeyW');await page.waitForFunction(()=>{const s=MooJaiWorld.snapshot();return !s.resting&&!s.animation.pets[0].visible;});await page.keyboard.up('KeyW');
       const awake=await snapshot(page);assert.equal(awake.resting,false);assert.equal(awake.animation.pets[0].visible,false,'moving returns to the upright walking model');
@@ -82,7 +88,7 @@ async function observeFeeding(page,kind,screenshotPath){
     const mobile=await setup({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
     await mobile.page.click('#feed-button');const [mobileEating]=await observeFeeding(mobile.page,'berries','output/world/mobile-eating.png');
     assert.ok(mobileEating.animation.foodVisible);
-    await mobile.page.click('#rest-button');await mobile.page.waitForFunction(()=>MooJaiWorld.snapshot().animation.pets[0].sleep>.99);await mobile.page.screenshot({path:'output/world/mobile-sleeping.png'});await mobile.context.close();
+    await mobile.page.click('#rest-button');await mobile.page.waitForFunction(()=>MooJaiWorld.snapshot().animation.pets[0].sleep>.99);await capturePose(mobile.page,'output/world/mobile-sleeping.png');await mobile.context.close();
     const quiet=await setup({reducedMotion:'reduce'});
     await quiet.page.click('#feed-button');const [still,later]=await observeFeeding(quiet.page,'meal');
     assert.equal(still.animation.pets[0].pawY,later.animation.pets[0].pawY);assert.equal(still.animation.foodPortion,later.animation.foodPortion);

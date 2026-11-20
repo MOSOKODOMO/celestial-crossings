@@ -10,7 +10,9 @@ for(const n of [.03,.2,.37,.53,.7,.87,.03,.03,.03]){const rolls=[n,n===.03?0:n];
 (async()=>{
  const browser=await launch();const errors=[],external=[],measurements={};
  try{
-  const context=await browser.newContext({viewport:{width:1440,height:900},deviceScaleFactor:1});
+  // CI uses a software GPU: preserve the desktop CSS viewport and geometry
+  // checks, but raster fewer pixels so frame delivery remains representative.
+  const context=await browser.newContext({viewport:{width:1440,height:900},deviceScaleFactor:process.env.CI ? .5 : 1});
   const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
   page.on('request',r=>{if(!r.url().startsWith(BASE)&&!r.url().startsWith('data:'))external.push(r.url());});
   await page.goto(BASE+'/world.html');await wait(page);
@@ -30,15 +32,18 @@ for(const n of [.03,.2,.37,.53,.7,.87,.03,.03,.03]){const rolls=[n,n===.03?0:n];
   assert.equal((await snapshot(page)).ledger.careCount,5);
   await page.locator('#pets-dialog [data-close]').click();
   fs.mkdirSync(output,{recursive:true});await page.waitForTimeout(4500);
-  const before=(await snapshot(page)).me;await page.keyboard.down('KeyW');await page.waitForTimeout(700);await page.keyboard.up('KeyW');
+  const before=(await snapshot(page)).me;await page.keyboard.down('KeyW');await page.waitForFunction(before=>{const me=MooJaiWorld.snapshot().me;return Math.hypot(me.x-before.x,me.y-before.y)>70;},before);await page.keyboard.up('KeyW');
   const after=(await snapshot(page)).me;assert.ok(Math.hypot(after.x-before.x,after.y-before.y)>70,'keyboard moves the pet');
   // Camera drag changes the camera-relative movement vector.
   await page.mouse.move(800,500);await page.mouse.down();await page.mouse.move(810,500);await page.mouse.up();
   // Two tabs share preview state, chat, emotes and lotuses.
   const other=await context.newPage();other.on('pageerror',e=>errors.push(e.message));await other.goto(BASE+'/world.html');await wait(other);
   await page.waitForFunction(()=>MooJaiWorld.snapshot().peers.length===1);await other.waitForFunction(()=>MooJaiWorld.snapshot().peers.length===1);
-  await page.bringToFront();await page.keyboard.down('KeyD');await page.waitForTimeout(550);await page.keyboard.up('KeyD');await page.waitForTimeout(250);
-  const moved=(await snapshot(page)).me;assert.ok(Math.abs((await snapshot(other)).peers[0].x-moved.x)<8,'remote movement follows');
+  await page.bringToFront();await page.keyboard.down('KeyD');await page.waitForTimeout(550);await page.keyboard.up('KeyD');
+  await page.waitForFunction(()=>!MooJaiWorld.snapshot().me.moving);
+  const moved=(await snapshot(page)).me;
+  await other.waitForFunction(moved=>{const peer=MooJaiWorld.snapshot().peers.find(p=>p.id===moved.id);return peer&&Math.hypot(peer.x-moved.x,peer.y-moved.y)<8;},moved,{timeout:10000});
+  assert.ok(Math.abs((await snapshot(other)).peers[0].x-moved.x)<8,'remote movement follows');
   // Send two messages in the same task so the 1.2 s rate limit is tested even on slow (software-GPU) machines.
   await page.evaluate(()=>{const f=document.querySelector('#chat-form'),i=document.querySelector('#chat-input');i.value='hello www.scam.com 081-234-5678 fuck';f.requestSubmit();i.value='too fast';f.requestSubmit();});
   await other.waitForFunction(()=>document.querySelector('#chat-log').textContent.includes('hello'));
@@ -90,11 +95,11 @@ for(const n of [.03,.2,.37,.53,.7,.87,.03,.03,.03]){const rolls=[n,n===.03?0:n];
   measurements.crowdedSleeping=(await snapshot(page)).metrics;assert.ok((await snapshot(page)).animation.pets[0].sleep>.99);assert.ok(measurements.crowdedSleeping.triangles<150000);assert.ok(measurements.crowdedSleeping.drawCalls<120);
   await context.close();
   // Touch controls, small layouts, reduced motion, and lack of storage.
-  const mobile=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:1,isMobile:true,hasTouch:true});
+  const mobile=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:process.env.CI ? .5 : 1,isMobile:true,hasTouch:true});
   await mobile.addInitScript(data=>{localStorage.setItem('moojai-world-v1',JSON.stringify({name:'Bua',lead:'love-SSR'}));localStorage.setItem('celestial-atelier-preview-v1',JSON.stringify(data));},seed);
   const phone=await mobile.newPage();phone.on('pageerror',e=>errors.push(e.message));await phone.goto(BASE+'/world.html');await wait(phone);await phone.waitForTimeout(4500);
   const p0=(await snapshot(phone)).me;const joy=await phone.locator('#joystick').boundingBox();
-  const cdp=await mobile.newCDPSession(phone);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:joy.x+joy.width/2,y:joy.y+joy.height/2}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:joy.x+joy.width/2,y:joy.y+8}]});await phone.waitForTimeout(650);await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+  const cdp=await mobile.newCDPSession(phone);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:joy.x+joy.width/2,y:joy.y+joy.height/2}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:joy.x+joy.width/2,y:joy.y+8}]});await phone.waitForFunction(p0=>{const me=MooJaiWorld.snapshot().me;return Math.hypot(me.x-p0.x,me.y-p0.y)>65;},p0);await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
   const p1=(await snapshot(phone)).me;assert.ok(Math.hypot(p1.x-p0.x,p1.y-p0.y)>65,'touch joystick moves');
   assert.equal(await phone.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
   await phone.screenshot({path:output+'/mobile.png'});measurements.mobile=(await snapshot(phone)).metrics;
